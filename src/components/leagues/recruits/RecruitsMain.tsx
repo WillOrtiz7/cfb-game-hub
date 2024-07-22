@@ -9,7 +9,10 @@ export function RecruitsMain() {
       {data && (
         <ul>
           {data.map((recruit) => (
-            <li key={recruit.id}>{recruit.first_name}</li>
+            <li key={recruit.id}>
+              {recruit.first_name}
+              {recruit.last_name}
+            </li>
           ))}
         </ul>
       )}

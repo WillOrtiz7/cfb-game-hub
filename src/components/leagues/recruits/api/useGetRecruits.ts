@@ -1,18 +1,14 @@
 import { supabase } from "@/supabase/createClient";
 import { useQuery } from "@tanstack/react-query";
 
-interface Recruit {
-  id: string;
-  first_name: string;
-  last_name: string;
-}
 
-async function getRecruits(): Promise<Recruit[]> {
+
+async function getRecruits() {
   const { data } = await supabase.from("recruits").select();
-  return data as Recruit[];
+  return data;
 }
 export function useGetRecruits() {
-  return useQuery<Recruit[]>({
+  return useQuery({
     queryKey: ["recruits"],
     queryFn: async () => {
       return getRecruits();
