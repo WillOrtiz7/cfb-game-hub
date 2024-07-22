@@ -11,18 +11,48 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as LeaguesLeagueSlugRecruitsImport } from './routes/leagues/$leagueSlug/recruits'
 
 // Create/Update Routes
+
+const IndexRoute = IndexImport.update({
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LeaguesLeagueSlugRecruitsRoute = LeaguesLeagueSlugRecruitsImport.update({
+  path: '/leagues/$leagueSlug/recruits',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/leagues/$leagueSlug/recruits': {
+      id: '/leagues/$leagueSlug/recruits'
+      path: '/leagues/$leagueSlug/recruits'
+      fullPath: '/leagues/$leagueSlug/recruits'
+      preLoaderRoute: typeof LeaguesLeagueSlugRecruitsImport
+      parentRoute: typeof rootRoute
+    }
+  }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({})
+export const routeTree = rootRoute.addChildren({
+  IndexRoute,
+  LeaguesLeagueSlugRecruitsRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -31,7 +61,16 @@ export const routeTree = rootRoute.addChildren({})
   "routes": {
     "__root__": {
       "filePath": "__root.tsx",
-      "children": []
+      "children": [
+        "/",
+        "/leagues/$leagueSlug/recruits"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/leagues/$leagueSlug/recruits": {
+      "filePath": "leagues/$leagueSlug/recruits.tsx"
     }
   }
 }
