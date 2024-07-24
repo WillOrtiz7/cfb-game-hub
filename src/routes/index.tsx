@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -5,7 +6,7 @@ export const Route = createFileRoute("/")({
     <div className="flex flex-col">
       Root route
       <Link to="/leagues/$leagueSlug/schedules" params={{ leagueSlug: "b2s" }}>
-        Go to Back2School
+        <Button>Go to schedules</Button>
       </Link>
     </div>
   ),
