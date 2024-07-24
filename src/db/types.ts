@@ -9,6 +9,45 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      league_teams: {
+        Row: {
+          coach_name: string | null
+          created_at: string
+          id: string
+          league_id: string | null
+          team_id: string | null
+        }
+        Insert: {
+          coach_name?: string | null
+          created_at?: string
+          id?: string
+          league_id?: string | null
+          team_id?: string | null
+        }
+        Update: {
+          coach_name?: string | null
+          created_at?: string
+          id?: string
+          league_id?: string | null
+          team_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "league_teams_league_id_fkey"
+            columns: ["league_id"]
+            isOneToOne: false
+            referencedRelation: "leagues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "league_teams_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leagues: {
         Row: {
           created_at: string
@@ -64,6 +103,97 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      schedules: {
+        Row: {
+          away_team_id: string | null
+          away_team_score: number | null
+          created_at: string
+          game_played: boolean | null
+          home_team_id: string | null
+          home_team_score: number | null
+          id: string
+          league_id: string | null
+          week: number | null
+          year: number | null
+        }
+        Insert: {
+          away_team_id?: string | null
+          away_team_score?: number | null
+          created_at?: string
+          game_played?: boolean | null
+          home_team_id?: string | null
+          home_team_score?: number | null
+          id?: string
+          league_id?: string | null
+          week?: number | null
+          year?: number | null
+        }
+        Update: {
+          away_team_id?: string | null
+          away_team_score?: number | null
+          created_at?: string
+          game_played?: boolean | null
+          home_team_id?: string | null
+          home_team_score?: number | null
+          id?: string
+          league_id?: string | null
+          week?: number | null
+          year?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "schedules_away_team_id_fkey"
+            columns: ["away_team_id"]
+            isOneToOne: false
+            referencedRelation: "league_teams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "schedules_home_team_id_fkey"
+            columns: ["home_team_id"]
+            isOneToOne: false
+            referencedRelation: "league_teams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "schedules_league_id_fkey"
+            columns: ["league_id"]
+            isOneToOne: false
+            referencedRelation: "leagues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      teams: {
+        Row: {
+          created_at: string
+          id: string
+          logo_id: number | null
+          name_abbreviation: string | null
+          name_mascot: string | null
+          name_nick: string | null
+          name_school: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_id?: number | null
+          name_abbreviation?: string | null
+          name_mascot?: string | null
+          name_nick?: string | null
+          name_school?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_id?: number | null
+          name_abbreviation?: string | null
+          name_mascot?: string | null
+          name_nick?: string | null
+          name_school?: string | null
+        }
+        Relationships: []
       }
     }
     Views: {

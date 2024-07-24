@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as LeaguesLeagueSlugSchedulesImport } from './routes/leagues/$leagueSlug/schedules'
 import { Route as LeaguesLeagueSlugRecruitsImport } from './routes/leagues/$leagueSlug/recruits'
 
 // Create/Update Routes
@@ -20,6 +21,13 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const LeaguesLeagueSlugSchedulesRoute = LeaguesLeagueSlugSchedulesImport.update(
+  {
+    path: '/leagues/$leagueSlug/schedules',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
 
 const LeaguesLeagueSlugRecruitsRoute = LeaguesLeagueSlugRecruitsImport.update({
   path: '/leagues/$leagueSlug/recruits',
@@ -44,6 +52,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeaguesLeagueSlugRecruitsImport
       parentRoute: typeof rootRoute
     }
+    '/leagues/$leagueSlug/schedules': {
+      id: '/leagues/$leagueSlug/schedules'
+      path: '/leagues/$leagueSlug/schedules'
+      fullPath: '/leagues/$leagueSlug/schedules'
+      preLoaderRoute: typeof LeaguesLeagueSlugSchedulesImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -52,6 +67,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   LeaguesLeagueSlugRecruitsRoute,
+  LeaguesLeagueSlugSchedulesRoute,
 })
 
 /* prettier-ignore-end */
@@ -63,7 +79,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/leagues/$leagueSlug/recruits"
+        "/leagues/$leagueSlug/recruits",
+        "/leagues/$leagueSlug/schedules"
       ]
     },
     "/": {
@@ -71,6 +88,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/leagues/$leagueSlug/recruits": {
       "filePath": "leagues/$leagueSlug/recruits.tsx"
+    },
+    "/leagues/$leagueSlug/schedules": {
+      "filePath": "leagues/$leagueSlug/schedules.tsx"
     }
   }
 }
