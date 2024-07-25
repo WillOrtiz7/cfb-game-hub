@@ -112,40 +112,40 @@ export type Database = {
       }
       schedules: {
         Row: {
-          away_team_id: string | null
-          away_team_score: number | null
+          away_team_id: string
+          away_team_score: number
           created_at: string
-          game_played: boolean | null
-          home_team_id: string | null
-          home_team_score: number | null
+          game_played: boolean
+          home_team_id: string
+          home_team_score: number
           id: string
-          league_id: string | null
-          week: number | null
-          year: number | null
+          league_id: string
+          week: number
+          year: number
         }
         Insert: {
-          away_team_id?: string | null
-          away_team_score?: number | null
+          away_team_id: string
+          away_team_score?: number
           created_at?: string
-          game_played?: boolean | null
-          home_team_id?: string | null
-          home_team_score?: number | null
+          game_played?: boolean
+          home_team_id: string
+          home_team_score?: number
           id?: string
-          league_id?: string | null
-          week?: number | null
-          year?: number | null
+          league_id: string
+          week: number
+          year: number
         }
         Update: {
-          away_team_id?: string | null
-          away_team_score?: number | null
+          away_team_id?: string
+          away_team_score?: number
           created_at?: string
-          game_played?: boolean | null
-          home_team_id?: string | null
-          home_team_score?: number | null
+          game_played?: boolean
+          home_team_id?: string
+          home_team_score?: number
           id?: string
-          league_id?: string | null
-          week?: number | null
-          year?: number | null
+          league_id?: string
+          week?: number
+          year?: number
         }
         Relationships: [
           {
