@@ -1,4 +1,5 @@
 import { useGetSchedules } from "./api/useGetSchedules";
+import { ScheduleHeader } from "./components/ScheduleHeader";
 
 export function SchedulesMain() {
   const { data, isLoading, isError, error } = useGetSchedules();
@@ -11,12 +12,10 @@ export function SchedulesMain() {
   }
   return (
     <div>
-      <h1>Schedule Page</h1>
+      <ScheduleHeader />
+
       {data && (
         <>
-          <h2>
-            {data[0].year} Week {data[0].week}
-          </h2>
           {data.map((schedule, index) => (
             <div key={index}>
               <p>Home Score: {schedule.home_team_score}</p>
