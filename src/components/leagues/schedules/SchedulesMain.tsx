@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/useGetCurrentYearWeek";
+import { ScheduleAddGame } from "./components/ScheduleAddGame";
 import { ScheduleGameList } from "./components/ScheduleGameList";
 import { ScheduleHeader } from "./components/ScheduleHeader";
 import { ScheduleWeekSelector } from "./components/ScheduleWeekSelector";
@@ -36,6 +37,7 @@ export function SchedulesMain() {
         />
       </div>
       <ScheduleGameList week={week} year={year} />
+      <ScheduleAddGame />
     </div>
   );
 }

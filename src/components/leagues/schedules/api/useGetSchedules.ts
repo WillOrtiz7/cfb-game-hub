@@ -42,7 +42,7 @@ async function getSchedules(leagueId: string, year: number, week: number): Promi
 }
 export function useGetSchedules(leagueId: string, year: number, week: number) {
   return useQuery({
-    queryKey: ["schedules", leagueId, year, week],
+    queryKey: ["getSchedules", leagueId, year, week],
     queryFn: async () => {
       return getSchedules(leagueId, year, week);
     },
