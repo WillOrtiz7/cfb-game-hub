@@ -1,13 +1,18 @@
 import { useGetSchedules } from "../api/useGetSchedules";
 import { ScheduleCard } from "./ScheduleCard";
 
-export function ScheduleGameList() {
+interface ScheduleGameListProps {
+  week: number;
+  year: number;
+}
+
+export function ScheduleGameList({ week, year }: ScheduleGameListProps) {
   const {
     data: scheduleItemList,
     isLoading,
     isError,
     error,
-  } = useGetSchedules();
+  } = useGetSchedules("7b3af6f8-9168-4040-bc92-c45943451e92", year, week);
   if (isLoading) {
     return <div>Loading...</div>;
   }
