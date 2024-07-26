@@ -13,6 +13,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { usePostGameToSchedule } from "../api/mutations/usePostGameToSchedule";
+import { ScheduleTeamListDropdown } from "./ScheduleTeamListDropdown";
 
 interface ScheduleAddGameFormProps {
   closeModal: () => void;
@@ -70,7 +71,10 @@ export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
             <FormItem>
               <FormLabel>Home Team ID</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <ScheduleTeamListDropdown
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -96,7 +100,10 @@ export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
             <FormItem>
               <FormLabel>Away Team ID</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <ScheduleTeamListDropdown
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
