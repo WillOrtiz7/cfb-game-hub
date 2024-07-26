@@ -22,7 +22,7 @@ export function ScheduleCard({ scheduleItem }: ScheduleCardProps) {
           />
           <div>
             <h3 className="text-lg font-semibold">
-              {scheduleItem.home_team.team.name_abbreviation}
+              {scheduleItem.home_team.team.name_nick}
             </h3>
             <p className="text-muted-foreground text-sm">
               {scheduleItem.home_team.wins} - {scheduleItem.home_team.losses}
@@ -45,7 +45,7 @@ export function ScheduleCard({ scheduleItem }: ScheduleCardProps) {
           />
           <div>
             <h3 className="text-lg font-semibold">
-              {scheduleItem.away_team.team.name_abbreviation}
+              {scheduleItem.away_team.team.name_nick}
             </h3>
             <p className="text-muted-foreground text-sm">
               {scheduleItem.away_team.wins} - {scheduleItem.away_team.losses}
