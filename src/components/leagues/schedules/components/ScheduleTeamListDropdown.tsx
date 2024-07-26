@@ -40,12 +40,12 @@ export function ScheduleTeamListDropdown({
               <SelectItem key={team.id} value={team.id}>
                 <div className="flex flex-row gap-2">
                   <img
-                    src={TEAM_LOGOS_BASE_URL + team.team.logo_id + ".png"}
+                    src={TEAM_LOGOS_BASE_URL + team.teams.logo_id + ".png"}
                     alt="Team Logo"
                     className="h-6 w-6 object-scale-down"
                   />
                   <p>
-                    {team.team.name_nick} ({team.coach_name})
+                    {team.teams.name_nick} ({team.coach_name})
                   </p>
                 </div>
               </SelectItem>

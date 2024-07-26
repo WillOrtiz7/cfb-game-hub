@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 export interface Team {
   coach_name: string;
   id: string;
-  team: {
+  teams: {
     id: string;
     logo_id: number;
     name_nick: string;
@@ -13,7 +13,20 @@ export interface Team {
 }
 
 async function getTeams() {
-  const { data, error } = await supabase.from("league_teams").select('coach_name, id, team:teams!inner(id, logo_id, name_nick, primary_color)');
+  const { data, error } = await supabase
+    .from("league_teams")
+    .select(`
+      coach_name,
+      id,
+      teams(
+        id,
+        logo_id,
+        name_nick,
+        primary_color
+      )
+    `)
+    .order('teams(name_nick)', { ascending: true });
+
   if (error) {
     throw new Error("Error code: " + error.code + "\nFailed to fetch teams");
   }
