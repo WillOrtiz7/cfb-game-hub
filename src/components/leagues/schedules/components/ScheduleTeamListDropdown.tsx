@@ -7,6 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGetTeams } from "../api/queries/useGetTeams";
+import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
 
 interface ScheduleTeamListDropdownProps {
   defaultValue: string;
@@ -17,22 +19,40 @@ export function ScheduleTeamListDropdown({
   defaultValue,
   onValueChange,
 }: ScheduleTeamListDropdownProps) {
+  const { data: teams, isLoading, isError, error } = useGetTeams();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>{error.message}</div>;
+  }
+
   return (
-    <Select onValueChange={onValueChange} defaultValue={defaultValue}>
-      <SelectTrigger className="w-[280px]">
-        <SelectValue placeholder="Select a team" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Team List</SelectLabel>
-          <SelectItem value="ae36c2eb-476f-4d93-83c6-53255622a2c6">
-            KSU Wildcats
-          </SelectItem>
-          <SelectItem value="35a8b989-5b1a-492c-aee9-de8f8731e79a">
-            Colorado Buffaloes
-          </SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    teams && (
+      <Select onValueChange={onValueChange} defaultValue={defaultValue}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Select a team" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Team List</SelectLabel>
+            {teams.map((team) => (
+              <SelectItem key={team.id} value={team.id}>
+                <div className="flex flex-row gap-2">
+                  <img
+                    src={TEAM_LOGOS_BASE_URL + team.team.logo_id + ".png"}
+                    alt="Team Logo"
+                    className="h-6 w-6 object-scale-down"
+                  />
+                  <p>
+                    {team.team.name_nick} ({team.coach_name})
+                  </p>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    )
   );
 }

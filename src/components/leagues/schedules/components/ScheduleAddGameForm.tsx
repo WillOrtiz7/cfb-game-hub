@@ -69,7 +69,7 @@ export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
           name="homeTeamId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Home Team ID</FormLabel>
+              <FormLabel>Home Team</FormLabel>
               <FormControl>
                 <ScheduleTeamListDropdown
                   onValueChange={field.onChange}
@@ -98,7 +98,7 @@ export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
           name="awayTeamId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Away Team ID</FormLabel>
+              <FormLabel>Away Team</FormLabel>
               <FormControl>
                 <ScheduleTeamListDropdown
                   onValueChange={field.onChange}
