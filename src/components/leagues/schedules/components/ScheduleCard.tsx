@@ -1,37 +1,58 @@
-export function ScheduleCard() {
+import { ScheduleItem } from "../api/useGetSchedules";
+import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
+
+interface ScheduleCardProps {
+  scheduleItem: ScheduleItem;
+}
+
+export function ScheduleCard({ scheduleItem }: ScheduleCardProps) {
   return (
-    <div className="bg-background rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-between mb-4">
+    <div className="bg-background shadow-md mt-4 border-[1px] border-secondary-foreground rounded-md">
+      <div
+        className="flex items-center justify-between p-2 rounded-t-md"
+        style={{ backgroundColor: scheduleItem.home_team.team.primary_color }}
+      >
         <div className="flex items-center space-x-4">
           <img
-            src="/placeholder.svg"
-            alt="Team A Logo"
-            width={40}
-            height={40}
-            className="rounded-full"
+            src={
+              TEAM_LOGOS_BASE_URL + scheduleItem.home_team.team.logo_id + ".png"
+            }
+            alt="Home Team Logo"
+            className="h-10 w-10 object-scale-down"
           />
           <div>
-            <h3 className="text-lg font-semibold">Team A</h3>
-            <p className="text-muted-foreground text-sm">4-2</p>
+            <h3 className="text-lg font-semibold">
+              {scheduleItem.home_team.team.name_abbreviation}
+            </h3>
+            <p className="text-muted-foreground text-sm">
+              {scheduleItem.home_team.wins} - {scheduleItem.home_team.losses}
+            </p>
           </div>
         </div>
-        <div className="text-2xl font-bold">24</div>
+        <div className="text-2xl font-bold">{scheduleItem.home_team_score}</div>
       </div>
-      <div className="flex items-center justify-between">
+      <div
+        className="flex items-center justify-between p-2 rounded-b-md"
+        style={{ backgroundColor: scheduleItem.away_team.team.primary_color }}
+      >
         <div className="flex items-center space-x-4">
           <img
-            src="/placeholder.svg"
-            alt="Team B Logo"
-            width={40}
-            height={40}
-            className="rounded-full"
+            src={
+              TEAM_LOGOS_BASE_URL + scheduleItem.away_team.team.logo_id + ".png"
+            }
+            alt="Away Team Logo"
+            className="h-10 w-10 object-scale-down"
           />
           <div>
-            <h3 className="text-lg font-semibold">Team B</h3>
-            <p className="text-muted-foreground text-sm">3-3</p>
+            <h3 className="text-lg font-semibold">
+              {scheduleItem.away_team.team.name_abbreviation}
+            </h3>
+            <p className="text-muted-foreground text-sm">
+              {scheduleItem.away_team.wins} - {scheduleItem.away_team.losses}
+            </p>
           </div>
         </div>
-        <div className="text-2xl font-bold">21</div>
+        <div className="text-2xl font-bold">{scheduleItem.away_team_score}</div>
       </div>
     </div>
   );

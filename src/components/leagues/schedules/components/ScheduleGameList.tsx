@@ -2,7 +2,12 @@ import { useGetSchedules } from "../api/useGetSchedules";
 import { ScheduleCard } from "./ScheduleCard";
 
 export function ScheduleGameList() {
-  const { data, isLoading, isError, error } = useGetSchedules();
+  const {
+    data: scheduleItemList,
+    isLoading,
+    isError,
+    error,
+  } = useGetSchedules();
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -10,10 +15,10 @@ export function ScheduleGameList() {
     return <div>{error.message}</div>;
   }
   return (
-    data && (
+    scheduleItemList && (
       <div>
-        {data.map((schedule, index) => (
-          <ScheduleCard key={index} />
+        {scheduleItemList.map((scheduleItem, index) => (
+          <ScheduleCard key={index} scheduleItem={scheduleItem} />
         ))}
       </div>
     )

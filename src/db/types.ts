@@ -15,21 +15,30 @@ export type Database = {
           created_at: string
           id: string
           league_id: string | null
+          losses: number | null
           team_id: string | null
+          ties: number | null
+          wins: number | null
         }
         Insert: {
           coach_name?: string | null
           created_at?: string
           id?: string
           league_id?: string | null
+          losses?: number | null
           team_id?: string | null
+          ties?: number | null
+          wins?: number | null
         }
         Update: {
           coach_name?: string | null
           created_at?: string
           id?: string
           league_id?: string | null
+          losses?: number | null
           team_id?: string | null
+          ties?: number | null
+          wins?: number | null
         }
         Relationships: [
           {
@@ -180,6 +189,7 @@ export type Database = {
           name_mascot: string | null
           name_nick: string | null
           name_school: string | null
+          primary_color: string | null
         }
         Insert: {
           created_at?: string
@@ -189,6 +199,7 @@ export type Database = {
           name_mascot?: string | null
           name_nick?: string | null
           name_school?: string | null
+          primary_color?: string | null
         }
         Update: {
           created_at?: string
@@ -198,6 +209,7 @@ export type Database = {
           name_mascot?: string | null
           name_nick?: string | null
           name_school?: string | null
+          primary_color?: string | null
         }
         Relationships: []
       }
