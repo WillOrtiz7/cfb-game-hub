@@ -16,7 +16,9 @@ export function ScheduleAddGameModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Add a game</Button>
+        <Button variant="outline" className="w-full md:w-1/6 xl:w-1/12">
+          Add a game
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
