@@ -19,16 +19,12 @@ interface ScheduleAddGameFormProps {
 }
 
 const addGameFormSchema = z.object({
-  homeTeamId: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  homeTeamScore: z.number().int().gte(0),
-  awayTeamId: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  awayTeamScore: z.number().int().gte(0),
-  year: z.number().int().positive(),
-  week: z.number().int().gte(0),
+  homeTeamId: z.string().uuid(),
+  homeTeamScore: z.coerce.number().int().gte(0),
+  awayTeamId: z.string().uuid(),
+  awayTeamScore: z.coerce.number().int().gte(0),
+  year: z.coerce.number().int().gte(2024),
+  week: z.coerce.number().int().gte(0),
 });
 
 export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
@@ -50,7 +46,7 @@ export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof addGameFormSchema>) {
-    mutate();
+    mutate(values);
     console.log(values);
   }
 
