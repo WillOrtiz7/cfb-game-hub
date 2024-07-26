@@ -1,5 +1,6 @@
 import { supabase } from "@/supabase/createClient";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 interface PostGameToScheduleInput {
     awayTeamId: string;
@@ -33,7 +34,10 @@ export function usePostGameToSchedule() {
       return postGameToSchedule(formData);
     },
     onSuccess: () => {
-       
+       toast.success("Game added to schedule");
+    },
+    onError: (error) => {
+       toast.error(error.message);
     },
   });
 }

@@ -36,9 +36,9 @@ export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
   const addGameForm = useForm<z.infer<typeof addGameFormSchema>>({
     resolver: zodResolver(addGameFormSchema),
     defaultValues: {
-      homeTeamId: "aae",
+      homeTeamId: "bbfb1a24-2d92-4168-a178-b2a90d49cd81",
       homeTeamScore: 0,
-      awayTeamId: "aaa",
+      awayTeamId: "bbfb1a24-2d92-4168-a178-b2a90d49cd81",
       awayTeamScore: 0,
       year: 2024,
       week: 0,
