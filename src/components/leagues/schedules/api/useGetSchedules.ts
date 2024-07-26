@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 
 interface Team {
     team: {
+        
         id: string;
         logo_id: number;
         name_nick: string;
         primary_color: string;
     };
+    coach_name: string;
     team_id: string;
     wins: number;
     losses: number;
@@ -27,11 +29,11 @@ async function getSchedules(leagueId: string, year: number, week: number): Promi
     const { data, error } = await supabase.from("schedules").select(`
         id, game_played, home_team_score, away_team_score,
         home_team:league_teams!schedules_home_team_id_fkey (
-          team_id, wins, losses, ties,
+          coach_name, team_id, wins, losses, ties,
           team:teams!inner(id, logo_id, name_nick, primary_color)
         ),
         away_team:league_teams!schedules_away_team_id_fkey (
-          team_id, wins, losses, ties,
+          coach_name, team_id, wins, losses, ties,
           team:teams!inner(id, logo_id, name_nick, primary_color)
         )
       `).eq("year", year).eq("week", week).eq("league_id", leagueId);
