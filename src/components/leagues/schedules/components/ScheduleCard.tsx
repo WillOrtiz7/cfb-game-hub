@@ -1,5 +1,6 @@
 import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
+import { ScheduleCardHeader } from "./ScheduleCardHeader";
 
 interface ScheduleCardProps {
   scheduleItem: ScheduleItem;
@@ -8,8 +9,9 @@ interface ScheduleCardProps {
 export function ScheduleCard({ scheduleItem }: ScheduleCardProps) {
   return (
     <div className="bg-background shadow-md mt-4 border-[1px] border-secondary-foreground rounded-md">
+      <ScheduleCardHeader scheduleItem={scheduleItem} />
       <div
-        className="flex items-center justify-between p-2 rounded-t-md"
+        className="flex items-center justify-between p-2 border-t-[1px] border-secondary-foreground"
         style={{ backgroundColor: scheduleItem.home_team.team.primary_color }}
       >
         <div className="flex items-center space-x-4">

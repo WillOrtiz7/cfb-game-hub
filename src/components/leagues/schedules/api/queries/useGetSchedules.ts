@@ -6,6 +6,7 @@ interface Team {
         
         id: string;
         logo_id: number;
+        name_abbreviation: string;
         name_nick: string;
         primary_color: string;
     };
@@ -30,11 +31,11 @@ async function getSchedules(leagueId: string, year: number, week: number): Promi
         id, game_played, home_team_score, away_team_score,
         home_team:league_teams!schedules_home_team_id_fkey (
           coach_name, team_id, wins, losses, ties,
-          team:teams!inner(id, logo_id, name_nick, primary_color)
+          team:teams!inner(id, logo_id, name_abbreviation, name_nick, primary_color)
         ),
         away_team:league_teams!schedules_away_team_id_fkey (
           coach_name, team_id, wins, losses, ties,
-          team:teams!inner(id, logo_id, name_nick, primary_color)
+          team:teams!inner(id, logo_id, name_abbreviation, name_nick, primary_color)
         )
       `).eq("year", year).eq("week", week).eq("league_id", leagueId);
   if (error) {
