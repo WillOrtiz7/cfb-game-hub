@@ -37,7 +37,7 @@ export function SchedulesMain() {
         />
       </div>
       <ScheduleGameList week={week} year={year} />
-      <ScheduleAddGameModal />
+      <ScheduleAddGameModal week={week} year={year} />
     </div>
   );
 }

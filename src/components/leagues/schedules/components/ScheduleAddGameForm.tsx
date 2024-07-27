@@ -17,6 +17,8 @@ import { ScheduleTeamListDropdown } from "./ScheduleTeamListDropdown";
 
 interface ScheduleAddGameFormProps {
   closeModal: () => void;
+  week: number;
+  year: number;
 }
 
 const addGameFormSchema = z.object({
@@ -28,7 +30,11 @@ const addGameFormSchema = z.object({
   week: z.coerce.number().int().gte(0),
 });
 
-export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
+export function ScheduleAddGameForm({
+  closeModal,
+  week,
+  year,
+}: ScheduleAddGameFormProps) {
   const { mutate, isPending, isSuccess, isError, error } =
     usePostGameToSchedule();
 
@@ -41,8 +47,8 @@ export function ScheduleAddGameForm({ closeModal }: ScheduleAddGameFormProps) {
       homeTeamScore: 0,
       awayTeamId: "bbfb1a24-2d92-4168-a178-b2a90d49cd81",
       awayTeamScore: 0,
-      year: 2024,
-      week: 0,
+      year: year,
+      week: week,
     },
   });
 

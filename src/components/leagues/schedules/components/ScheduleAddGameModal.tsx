@@ -10,7 +10,15 @@ import {
 import { useState } from "react";
 import { ScheduleAddGameForm } from "./ScheduleAddGameForm";
 
-export function ScheduleAddGameModal() {
+interface ScheduleAddGameModalProps {
+  week: number;
+  year: number;
+}
+
+export function ScheduleAddGameModal({
+  week,
+  year,
+}: ScheduleAddGameModalProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -28,7 +36,11 @@ export function ScheduleAddGameModal() {
             viewed in the schedule.
           </DialogDescription>
         </DialogHeader>
-        <ScheduleAddGameForm closeModal={() => setOpen(false)} />
+        <ScheduleAddGameForm
+          closeModal={() => setOpen(false)}
+          week={week}
+          year={year}
+        />
       </DialogContent>
     </Dialog>
   );
