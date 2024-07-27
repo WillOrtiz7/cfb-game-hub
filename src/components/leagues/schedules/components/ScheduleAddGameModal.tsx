@@ -20,7 +20,7 @@ export function ScheduleAddGameModal() {
           Add a game
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add a game</DialogTitle>
           <DialogDescription>
