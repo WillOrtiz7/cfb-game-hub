@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Trash } from "lucide-react";
 import { useState } from "react";
+import { useDeleteGameFromSchedule } from "../api/mutations/useDeleteGameFromSchedule";
 import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { ScheduleDeleteModalTeamInfo } from "./ScheduleDeleteModalTeamInfo";
 
@@ -21,6 +22,21 @@ export function ScheduleDeleteModal({
   scheduleItem,
 }: ScheduleDeleteModalProps) {
   const [open, setOpen] = useState(false);
+
+  const { mutate, isPending } = useDeleteGameFromSchedule();
+
+  function onSubmitSuccess() {
+    setOpen(false);
+  }
+
+  function onSubmitError() {
+    setOpen(false);
+  }
+
+  function onSubmit(scheduleId: string) {
+    mutate(scheduleId, { onSuccess: onSubmitSuccess, onError: onSubmitError });
+    console.log(scheduleId);
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -55,7 +71,11 @@ export function ScheduleDeleteModal({
           <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button variant="destructive" onClick={() => setOpen(false)}>
+          <Button
+            disabled={isPending}
+            variant="destructive"
+            onClick={() => onSubmit(scheduleItem.id)}
+          >
             Delete
           </Button>
         </DialogFooter>
