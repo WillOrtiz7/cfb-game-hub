@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetCurrentYearWeek } from "./api/useGetCurrentYearWeek";
+import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
 import { ScheduleAddGameModal } from "./components/ScheduleAddGameModal";
 import { ScheduleGameList } from "./components/ScheduleGameList";
 import { ScheduleHeader } from "./components/ScheduleHeader";

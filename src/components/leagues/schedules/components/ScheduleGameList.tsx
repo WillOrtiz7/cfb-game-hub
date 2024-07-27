@@ -1,4 +1,4 @@
-import { useGetSchedules } from "../api/useGetSchedules";
+import { useGetSchedules } from "../api/queries/useGetSchedules";
 import { ScheduleCard } from "./ScheduleCard";
 
 interface ScheduleGameListProps {

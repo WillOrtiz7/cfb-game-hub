@@ -1,4 +1,4 @@
-import { ScheduleItem } from "../api/useGetSchedules";
+import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
 
 interface ScheduleCardProps {
