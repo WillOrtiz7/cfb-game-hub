@@ -7,6 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useState } from "react";
 import { ScheduleAddGameForm } from "./ScheduleAddGameForm";
 
@@ -20,28 +29,55 @@ export function ScheduleAddGameModal({
   year,
 }: ScheduleAddGameModalProps) {
   const [open, setOpen] = useState(false);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="w-full md:w-1/6 xl:w-1/12">
+            Add a game
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Add a game</DialogTitle>
+            <DialogDescription>
+              Enter information about the game you want to add so that it can be
+              viewed in the schedule.
+            </DialogDescription>
+          </DialogHeader>
+          <ScheduleAddGameForm
+            closeModal={() => setOpen(false)}
+            week={week}
+            year={year}
+          />
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="w-full md:w-1/6 xl:w-1/12">
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
+        <Button variant="outline" className="w-full">
           Add a game
         </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Add a game</DialogTitle>
-          <DialogDescription>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>Add a game</DrawerTitle>
+          <DrawerDescription>
             Enter information about the game you want to add so that it can be
             viewed in the schedule.
-          </DialogDescription>
-        </DialogHeader>
-        <ScheduleAddGameForm
-          closeModal={() => setOpen(false)}
-          week={week}
-          year={year}
-        />
-      </DialogContent>
-    </Dialog>
+          </DrawerDescription>
+          <ScheduleAddGameForm
+            closeModal={() => setOpen(false)}
+            week={week}
+            year={year}
+          />
+        </DrawerHeader>
+      </DrawerContent>
+    </Drawer>
   );
 }
