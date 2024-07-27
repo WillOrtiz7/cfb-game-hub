@@ -1,5 +1,5 @@
 import { supabase } from "@/supabase/createClient";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 interface PostGameToScheduleInput {
@@ -28,6 +28,7 @@ async function postGameToSchedule(formData: PostGameToScheduleInput) {
 }
 
 export function usePostGameToSchedule() {
+    const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["postGameToSchedule"],
     mutationFn: async (formData: PostGameToScheduleInput) => {
@@ -35,6 +36,7 @@ export function usePostGameToSchedule() {
     },
     onSuccess: () => {
        toast.success("Game added to schedule");
+       queryClient.invalidateQueries({ queryKey: ["getSchedules"] });
     },
     onError: (error) => {
        toast.error(error.message);

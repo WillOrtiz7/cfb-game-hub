@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { usePostGameToSchedule } from "../api/mutations/usePostGameToSchedule";
@@ -35,10 +34,7 @@ export function ScheduleAddGameForm({
   week,
   year,
 }: ScheduleAddGameFormProps) {
-  const { mutate, isPending, isSuccess, isError, error } =
-    usePostGameToSchedule();
-
-  const queryClient = useQueryClient();
+  const { mutate, isPending } = usePostGameToSchedule();
 
   const addGameForm = useForm<z.infer<typeof addGameFormSchema>>({
     resolver: zodResolver(addGameFormSchema),
@@ -52,19 +48,17 @@ export function ScheduleAddGameForm({
     },
   });
 
+  function onSubmitSuccess() {
+    closeModal();
+  }
+
+  function onSubmitError() {
+    closeModal();
+  }
+
   function onSubmit(values: z.infer<typeof addGameFormSchema>) {
-    mutate(values);
+    mutate(values, { onSuccess: onSubmitSuccess, onError: onSubmitError });
     console.log(values);
-  }
-
-  if (isError) {
-    console.log(error);
-    closeModal();
-  }
-
-  if (isSuccess) {
-    closeModal();
-    queryClient.invalidateQueries({ queryKey: ["getSchedules"] });
   }
 
   return (
