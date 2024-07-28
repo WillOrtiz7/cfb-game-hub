@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useUpsertGameToSchedule } from "../../schedules/api/mutations/useUpsertGameToSchedule";
+import { useUpsertHighlight } from "../api/mutations/useUpsertHighlight";
 
 interface GameDetailsUpsertHighlightFormProps {
   closeModal: () => void;
@@ -32,7 +32,7 @@ export function GameDetailsUpsertHighlightForm({
   requestType,
   scheduleId,
 }: GameDetailsUpsertHighlightFormProps) {
-  const { mutate, isPending } = useUpsertGameToSchedule();
+  const { mutate, isPending } = useUpsertHighlight();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const upsertHighlightForm = useForm<
@@ -48,18 +48,18 @@ export function GameDetailsUpsertHighlightForm({
   function onSubmitSuccess() {
     closeModal();
     if (requestType === "POST") {
-      toast.success("Game added to schedule");
+      toast.success("Highlight added");
     } else if (requestType === "PUT") {
-      toast.success("Game edited in schedule");
+      toast.success("Highlight edited");
     }
   }
 
   function onSubmitError() {
     closeModal();
     if (requestType === "POST") {
-      toast.error("Failed to add game to schedule");
+      toast.error("Failed to add highlight");
     } else if (requestType === "PUT") {
-      toast.error("Failed to edit game in schedule");
+      toast.error("Failed to edit highlight");
     }
   }
 

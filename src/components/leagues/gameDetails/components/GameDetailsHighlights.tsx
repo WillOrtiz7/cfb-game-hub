@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { useParams } from "@tanstack/react-router";
 import { GameDetailsUpsertHighlightsModal } from "./GameDetailsUpsertHighlightsModal";
 
 export default function GameDetailsHighlights() {
+  const { scheduleId } = useParams({
+    from: "/leagues/$leagueSlug/gameDetails/$scheduleId",
+  });
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="w-full">
@@ -23,7 +27,7 @@ export default function GameDetailsHighlights() {
       <GameDetailsUpsertHighlightsModal
         description="Add an iframe URL from YouTube or Twich"
         requestType="POST"
-        scheduleId="2df94454-0dc3-465f-b05a-119ba376e939"
+        scheduleId={scheduleId}
         title="Add a Highlight"
         triggerButton={
           <Button variant="outline" className="w-full md:w-fit">
