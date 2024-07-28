@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GameDetailsHighlights from "./GameDetailsHighlights";
+import { GameDetailsTeamStats } from "./GameDetailsTeamStats";
 
 export function GameDetailsTabs() {
   return (
@@ -9,11 +10,12 @@ export function GameDetailsTabs() {
         <TabsTrigger value="team-stats">Team Stats</TabsTrigger>
         <TabsTrigger value="highlights">Highlights</TabsTrigger>
       </TabsList>
-      <TabsContent value="overview">
-        <h1>overview</h1>
+      <TabsContent value="overview" className="flex flex-col gap-2">
+        <GameDetailsHighlights />
+        <GameDetailsTeamStats />
       </TabsContent>
       <TabsContent value="team-stats">
-        <h1>team stats</h1>
+        <GameDetailsTeamStats />
       </TabsContent>
       <TabsContent value="highlights">
         <GameDetailsHighlights />
