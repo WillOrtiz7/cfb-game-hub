@@ -13,10 +13,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { usePostGameToSchedule } from "../api/mutations/usePostGameToSchedule";
+import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { ScheduleTeamListDropdown } from "./ScheduleTeamListDropdown";
 
 interface ScheduleAddGameFormProps {
   closeModal: () => void;
+  scheduleItem?: ScheduleItem;
   week: number;
   year: number;
 }
@@ -28,10 +30,12 @@ const addGameFormSchema = z.object({
   awayTeamScore: z.coerce.number().int().gte(0),
   year: z.coerce.number().int().gte(2024),
   week: z.coerce.number().int().gte(0),
+  scheduleId: z.string().uuid().optional(),
 });
 
 export function ScheduleAddGameForm({
   closeModal,
+  scheduleItem,
   week,
   year,
 }: ScheduleAddGameFormProps) {
@@ -41,12 +45,13 @@ export function ScheduleAddGameForm({
   const addGameForm = useForm<z.infer<typeof addGameFormSchema>>({
     resolver: zodResolver(addGameFormSchema),
     defaultValues: {
-      homeTeamId: "bbfb1a24-2d92-4168-a178-b2a90d49cd81",
-      homeTeamScore: 0,
-      awayTeamId: "bbfb1a24-2d92-4168-a178-b2a90d49cd81",
-      awayTeamScore: 0,
+      homeTeamId: scheduleItem?.home_team.id,
+      homeTeamScore: scheduleItem?.home_team_score || 0,
+      awayTeamId: scheduleItem?.away_team.id,
+      awayTeamScore: scheduleItem?.away_team_score || 0,
       year: year,
       week: week,
+      scheduleId: scheduleItem?.id,
     },
   });
 

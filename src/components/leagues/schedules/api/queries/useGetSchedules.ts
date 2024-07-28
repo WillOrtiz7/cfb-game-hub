@@ -11,6 +11,7 @@ interface Team {
         primary_color: string;
     };
     coach_name: string;
+    id: string;
     team_id: string;
     wins: number;
     losses: number;
@@ -28,16 +29,16 @@ export interface ScheduleItem {
 
 async function getSchedules(leagueId: string, year: number, week: number): Promise<ScheduleItem[]> {
     const { data, error } = await supabase.from("schedules").select(`
-        id, game_played, home_team_score, away_team_score,
+        created_at, id, game_played, home_team_score, away_team_score,
         home_team:league_teams!schedules_home_team_id_fkey (
-          coach_name, team_id, wins, losses, ties,
+          coach_name, id, team_id, wins, losses, ties,
           team:teams!inner(id, logo_id, name_abbreviation, name_nick, primary_color)
         ),
         away_team:league_teams!schedules_away_team_id_fkey (
-          coach_name, team_id, wins, losses, ties,
+          coach_name, id, team_id, wins, losses, ties,
           team:teams!inner(id, logo_id, name_abbreviation, name_nick, primary_color)
         )
-      `).eq("year", year).eq("week", week).eq("league_id", leagueId);
+      `).eq("year", year).eq("week", week).eq("league_id", leagueId).order("created_at", { ascending: true });
   if (error) {
     throw new Error("Error code: " + error.code + "\nFailed to fetch schedules");
   }

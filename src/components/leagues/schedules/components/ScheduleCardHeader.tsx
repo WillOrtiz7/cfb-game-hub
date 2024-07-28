@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Edit } from "lucide-react";
 import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { ScheduleDeleteModal } from "./ScheduleDeleteModal";
+import { ScheduleEditGameModal } from "./ScheduleEditGameModal";
 
 interface ScheduleCardHeaderProps {
   scheduleItem: ScheduleItem;
@@ -10,9 +9,7 @@ interface ScheduleCardHeaderProps {
 export function ScheduleCardHeader({ scheduleItem }: ScheduleCardHeaderProps) {
   return (
     <div className="flex flex-row gap-1 items-center justify-end w-full rounded-t-md">
-      <Button variant={"ghost"} size={"icon"}>
-        <Edit className="h-4 w-4" />
-      </Button>
+      <ScheduleEditGameModal scheduleItem={scheduleItem} week={2} year={2024} />
       <ScheduleDeleteModal scheduleItem={scheduleItem} />
     </div>
   );

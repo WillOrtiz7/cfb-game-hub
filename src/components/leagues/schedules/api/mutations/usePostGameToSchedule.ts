@@ -7,12 +7,15 @@ interface PostGameToScheduleInput {
     awayTeamScore: number;
     homeTeamId: string;
     homeTeamScore: number;
+    scheduleId?: string;
     week: number;
     year: number;
 }
 
 async function postGameToSchedule(formData: PostGameToScheduleInput) {
-  const { error } = await supabase.from("schedules").insert({
+  const { error } = await supabase.from("schedules")
+  .upsert({
+    id: formData.scheduleId,
     away_team_id: formData.awayTeamId,
     away_team_score: formData.awayTeamScore,
     game_played: true,
@@ -20,10 +23,11 @@ async function postGameToSchedule(formData: PostGameToScheduleInput) {
     home_team_score: formData.homeTeamScore,
     league_id: '7b3af6f8-9168-4040-bc92-c45943451e92',
     week: formData.week,
-    year: formData.year,
-  });
+    year: formData.year
+  }, { onConflict: 'id' }).select();
+
   if (error) {
-    throw new Error("Error code: " + error.code + "\nFailed to add game to schedule");
+    throw new Error("Error code: " + error.code + "\nFailed to add/edit game to schedule");
   }
 }
 

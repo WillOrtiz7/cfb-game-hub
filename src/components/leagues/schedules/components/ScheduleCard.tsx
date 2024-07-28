@@ -38,6 +38,7 @@ export function ScheduleCard({ scheduleItem }: ScheduleCardProps) {
         </div>
         <div className="text-2xl font-bold">{scheduleItem.home_team_score}</div>
       </div>
+      <hr className="border-secondary-foreground" />
       <div
         className="flex items-center justify-between p-2 rounded-b-md"
         style={{ backgroundColor: scheduleItem.away_team.team.primary_color }}
