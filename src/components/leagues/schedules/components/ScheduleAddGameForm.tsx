@@ -179,7 +179,7 @@ export function ScheduleAddGameForm({
 
         {isDesktop ? (
           <div className="flex flex-row justify-end gap-2">
-            <Button type="button" variant={"destructive"} onClick={closeModal}>
+            <Button type="button" variant={"secondary"} onClick={closeModal}>
               Cancel
             </Button>
             <Button type="submit" disabled={isPending}>
@@ -191,7 +191,7 @@ export function ScheduleAddGameForm({
             <Button type="submit" disabled={isPending}>
               Submit
             </Button>
-            <Button type="button" variant={"destructive"} onClick={closeModal}>
+            <Button type="button" variant={"secondary"} onClick={closeModal}>
               Cancel
             </Button>
           </div>
