@@ -1,7 +1,7 @@
 import { supabase } from "@/supabase/createClient";
 import { useQuery } from "@tanstack/react-query";
 
-export interface Team {
+interface Team {
   coach_name: string;
   id: string;
   teams: {
@@ -12,7 +12,12 @@ export interface Team {
   };
 }
 
-async function getTeams() {
+interface GetTeamsResponse {
+  userTeams: Team[];
+  cpuTeams: Team[];
+}
+
+async function getTeams(): Promise<GetTeamsResponse> {
   const { data, error } = await supabase
     .from("league_teams")
     .select(`
@@ -31,8 +36,20 @@ async function getTeams() {
     throw new Error("Error code: " + error.code + "\nFailed to fetch teams");
   }
 
-  return data as Team[];
+  const userTeams: Team[] = [];
+  const cpuTeams: Team[] = [];
+
+  (data as Team[]).forEach(team => {
+    if (team.coach_name === "CPU") {
+      cpuTeams.push(team);
+    } else {
+      userTeams.push(team);
+    }
+  });
+
+  return { userTeams, cpuTeams };
 }
+
 export function useGetTeams() {
   return useQuery({
     queryKey: ["getTeams"],

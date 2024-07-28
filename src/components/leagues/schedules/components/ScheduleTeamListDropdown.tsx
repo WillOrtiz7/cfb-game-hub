@@ -35,8 +35,25 @@ export function ScheduleTeamListDropdown({
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Team List</SelectLabel>
-            {teams.map((team) => (
+            <SelectLabel>User Teams</SelectLabel>
+            {teams.userTeams.map((team) => (
+              <SelectItem key={team.id} value={team.id}>
+                <div className="flex flex-row gap-2">
+                  <img
+                    src={TEAM_LOGOS_BASE_URL + team.teams.logo_id + ".png"}
+                    alt="Team Logo"
+                    className="h-6 w-6 object-scale-down"
+                  />
+                  <p>
+                    {team.teams.name_nick} ({team.coach_name})
+                  </p>
+                </div>
+              </SelectItem>
+            ))}
+          </SelectGroup>
+          <SelectGroup>
+            <SelectLabel>CPU Teams</SelectLabel>
+            {teams.cpuTeams.map((team) => (
               <SelectItem key={team.id} value={team.id}>
                 <div className="flex flex-row gap-2">
                   <img
