@@ -67,7 +67,7 @@ export function ScheduleDeleteModal({
             teamScore={scheduleItem.away_team_score}
           />
         </div>
-        <DialogFooter>
+        <DialogFooter className="gap-2">
           <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>

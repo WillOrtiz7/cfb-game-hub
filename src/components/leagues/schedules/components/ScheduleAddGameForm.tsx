@@ -87,23 +87,6 @@ export function ScheduleAddGameForm({
         />
         <FormField
           control={addGameForm.control}
-          name="homeTeamScore"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Home Team Score</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-lg md:text-sm"
-                  type="number"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={addGameForm.control}
           name="awayTeamId"
           render={({ field }) => (
             <FormItem>
@@ -118,57 +101,82 @@ export function ScheduleAddGameForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={addGameForm.control}
-          name="awayTeamScore"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Away Team Score</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-lg md:text-sm"
-                  type="number"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={addGameForm.control}
-          name="year"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Year</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-lg md:text-sm"
-                  type="number"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={addGameForm.control}
-          name="week"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Week</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-lg md:text-sm"
-                  type="number"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-row gap-2">
+          <FormField
+            control={addGameForm.control}
+            name="homeTeamScore"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-1/2">
+                <FormLabel>Home Team Score</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    type="number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={addGameForm.control}
+            name="awayTeamScore"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-1/2">
+                <FormLabel>Away Team Score</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    type="number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex flex-row gap-2">
+          <FormField
+            control={addGameForm.control}
+            name="year"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-1/2">
+                {" "}
+                <FormLabel>Year</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    type="number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={addGameForm.control}
+            name="week"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-1/2">
+                {" "}
+                <FormLabel>Week</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    type="number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         {isDesktop ? (
           <div className="flex flex-row justify-end gap-2">
             <Button type="button" variant={"destructive"} onClick={closeModal}>

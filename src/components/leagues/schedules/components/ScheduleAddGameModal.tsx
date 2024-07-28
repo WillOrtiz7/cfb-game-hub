@@ -67,7 +67,7 @@ export function ScheduleAddGameModal({
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Add a game</DrawerTitle>
-          <DrawerDescription>
+          <DrawerDescription className="mb-2 text-start">
             Enter information about the game you want to add so that it can be
             viewed in the schedule.
           </DrawerDescription>
