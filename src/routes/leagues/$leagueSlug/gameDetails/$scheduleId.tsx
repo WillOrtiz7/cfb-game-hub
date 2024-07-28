@@ -19,7 +19,7 @@ export const Route = createFileRoute(
     // Validate scheduleId against the DB
     const { data, error } = await supabase
       .from("schedules")
-      .select()
+      .select("id")
       .eq("id", params.scheduleId);
 
     if (data?.length === 0 || error) {

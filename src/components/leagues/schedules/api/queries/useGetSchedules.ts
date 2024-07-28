@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 
 interface Team {
     team: {
-        
         id: string;
         logo_id: number;
         name_abbreviation: string;

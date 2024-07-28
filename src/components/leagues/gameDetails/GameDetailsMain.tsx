@@ -1,3 +1,9 @@
+import { GameDetailsHeader } from "./components/GameDetailsHeader";
+
 export function GameDetailsMain() {
-  return <div>Hello /leagues/$leagueSlug/gameDetails/$scheduleId!</div>;
+  return (
+    <div>
+      <GameDetailsHeader />
+    </div>
+  );
 }
