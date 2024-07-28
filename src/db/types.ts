@@ -14,9 +14,9 @@ export type Database = {
           coach_name: string | null
           created_at: string
           id: string
-          league_id: string | null
+          league_id: string
           losses: number | null
-          team_id: string | null
+          team_id: string
           ties: number | null
           wins: number | null
         }
@@ -24,9 +24,9 @@ export type Database = {
           coach_name?: string | null
           created_at?: string
           id?: string
-          league_id?: string | null
+          league_id: string
           losses?: number | null
-          team_id?: string | null
+          team_id: string
           ties?: number | null
           wins?: number | null
         }
@@ -34,9 +34,9 @@ export type Database = {
           coach_name?: string | null
           created_at?: string
           id?: string
-          league_id?: string | null
+          league_id?: string
           losses?: number | null
-          team_id?: string | null
+          team_id?: string
           ties?: number | null
           wins?: number | null
         }
@@ -125,6 +125,7 @@ export type Database = {
           away_team_score: number
           created_at: string
           game_played: boolean
+          game_rating: number | null
           home_team_id: string
           home_team_score: number
           id: string
@@ -137,6 +138,7 @@ export type Database = {
           away_team_score?: number
           created_at?: string
           game_played?: boolean
+          game_rating?: number | null
           home_team_id: string
           home_team_score?: number
           id?: string
@@ -149,6 +151,7 @@ export type Database = {
           away_team_score?: number
           created_at?: string
           game_played?: boolean
+          game_rating?: number | null
           home_team_id?: string
           home_team_score?: number
           id?: string
