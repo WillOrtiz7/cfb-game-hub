@@ -4,12 +4,14 @@ import { ScheduleCardHeader } from "./ScheduleCardHeader";
 
 interface ScheduleCardProps {
   scheduleItem: ScheduleItem;
+  week: number;
+  year: number;
 }
 
-export function ScheduleCard({ scheduleItem }: ScheduleCardProps) {
+export function ScheduleCard({ scheduleItem, week, year }: ScheduleCardProps) {
   return (
     <div className="bg-background shadow-md mt-4 border-[1px] border-secondary-foreground rounded-md">
-      <ScheduleCardHeader scheduleItem={scheduleItem} />
+      <ScheduleCardHeader scheduleItem={scheduleItem} week={week} year={year} />
       <div
         className="flex items-center justify-between p-2 border-t-[1px] border-secondary-foreground"
         style={{ backgroundColor: scheduleItem.home_team.team.primary_color }}

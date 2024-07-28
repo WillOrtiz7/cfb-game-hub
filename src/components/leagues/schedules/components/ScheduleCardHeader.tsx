@@ -7,9 +7,15 @@ import { ScheduleUpsertGameModal } from "./ScheduleUpsertGameModal";
 
 interface ScheduleCardHeaderProps {
   scheduleItem: ScheduleItem;
+  week: number;
+  year: number;
 }
 
-export function ScheduleCardHeader({ scheduleItem }: ScheduleCardHeaderProps) {
+export function ScheduleCardHeader({
+  scheduleItem,
+  week,
+  year,
+}: ScheduleCardHeaderProps) {
   return (
     <div className="flex flex-row gap-1 items-center justify-end w-full rounded-t-md">
       <ScheduleUpsertGameModal
@@ -21,8 +27,8 @@ export function ScheduleCardHeader({ scheduleItem }: ScheduleCardHeaderProps) {
             <Edit className="h-4 w-4" />
           </Button>
         }
-        week={2}
-        year={2024}
+        week={week}
+        year={year}
       />
       <ScheduleDeleteModal scheduleItem={scheduleItem} />
     </div>

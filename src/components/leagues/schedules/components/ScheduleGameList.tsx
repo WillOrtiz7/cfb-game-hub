@@ -23,7 +23,12 @@ export function ScheduleGameList({ week, year }: ScheduleGameListProps) {
     scheduleItemList && (
       <div>
         {scheduleItemList.map((scheduleItem, index) => (
-          <ScheduleCard key={index} scheduleItem={scheduleItem} />
+          <ScheduleCard
+            key={index}
+            scheduleItem={scheduleItem}
+            week={week}
+            year={year}
+          />
         ))}
       </div>
     )
