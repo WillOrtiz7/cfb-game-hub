@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { GameDetailsUpsertHighlightsModal } from "./GameDetailsUpsertHighlightsModal";
+
 export default function GameDetailsHighlights() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -17,6 +20,17 @@ export default function GameDetailsHighlights() {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         ></iframe>
       </div>
+      <GameDetailsUpsertHighlightsModal
+        description="Add an iframe URL from YouTube or Twich"
+        requestType="POST"
+        scheduleId="2df94454-0dc3-465f-b05a-119ba376e939"
+        title="Add a Highlight"
+        triggerButton={
+          <Button variant="outline" className="w-full md:w-fit">
+            Add a Highlight
+          </Button>
+        }
+      />
     </div>
   );
 }
