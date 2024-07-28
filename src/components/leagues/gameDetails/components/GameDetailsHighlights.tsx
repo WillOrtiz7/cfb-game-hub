@@ -4,7 +4,7 @@ export default function GameDetailsHighlights() {
       <div className="w-full">
         <iframe
           className="w-full h-80"
-          src="https://clips.twitch.tv/embed?clip=RichPerfectRaisinHassaanChop-KWduEdSWQygsIfGz&parent=https://www.cfbgamehub.netlify.app"
+          src="https://clips.twitch.tv/embed?clip=RichPerfectRaisinHassaanChop-KWduEdSWQygsIfGz&parent=cfbgamehub.netlify.app&parent=www.cfbgamehub.netlify.app"
           title="Video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         ></iframe>
