@@ -28,6 +28,7 @@ export default function GameDetailsHighlights() {
       {highlights && highlights.length > 0 ? (
         highlights.map((highlight) => (
           <div className="w-full" key={highlight.id}>
+            <h4 className="font-semibold">{highlight.title}</h4>
             <iframe
               className="w-full h-80"
               src={highlight.url}
@@ -41,7 +42,7 @@ export default function GameDetailsHighlights() {
       )}
 
       <GameDetailsUpsertHighlightsModal
-        description="Add an iframe URL from YouTube or Twich"
+        description="Paste the URL of the highlight video (YouTube and Twitch only)"
         requestType="POST"
         scheduleId={scheduleId}
         title="Add a Highlight"

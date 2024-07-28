@@ -42,6 +42,7 @@ export function GameDetailsUpsertHighlightForm({
     defaultValues: {
       url: "",
       scheduleId: scheduleId,
+      title: "Untitled",
     },
   });
 
@@ -96,7 +97,7 @@ export function GameDetailsUpsertHighlightForm({
             name="url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>IFrame URL</FormLabel>
+                <FormLabel>Highlight URL</FormLabel>
                 <FormControl>
                   <Input className="text-lg md:text-sm" type="url" {...field} />
                 </FormControl>
