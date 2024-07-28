@@ -1,8 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import GameDetailsHighlights from "./GameDetailsHighlights";
 
 export function GameDetailsTabs() {
   return (
-    <Tabs defaultValue="overview" className="w-[400px]">
+    <Tabs defaultValue="overview" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="team-stats">Team Stats</TabsTrigger>
@@ -15,7 +16,7 @@ export function GameDetailsTabs() {
         <h1>team stats</h1>
       </TabsContent>
       <TabsContent value="highlights">
-        <h1>highlights</h1>
+        <GameDetailsHighlights />
       </TabsContent>
     </Tabs>
   );
