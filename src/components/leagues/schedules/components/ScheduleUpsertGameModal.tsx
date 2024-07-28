@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,40 +15,38 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { Edit } from "lucide-react";
 import { useState } from "react";
 import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { ScheduleAddGameForm } from "./ScheduleAddGameForm";
 
-interface ScheduleEditGameProps {
-  scheduleItem: ScheduleItem;
+interface ScheduleUpsertGameModalProps {
+  description: string;
+  scheduleItem?: ScheduleItem;
+  title: string;
+  triggerButton: React.ReactNode;
   week: number;
   year: number;
 }
 
-export function ScheduleEditGameModal({
+export function ScheduleUpsertGameModal({
+  description,
   scheduleItem,
+  title,
+  triggerButton,
   week,
   year,
-}: ScheduleEditGameProps) {
+}: ScheduleUpsertGameModalProps) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button variant={"ghost"} size={"icon"}>
-            <Edit className="h-4 w-4" />
-          </Button>
-        </DialogTrigger>
+        <DialogTrigger asChild>{triggerButton}</DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit a game</DialogTitle>
-            <DialogDescription>
-              Enter information about the game you want to edit so that it can
-              be viewed in the schedule.
-            </DialogDescription>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
           <ScheduleAddGameForm
             closeModal={() => setOpen(false)}
@@ -64,17 +61,12 @@ export function ScheduleEditGameModal({
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button variant={"ghost"} size={"icon"}>
-          <Edit className="h-4 w-4" />
-        </Button>
-      </DrawerTrigger>
+      <DrawerTrigger asChild>{triggerButton}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Edit a game</DrawerTitle>
+          <DrawerTitle>{title}</DrawerTitle>
           <DrawerDescription className="mb-2 text-start">
-            Enter information about the game you want to edit so that it can be
-            viewed in the schedule.
+            {description}
           </DrawerDescription>
           <ScheduleAddGameForm
             closeModal={() => setOpen(false)}

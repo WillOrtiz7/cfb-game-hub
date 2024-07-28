@@ -1,9 +1,11 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
-import { ScheduleAddGameModal } from "./components/ScheduleAddGameModal";
 import { ScheduleGameList } from "./components/ScheduleGameList";
 import { ScheduleHeader } from "./components/ScheduleHeader";
+import { ScheduleUpsertGameModal } from "./components/ScheduleUpsertGameModal";
 import { ScheduleWeekSelector } from "./components/ScheduleWeekSelector";
+import { ADD_GAME_MODAL_STRINGS } from "./constants/content";
 
 export function SchedulesMain() {
   const [year, setYear] = useState(2024);
@@ -37,7 +39,17 @@ export function SchedulesMain() {
         />
       </div>
       <ScheduleGameList week={week} year={year} />
-      <ScheduleAddGameModal week={week} year={year} />
+      <ScheduleUpsertGameModal
+        description={ADD_GAME_MODAL_STRINGS.description}
+        title={ADD_GAME_MODAL_STRINGS.title}
+        triggerButton={
+          <Button variant="outline" className="w-full md:w-1/6 xl:w-1/12">
+            Add a game
+          </Button>
+        }
+        week={week}
+        year={year}
+      />
     </div>
   );
 }
