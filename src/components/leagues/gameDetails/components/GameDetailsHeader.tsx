@@ -65,7 +65,9 @@ export function GameDetailsHeader() {
               score={gameDetails.home_team_score}
               teamPrimaryColor={gameDetails.home_team.team.primary_color}
               teamLogoId={gameDetails.home_team.team.logo_id}
-              teamNameNick={gameDetails.home_team.team.name_nick}
+              teamNameAbbreviation={
+                gameDetails.home_team.team.name_abbreviation
+              }
               wins={gameDetails.home_team.wins}
             />
             <GameDetailsHeaderTeamInfoMobile
@@ -74,7 +76,9 @@ export function GameDetailsHeader() {
               score={gameDetails.away_team_score}
               teamPrimaryColor={gameDetails.away_team.team.primary_color}
               teamLogoId={gameDetails.away_team.team.logo_id}
-              teamNameNick={gameDetails.away_team.team.name_nick}
+              teamNameAbbreviation={
+                gameDetails.away_team.team.name_abbreviation
+              }
               wins={gameDetails.away_team.wins}
             />
           </div>

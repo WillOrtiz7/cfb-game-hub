@@ -9,7 +9,7 @@ interface GameDetailsHeaderTeamInfoMobileProps {
   score: number;
   teamPrimaryColor: string;
   teamLogoId: number;
-  teamNameNick: string;
+  teamNameAbbreviation: string;
   wins: number;
 }
 
@@ -19,7 +19,7 @@ export function GameDetailsHeaderTeamInfoMobile({
   score,
   teamPrimaryColor,
   teamLogoId,
-  teamNameNick,
+  teamNameAbbreviation,
   wins,
 }: GameDetailsHeaderTeamInfoMobileProps) {
   return (
@@ -32,12 +32,12 @@ export function GameDetailsHeaderTeamInfoMobile({
       >
         <img
           src={TEAM_LOGOS_HELMET_BASE_URL + teamLogoId + ".png"}
-          alt="Home Team Logo"
+          alt="Team Helmet Logo"
           className="w-16 h-16"
         />
       </div>
       <div className="flex flex-col items-start flex-grow mx-4">
-        <span className="text-xl font-bold">{teamNameNick}</span>
+        <span className="text-xl font-bold">{teamNameAbbreviation}</span>
         <span className="text-sm italic">{coachName}</span>
         <span className="text-sm">
           {wins} - {losses}
