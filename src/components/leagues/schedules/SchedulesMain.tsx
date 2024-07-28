@@ -41,6 +41,7 @@ export function SchedulesMain() {
       <ScheduleGameList week={week} year={year} />
       <ScheduleUpsertGameModal
         description={ADD_GAME_MODAL_STRINGS.description}
+        requestType="POST"
         title={ADD_GAME_MODAL_STRINGS.title}
         triggerButton={
           <Button variant="outline" className="w-full md:w-1/6 xl:w-1/12">

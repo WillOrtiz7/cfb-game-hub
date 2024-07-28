@@ -17,10 +17,11 @@ import {
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useState } from "react";
 import { ScheduleItem } from "../api/queries/useGetSchedules";
-import { ScheduleAddGameForm } from "./ScheduleAddGameForm";
+import { ScheduleUpsertGameForm } from "./ScheduleUpsertGameForm";
 
 interface ScheduleUpsertGameModalProps {
   description: string;
+  requestType: "POST" | "PUT";
   scheduleItem?: ScheduleItem;
   title: string;
   triggerButton: React.ReactNode;
@@ -30,6 +31,7 @@ interface ScheduleUpsertGameModalProps {
 
 export function ScheduleUpsertGameModal({
   description,
+  requestType,
   scheduleItem,
   title,
   triggerButton,
@@ -48,8 +50,9 @@ export function ScheduleUpsertGameModal({
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
-          <ScheduleAddGameForm
+          <ScheduleUpsertGameForm
             closeModal={() => setOpen(false)}
+            requestType={requestType}
             scheduleItem={scheduleItem}
             week={week}
             year={year}
@@ -68,8 +71,9 @@ export function ScheduleUpsertGameModal({
           <DrawerDescription className="mb-2 text-start">
             {description}
           </DrawerDescription>
-          <ScheduleAddGameForm
+          <ScheduleUpsertGameForm
             closeModal={() => setOpen(false)}
+            requestType={requestType}
             scheduleItem={scheduleItem}
             week={week}
             year={year}

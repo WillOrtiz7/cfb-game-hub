@@ -1,8 +1,7 @@
 import { supabase } from "@/supabase/createClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 
-interface PostGameToScheduleInput {
+interface UpsertGameToScheduleInput {
     awayTeamId: string;
     awayTeamScore: number;
     homeTeamId: string;
@@ -12,7 +11,7 @@ interface PostGameToScheduleInput {
     year: number;
 }
 
-async function postGameToSchedule(formData: PostGameToScheduleInput) {
+async function upsertGameToSchedule(formData: UpsertGameToScheduleInput) {
   const { error } = await supabase.from("schedules")
   .upsert({
     id: formData.scheduleId,
@@ -31,19 +30,16 @@ async function postGameToSchedule(formData: PostGameToScheduleInput) {
   }
 }
 
-export function usePostGameToSchedule() {
+export function useUpsertGameToSchedule() {
     const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ["postGameToSchedule"],
-    mutationFn: async (formData: PostGameToScheduleInput) => {
-      return postGameToSchedule(formData);
+    mutationFn: async (formData: UpsertGameToScheduleInput) => {
+      return upsertGameToSchedule(formData);
     },
     onSuccess: () => {
-       toast.success("Game added to schedule");
        queryClient.invalidateQueries({ queryKey: ["getSchedules"] });
     },
-    onError: (error) => {
-       toast.error(error.message);
-    },
+   
   });
 }

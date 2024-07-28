@@ -11,19 +11,21 @@ import { Input } from "@/components/ui/input";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
-import { usePostGameToSchedule } from "../api/mutations/usePostGameToSchedule";
+import { useUpsertGameToSchedule } from "../api/mutations/useUpsertGameToSchedule";
 import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { ScheduleTeamListDropdown } from "./ScheduleTeamListDropdown";
 
-interface ScheduleAddGameFormProps {
+interface ScheduleUpsertGameFormProps {
   closeModal: () => void;
+  requestType: "POST" | "PUT";
   scheduleItem?: ScheduleItem;
   week: number;
   year: number;
 }
 
-const addGameFormSchema = z.object({
+const upsertGameFormSchema = z.object({
   homeTeamId: z.string().uuid(),
   homeTeamScore: z.coerce.number().int().gte(0),
   awayTeamId: z.string().uuid(),
@@ -33,17 +35,18 @@ const addGameFormSchema = z.object({
   scheduleId: z.string().uuid().optional(),
 });
 
-export function ScheduleAddGameForm({
+export function ScheduleUpsertGameForm({
   closeModal,
+  requestType,
   scheduleItem,
   week,
   year,
-}: ScheduleAddGameFormProps) {
-  const { mutate, isPending } = usePostGameToSchedule();
+}: ScheduleUpsertGameFormProps) {
+  const { mutate, isPending } = useUpsertGameToSchedule();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const addGameForm = useForm<z.infer<typeof addGameFormSchema>>({
-    resolver: zodResolver(addGameFormSchema),
+  const upsertGameForm = useForm<z.infer<typeof upsertGameFormSchema>>({
+    resolver: zodResolver(upsertGameFormSchema),
     defaultValues: {
       homeTeamId: scheduleItem?.home_team.id,
       homeTeamScore: scheduleItem?.home_team_score || 0,
@@ -57,25 +60,34 @@ export function ScheduleAddGameForm({
 
   function onSubmitSuccess() {
     closeModal();
+    if (requestType === "POST") {
+      toast.success("Game added to schedule");
+    } else if (requestType === "PUT") {
+      toast.success("Game edited in schedule");
+    }
   }
 
   function onSubmitError() {
     closeModal();
+    if (requestType === "POST") {
+      toast.error("Failed to add game to schedule");
+    } else if (requestType === "PUT") {
+      toast.error("Failed to edit game in schedule");
+    }
   }
 
-  function onSubmit(values: z.infer<typeof addGameFormSchema>) {
+  function onSubmit(values: z.infer<typeof upsertGameFormSchema>) {
     mutate(values, { onSuccess: onSubmitSuccess, onError: onSubmitError });
-    console.log(values);
   }
 
   return (
-    <Form {...addGameForm}>
+    <Form {...upsertGameForm}>
       <form
-        onSubmit={addGameForm.handleSubmit(onSubmit)}
+        onSubmit={upsertGameForm.handleSubmit(onSubmit)}
         className="space-y-8 max-h-[80vh] overflow-auto"
       >
         <FormField
-          control={addGameForm.control}
+          control={upsertGameForm.control}
           name="homeTeamId"
           render={({ field }) => (
             <FormItem>
@@ -91,7 +103,7 @@ export function ScheduleAddGameForm({
           )}
         />
         <FormField
-          control={addGameForm.control}
+          control={upsertGameForm.control}
           name="awayTeamId"
           render={({ field }) => (
             <FormItem>
@@ -108,7 +120,7 @@ export function ScheduleAddGameForm({
         />
         <div className="flex flex-row gap-2">
           <FormField
-            control={addGameForm.control}
+            control={upsertGameForm.control}
             name="homeTeamScore"
             render={({ field }) => (
               <FormItem className="flex flex-col w-1/2">
@@ -126,7 +138,7 @@ export function ScheduleAddGameForm({
           />
 
           <FormField
-            control={addGameForm.control}
+            control={upsertGameForm.control}
             name="awayTeamScore"
             render={({ field }) => (
               <FormItem className="flex flex-col w-1/2">
@@ -145,7 +157,7 @@ export function ScheduleAddGameForm({
         </div>
         <div className="flex flex-row gap-2">
           <FormField
-            control={addGameForm.control}
+            control={upsertGameForm.control}
             name="year"
             render={({ field }) => (
               <FormItem className="flex flex-col w-1/2">
@@ -163,7 +175,7 @@ export function ScheduleAddGameForm({
             )}
           />
           <FormField
-            control={addGameForm.control}
+            control={upsertGameForm.control}
             name="week"
             render={({ field }) => (
               <FormItem className="flex flex-col w-1/2">

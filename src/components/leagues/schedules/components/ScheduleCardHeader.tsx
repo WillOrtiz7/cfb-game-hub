@@ -20,6 +20,7 @@ export function ScheduleCardHeader({
     <div className="flex flex-row gap-1 items-center justify-end w-full rounded-t-md">
       <ScheduleUpsertGameModal
         description={EDIT_GAME_MODAL_STRINGS.description}
+        requestType="PUT"
         scheduleItem={scheduleItem}
         title={EDIT_GAME_MODAL_STRINGS.title}
         triggerButton={
