@@ -21,7 +21,7 @@ export function ScheduleGameList({ week, year }: ScheduleGameListProps) {
   }
   return (
     scheduleItemList && (
-      <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {scheduleItemList.map((scheduleItem, index) => (
           <ScheduleCard
             key={index}
