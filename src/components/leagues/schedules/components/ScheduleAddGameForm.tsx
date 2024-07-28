@@ -8,6 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -35,6 +36,7 @@ export function ScheduleAddGameForm({
   year,
 }: ScheduleAddGameFormProps) {
   const { mutate, isPending } = usePostGameToSchedule();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const addGameForm = useForm<z.infer<typeof addGameFormSchema>>({
     resolver: zodResolver(addGameFormSchema),
@@ -63,7 +65,10 @@ export function ScheduleAddGameForm({
 
   return (
     <Form {...addGameForm}>
-      <form onSubmit={addGameForm.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={addGameForm.handleSubmit(onSubmit)}
+        className="space-y-8 max-h-[80vh] overflow-auto"
+      >
         <FormField
           control={addGameForm.control}
           name="homeTeamId"
@@ -87,7 +92,11 @@ export function ScheduleAddGameForm({
             <FormItem>
               <FormLabel>Home Team Score</FormLabel>
               <FormControl>
-                <Input type="number" {...field} />
+                <Input
+                  className="text-lg md:text-sm"
+                  type="number"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -116,7 +125,11 @@ export function ScheduleAddGameForm({
             <FormItem>
               <FormLabel>Away Team Score</FormLabel>
               <FormControl>
-                <Input type="number" {...field} />
+                <Input
+                  className="text-lg md:text-sm"
+                  type="number"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -129,7 +142,11 @@ export function ScheduleAddGameForm({
             <FormItem>
               <FormLabel>Year</FormLabel>
               <FormControl>
-                <Input type="number" {...field} />
+                <Input
+                  className="text-lg md:text-sm"
+                  type="number"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -142,20 +159,35 @@ export function ScheduleAddGameForm({
             <FormItem>
               <FormLabel>Week</FormLabel>
               <FormControl>
-                <Input type="number" {...field} />
+                <Input
+                  className="text-lg md:text-sm"
+                  type="number"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex flex-row justify-end gap-2">
-          <Button type="button" variant={"destructive"} onClick={closeModal}>
-            Cancel
-          </Button>
-          <Button type="submit" disabled={isPending}>
-            Submit
-          </Button>
-        </div>
+        {isDesktop ? (
+          <div className="flex flex-row justify-end gap-2">
+            <Button type="button" variant={"destructive"} onClick={closeModal}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={isPending}>
+              Submit
+            </Button>
+          </div>
+        ) : (
+          <div className="flex flex-col md:flex-row justify-end gap-2">
+            <Button type="submit" disabled={isPending}>
+              Submit
+            </Button>
+            <Button type="button" variant={"destructive"} onClick={closeModal}>
+              Cancel
+            </Button>
+          </div>
+        )}
       </form>
     </Form>
   );
