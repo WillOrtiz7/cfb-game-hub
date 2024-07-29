@@ -28,7 +28,7 @@ async function getHighlights(scheduleId: string): Promise<GetHighlightsResponse[
 
 export function useGetHighlights(scheduleId: string) {
   return useQuery({
-    queryKey: ["getHighlights"],
+    queryKey: ["getHighlights", scheduleId],
     queryFn: async () => {
       return getHighlights(scheduleId);
     },
