@@ -10,7 +10,7 @@ export function GameDetailsTabs() {
         <TabsTrigger value="team-stats">Team Stats</TabsTrigger>
         <TabsTrigger value="highlights">Highlights</TabsTrigger>
       </TabsList>
-      <TabsContent value="overview" className="flex flex-col gap-2">
+      <TabsContent value="overview">
         <GameDetailsHighlights />
         <GameDetailsTeamStats />
       </TabsContent>
