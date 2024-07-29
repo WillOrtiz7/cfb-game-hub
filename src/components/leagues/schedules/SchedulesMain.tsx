@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
 import { ScheduleGameList } from "./components/ScheduleGameList";
@@ -44,8 +45,8 @@ export function SchedulesMain() {
         requestType="POST"
         title={ADD_GAME_MODAL_STRINGS.title}
         triggerButton={
-          <Button variant="outline" className="w-full md:w-1/6 xl:w-1/12">
-            Add a game
+          <Button className="w-full md:w-fit items-center justify-center self-end">
+            <span>Add a Game</span> <Plus className="h-4 w-4 ml-2" />
           </Button>
         }
         week={week}
