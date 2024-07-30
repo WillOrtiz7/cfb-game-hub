@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useParams } from "@tanstack/react-router";
 import { ScheduleItem } from "../api/queries/useGetSchedules";
 import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
 import { ScheduleCardHeader } from "./ScheduleCardHeader";
@@ -10,12 +10,13 @@ interface ScheduleCardProps {
 }
 
 export function ScheduleCard({ scheduleItem, week, year }: ScheduleCardProps) {
+  const { leagueSlug } = useParams({ from: "/leagues/$leagueSlug/schedules" });
   return (
     <div className="bg-background shadow-md mt-4 border-[1px] border-secondary-foreground rounded-md">
       <ScheduleCardHeader scheduleItem={scheduleItem} week={week} year={year} />
       <Link
         to={"/leagues/$leagueSlug/gameDetails/$scheduleId"}
-        params={{ leagueSlug: "b2s", scheduleId: scheduleItem.id }}
+        params={{ leagueSlug: leagueSlug, scheduleId: scheduleItem.id }}
       >
         <div
           className="flex items-center justify-between p-2 border-t-[1px] border-secondary-foreground"
@@ -29,18 +30,18 @@ export function ScheduleCard({ scheduleItem, week, year }: ScheduleCardProps) {
                 ".png"
               }
               alt="Home Team Logo"
-              className="h-10 w-10 object-scale-down"
+              className="object-scale-down w-10 h-10"
             />
             <div>
-              <div className="flex flex-row gap-2 items-center">
+              <div className="flex flex-row items-center gap-2">
                 <h3 className="text-lg font-semibold">
                   {scheduleItem.home_team.team.name_nick}
                 </h3>
-                <p className="text-sm font-light italic">
+                <p className="text-sm italic font-light">
                   ({scheduleItem.home_team.coach_name})
                 </p>
               </div>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sm text-muted-foreground">
                 {scheduleItem.home_team.wins} - {scheduleItem.home_team.losses}
               </p>
             </div>
@@ -62,18 +63,18 @@ export function ScheduleCard({ scheduleItem, week, year }: ScheduleCardProps) {
                 ".png"
               }
               alt="Away Team Logo"
-              className="h-10 w-10 object-scale-down"
+              className="object-scale-down w-10 h-10"
             />
             <div>
-              <div className="flex flex-row gap-2 items-center">
+              <div className="flex flex-row items-center gap-2">
                 <h3 className="text-lg font-semibold">
                   {scheduleItem.away_team.team.name_nick}
                 </h3>
-                <p className="text-sm font-light italic">
+                <p className="text-sm italic font-light">
                   ({scheduleItem.away_team.coach_name})
                 </p>
               </div>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sm text-muted-foreground">
                 {scheduleItem.away_team.wins} - {scheduleItem.away_team.losses}
               </p>
             </div>
