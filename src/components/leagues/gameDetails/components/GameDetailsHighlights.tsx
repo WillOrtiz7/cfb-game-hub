@@ -26,7 +26,7 @@ export default function GameDetailsHighlights() {
   return (
     <div className="flex flex-col gap-2 my-4">
       <h3 className="text-2xl font-semibold">Highlights</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {highlights && highlights.length > 0 ? (
           highlights.map((highlight) => (
             <div className="w-full" key={highlight.id}>
@@ -44,13 +44,13 @@ export default function GameDetailsHighlights() {
         )}
       </div>
       <GameDetailsUpsertHighlightsModal
-        description="Paste the URL of the highlight video (YouTube and Twitch only)"
+        description="Paste the URL of the highlight video (Twitch clips only for now)"
         requestType="POST"
         scheduleId={scheduleId}
         title="Add a Highlight"
         triggerButton={
-          <Button className="w-full md:w-fit items-center justify-center self-end">
-            <span>Add a Highlight</span> <Upload className="h-4 w-4 ml-2" />
+          <Button className="items-center self-end justify-center w-full md:w-fit">
+            <span>Add a Highlight</span> <Upload className="w-4 h-4 ml-2" />
           </Button>
         }
       />

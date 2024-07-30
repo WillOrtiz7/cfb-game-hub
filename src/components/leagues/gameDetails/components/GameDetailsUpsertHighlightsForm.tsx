@@ -24,7 +24,12 @@ interface GameDetailsUpsertHighlightFormProps {
 const upsertHighlightFormSchema = z.object({
   scheduleId: z.string().uuid(),
   title: z.string().optional(),
-  url: z.string().url(),
+  url: z
+    .string()
+    .url()
+    .refine((val) => /twitch\.tv/.test(val), {
+      message: "Only Twitch clips are supported at the moment",
+    }),
 });
 
 export function GameDetailsUpsertHighlightForm({
@@ -117,7 +122,7 @@ export function GameDetailsUpsertHighlightForm({
             </Button>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row justify-end gap-2">
+          <div className="flex flex-col justify-end gap-2 md:flex-row">
             <Button type="submit" disabled={isPending}>
               Submit
             </Button>
