@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as NotFoundImport } from './routes/notFound'
 import { Route as IndexImport } from './routes/index'
 import { Route as LeaguesLeagueSlugSchedulesImport } from './routes/leagues/$leagueSlug/schedules'
+import { Route as LeaguesLeagueSlugHomeImport } from './routes/leagues/$leagueSlug/home'
 import { Route as LeaguesLeagueSlugLayoutImport } from './routes/leagues/$leagueSlug/_layout'
 import { Route as LeaguesLeagueSlugGameDetailsScheduleIdImport } from './routes/leagues/$leagueSlug/gameDetails/$scheduleId'
 
@@ -46,6 +47,11 @@ const LeaguesLeagueSlugSchedulesRoute = LeaguesLeagueSlugSchedulesImport.update(
     getParentRoute: () => LeaguesLeagueSlugRoute,
   } as any,
 )
+
+const LeaguesLeagueSlugHomeRoute = LeaguesLeagueSlugHomeImport.update({
+  path: '/home',
+  getParentRoute: () => LeaguesLeagueSlugRoute,
+} as any)
 
 const LeaguesLeagueSlugLayoutRoute = LeaguesLeagueSlugLayoutImport.update({
   id: '/_layout',
@@ -90,6 +96,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeaguesLeagueSlugLayoutImport
       parentRoute: typeof LeaguesLeagueSlugRoute
     }
+    '/leagues/$leagueSlug/home': {
+      id: '/leagues/$leagueSlug/home'
+      path: '/home'
+      fullPath: '/leagues/$leagueSlug/home'
+      preLoaderRoute: typeof LeaguesLeagueSlugHomeImport
+      parentRoute: typeof LeaguesLeagueSlugImport
+    }
     '/leagues/$leagueSlug/schedules': {
       id: '/leagues/$leagueSlug/schedules'
       path: '/schedules'
@@ -113,6 +126,7 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   NotFoundRoute,
   LeaguesLeagueSlugRoute: LeaguesLeagueSlugRoute.addChildren({
+    LeaguesLeagueSlugHomeRoute,
     LeaguesLeagueSlugSchedulesRoute,
     LeaguesLeagueSlugGameDetailsScheduleIdRoute,
   }),
@@ -141,12 +155,17 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "leagues/$leagueSlug",
       "children": [
         "/leagues/$leagueSlug/_layout",
+        "/leagues/$leagueSlug/home",
         "/leagues/$leagueSlug/schedules",
         "/leagues/$leagueSlug/gameDetails/$scheduleId"
       ]
     },
     "/leagues/$leagueSlug/_layout": {
       "filePath": "leagues/$leagueSlug/_layout.tsx",
+      "parent": "/leagues/$leagueSlug"
+    },
+    "/leagues/$leagueSlug/home": {
+      "filePath": "leagues/$leagueSlug/home.tsx",
       "parent": "/leagues/$leagueSlug"
     },
     "/leagues/$leagueSlug/schedules": {
