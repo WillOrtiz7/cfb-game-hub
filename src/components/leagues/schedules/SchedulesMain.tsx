@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { useGetLeagueId } from "@/hooks/useGetLeagueId";
+import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
@@ -12,12 +14,15 @@ export function SchedulesMain() {
   const [year, setYear] = useState(2024);
   const [week, setWeek] = useState(0);
 
-  const { data, isLoading, isError, error } = useGetCurrentYearWeek();
+  useGetLeagueId();
+  const leagueId = useLeagueStore((state) => state.leagueId);
+
+  const { data, isLoading, isError, error } = useGetCurrentYearWeek(leagueId);
 
   useEffect(() => {
     if (data) {
-      setYear(data[0].year!);
-      setWeek(data[0].week!);
+      setYear(data?.year || 2024);
+      setWeek(data?.week || 0);
     }
   }, [data]);
 

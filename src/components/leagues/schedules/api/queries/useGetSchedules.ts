@@ -26,7 +26,10 @@ export interface ScheduleItem {
     away_team_score: number;
 }
 
-async function getSchedules(leagueId: string, year: number, week: number): Promise<ScheduleItem[]> {
+async function getSchedules(year: number, week: number, leagueId?: string,): Promise<ScheduleItem[]> {
+  if (!leagueId){
+    throw new Error("Invalid league");
+  }
     const { data, error } = await supabase.from("schedules").select(`
         created_at, id, game_played, home_team_score, away_team_score,
         home_team:league_teams!schedules_home_team_id_fkey (
@@ -43,11 +46,11 @@ async function getSchedules(leagueId: string, year: number, week: number): Promi
   }
   return data as ScheduleItem[];
 }
-export function useGetSchedules(leagueId: string, year: number, week: number) {
+export function useGetSchedules(year: number, week: number, leagueId?: string,) {
   return useQuery({
-    queryKey: ["getSchedules", leagueId, year, week],
+    queryKey: ["getSchedules", year, week, leagueId],
     queryFn: async () => {
-      return getSchedules(leagueId, year, week);
+      return getSchedules( year, week, leagueId);
     },
   });
 }

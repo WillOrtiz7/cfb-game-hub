@@ -6,6 +6,7 @@ interface UpsertGameToScheduleInput {
     awayTeamScore: number;
     homeTeamId: string;
     homeTeamScore: number;
+    leagueId: string;
     scheduleId?: string;
     week: number;
     year: number;
@@ -20,7 +21,7 @@ async function upsertGameToSchedule(formData: UpsertGameToScheduleInput) {
     game_played: true,
     home_team_id: formData.homeTeamId,
     home_team_score: formData.homeTeamScore,
-    league_id: '7b3af6f8-9168-4040-bc92-c45943451e92',
+    league_id: formData.leagueId,
     week: formData.week,
     year: formData.year
   }, { onConflict: 'id' }).select();
@@ -37,8 +38,8 @@ export function useUpsertGameToSchedule() {
     mutationFn: async (formData: UpsertGameToScheduleInput) => {
       return upsertGameToSchedule(formData);
     },
-    onSuccess: () => {
-       queryClient.invalidateQueries({ queryKey: ["getSchedules"] });
+    onSuccess: (_data, variables) => {
+       queryClient.invalidateQueries({ queryKey: ["getSchedules", variables.year, variables.week, variables.leagueId] });
     },
    
   });

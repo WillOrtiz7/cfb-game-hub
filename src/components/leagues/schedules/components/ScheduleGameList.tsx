@@ -1,3 +1,5 @@
+import { useGetLeagueId } from "@/hooks/useGetLeagueId";
+import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { useGetSchedules } from "../api/queries/useGetSchedules";
 import { ScheduleCard } from "./ScheduleCard";
 
@@ -7,12 +9,15 @@ interface ScheduleGameListProps {
 }
 
 export function ScheduleGameList({ week, year }: ScheduleGameListProps) {
+  useGetLeagueId();
+  const leagueId = useLeagueStore((state) => state.leagueId);
+
   const {
     data: scheduleItemList,
     isLoading,
     isError,
     error,
-  } = useGetSchedules("7b3af6f8-9168-4040-bc92-c45943451e92", year, week);
+  } = useGetSchedules(year, week, leagueId);
   if (isLoading) {
     return <div>Loading...</div>;
   }

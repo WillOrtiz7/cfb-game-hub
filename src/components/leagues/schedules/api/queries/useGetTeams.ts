@@ -17,7 +17,10 @@ interface GetTeamsResponse {
   cpuTeams: Team[];
 }
 
-async function getTeams(): Promise<GetTeamsResponse> {
+async function getTeams(leagueId?: string): Promise<GetTeamsResponse> {
+  if (!leagueId) {
+    throw new Error("Invalid league");
+  }
   const { data, error } = await supabase
     .from("league_teams")
     .select(`
@@ -30,6 +33,7 @@ async function getTeams(): Promise<GetTeamsResponse> {
         primary_color
       )
     `)
+    .eq("league_id", leagueId)
     .order('teams(name_nick)', { ascending: true });
 
   if (error) {
@@ -50,11 +54,11 @@ async function getTeams(): Promise<GetTeamsResponse> {
   return { userTeams, cpuTeams };
 }
 
-export function useGetTeams() {
+export function useGetTeams(leagueId?: string) {
   return useQuery({
-    queryKey: ["getTeams"],
+    queryKey: ["getTeams", leagueId],
     queryFn: async () => {
-      return getTeams();
+      return getTeams(leagueId);
     },
   });
 }

@@ -8,7 +8,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useGetLeagueId } from "@/hooks/useGetLeagueId";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -30,6 +32,7 @@ const upsertGameFormSchema = z.object({
   homeTeamScore: z.coerce.number().int().gte(0),
   awayTeamId: z.string().uuid(),
   awayTeamScore: z.coerce.number().int().gte(0),
+  leagueId: z.string().uuid(),
   year: z.coerce.number().int().gte(2024),
   week: z.coerce.number().int().gte(0),
   scheduleId: z.string().uuid().optional(),
@@ -44,6 +47,8 @@ export function ScheduleUpsertGameForm({
 }: ScheduleUpsertGameFormProps) {
   const { mutate, isPending } = useUpsertGameToSchedule();
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  useGetLeagueId();
+  const leagueId = useLeagueStore((state) => state.leagueId);
 
   const upsertGameForm = useForm<z.infer<typeof upsertGameFormSchema>>({
     resolver: zodResolver(upsertGameFormSchema),
@@ -52,6 +57,7 @@ export function ScheduleUpsertGameForm({
       homeTeamScore: scheduleItem?.home_team_score || 0,
       awayTeamId: scheduleItem?.away_team.id,
       awayTeamScore: scheduleItem?.away_team_score || 0,
+      leagueId: leagueId,
       year: year,
       week: week,
       scheduleId: scheduleItem?.id,

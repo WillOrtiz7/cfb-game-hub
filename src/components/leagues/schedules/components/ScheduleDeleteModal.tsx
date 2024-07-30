@@ -35,7 +35,6 @@ export function ScheduleDeleteModal({
 
   function onSubmit(scheduleId: string) {
     mutate(scheduleId, { onSuccess: onSubmitSuccess, onError: onSubmitError });
-    console.log(scheduleId);
   }
 
   return (

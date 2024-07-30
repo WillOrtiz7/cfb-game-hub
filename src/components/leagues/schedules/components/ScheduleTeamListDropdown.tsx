@@ -7,6 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGetLeagueId } from "@/hooks/useGetLeagueId";
+import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { useGetTeams } from "../api/queries/useGetTeams";
 import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
 
@@ -19,7 +21,10 @@ export function ScheduleTeamListDropdown({
   defaultValue,
   onValueChange,
 }: ScheduleTeamListDropdownProps) {
-  const { data: teams, isLoading, isError, error } = useGetTeams();
+  useGetLeagueId();
+  const leagueId = useLeagueStore((state) => state.leagueId);
+
+  const { data: teams, isLoading, isError, error } = useGetTeams(leagueId);
   if (isLoading) {
     return <div>Loading...</div>;
   }
