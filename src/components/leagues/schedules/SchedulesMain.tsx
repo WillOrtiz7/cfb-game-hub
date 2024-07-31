@@ -44,19 +44,21 @@ export function SchedulesMain() {
           year={year}
         />
       </div>
-      <ScheduleGameList week={week} year={year} />
-      <ScheduleUpsertGameModal
-        description={ADD_GAME_MODAL_STRINGS.description}
-        requestType="POST"
-        title={ADD_GAME_MODAL_STRINGS.title}
-        triggerButton={
-          <Button className="w-full md:w-fit items-center justify-center self-end">
-            <span>Add a Game</span> <Plus className="h-4 w-4 ml-2" />
-          </Button>
-        }
-        week={week}
-        year={year}
-      />
+      <div className="flex flex-col gap-4">
+        <ScheduleGameList week={week} year={year} />
+        <ScheduleUpsertGameModal
+          description={ADD_GAME_MODAL_STRINGS.description}
+          requestType="POST"
+          title={ADD_GAME_MODAL_STRINGS.title}
+          triggerButton={
+            <Button className="items-center self-end justify-center w-full md:w-fit">
+              <span>Add a Game</span> <Plus className="w-4 h-4 ml-2" />
+            </Button>
+          }
+          week={week}
+          year={year}
+        />
+      </div>
     </div>
   );
 }

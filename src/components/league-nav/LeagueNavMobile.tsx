@@ -14,16 +14,16 @@ export function LeagueNavMobile() {
         params={{ leagueSlug: leagueSlug || "" }}
         className="flex flex-col items-center justify-center text-center"
       >
-        <Home className="w-7 h-7" />
-        <p>Home</p>
+        <Home className="w-6 h-6" />
+        <p className="text-sm">Home</p>
       </Link>
       <Link
         to="/leagues/$leagueSlug/schedules"
         params={{ leagueSlug: leagueSlug || "" }}
         className="flex flex-col items-center justify-center text-center"
       >
-        <Calendar className="w-7 h-7" />
-        <p>Schedule</p>
+        <Calendar className="w-6 h-6" />
+        <p className="text-sm">Schedule</p>
       </Link>
       {/* Add more links/icons as needed */}
     </nav>
