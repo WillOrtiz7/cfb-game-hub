@@ -16,7 +16,7 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <Navbar />
-      <div className="flex flex-col p-4">
+      <div className="flex flex-col">
         <Outlet />
       </div>
       <Suspense fallback={<>Loading...</>}>
