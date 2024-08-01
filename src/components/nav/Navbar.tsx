@@ -4,6 +4,7 @@ import { useUserStore } from "@/zustand/useUserStore";
 import { Link } from "@tanstack/react-router";
 import { ThemeToggle } from "../theme-toggle/ThemeToggle";
 import { Button } from "../ui/button";
+import { UserDropdownMenu } from "./UserDropdownMenu";
 
 export function Navbar() {
   useGetUser();
@@ -17,9 +18,6 @@ export function Navbar() {
       },
     });
   }
-  async function handleSignOut() {
-    await supabase.auth.signOut();
-  }
 
   return (
     <nav className="flex flex-row justify-between bg-primary-foreground items-center p-2 border-b-[1px]">
@@ -30,7 +28,7 @@ export function Navbar() {
       <div className="flex flex-row items-center gap-2">
         <ThemeToggle />
         {user ? (
-          <Button onClick={handleSignOut}>Sign Out</Button>
+          <UserDropdownMenu user={user} />
         ) : (
           <Button onClick={handleSignIn}>Sign in</Button>
         )}
