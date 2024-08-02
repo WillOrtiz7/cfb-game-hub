@@ -44,6 +44,7 @@ export type Database = {
       league_teams: {
         Row: {
           coach_name: string | null
+          conference_id: string | null
           created_at: string
           id: string
           league_id: string
@@ -54,6 +55,7 @@ export type Database = {
         }
         Insert: {
           coach_name?: string | null
+          conference_id?: string | null
           created_at?: string
           id?: string
           league_id: string
@@ -64,6 +66,7 @@ export type Database = {
         }
         Update: {
           coach_name?: string | null
+          conference_id?: string | null
           created_at?: string
           id?: string
           league_id?: string
@@ -73,6 +76,13 @@ export type Database = {
           wins?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "league_teams_conference_id_fkey"
+            columns: ["conference_id"]
+            isOneToOne: false
+            referencedRelation: "leagues_conferences"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "league_teams_league_id_fkey"
             columns: ["league_id"]
@@ -116,6 +126,38 @@ export type Database = {
         }
         Relationships: []
       }
+      leagues_conferences: {
+        Row: {
+          created_at: string
+          id: string
+          league_id: string
+          logo_url: string | null
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          league_id: string
+          logo_url?: string | null
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          league_id?: string
+          logo_url?: string | null
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leagues_conferences_league_id_fkey"
+            columns: ["league_id"]
+            isOneToOne: false
+            referencedRelation: "leagues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       recruits: {
         Row: {
           created_at: string
@@ -150,6 +192,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      role_permissions: {
+        Row: {
+          id: number
+          permission: Database["public"]["Enums"]["app_permission"]
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Insert: {
+          id?: number
+          permission: Database["public"]["Enums"]["app_permission"]
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Update: {
+          id?: number
+          permission?: Database["public"]["Enums"]["app_permission"]
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Relationships: []
       }
       schedules: {
         Row: {
@@ -248,15 +308,101 @@ export type Database = {
         }
         Relationships: []
       }
+      user_league_roles: {
+        Row: {
+          id: number
+          league_id: string
+          role: Database["public"]["Enums"]["app_role"]
+          team_id: string | null
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          league_id: string
+          role: Database["public"]["Enums"]["app_role"]
+          team_id?: string | null
+          user_id: string
+        }
+        Update: {
+          id?: number
+          league_id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          team_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_league_roles_league_id_fkey"
+            columns: ["league_id"]
+            isOneToOne: false
+            referencedRelation: "leagues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_league_roles_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "league_teams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_league_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "users_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_league_id_from_schedule: {
+        Args: {
+          p_schedule_id: string
+        }
+        Returns: string
+      }
+      is_user_authorized_for_this_action: {
+        Args: {
+          p_user_id: string
+          p_league_id: string
+          p_permission: Database["public"]["Enums"]["app_permission"]
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_permission: "schedules.delete" | "highlights.delete"
+      app_role: "admin" | "coach" | "visitor"
     }
     CompositeTypes: {
       [_ in never]: never
