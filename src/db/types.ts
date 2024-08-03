@@ -49,9 +49,12 @@ export type Database = {
           id: string
           league_id: string
           losses: number | null
+          losses_conf: number
           team_id: string
           ties: number | null
+          ties_conf: number
           wins: number | null
+          wins_conf: number
         }
         Insert: {
           coach_name?: string | null
@@ -60,9 +63,12 @@ export type Database = {
           id?: string
           league_id: string
           losses?: number | null
+          losses_conf?: number
           team_id: string
           ties?: number | null
+          ties_conf?: number
           wins?: number | null
+          wins_conf?: number
         }
         Update: {
           coach_name?: string | null
@@ -71,9 +77,12 @@ export type Database = {
           id?: string
           league_id?: string
           losses?: number | null
+          losses_conf?: number
           team_id?: string
           ties?: number | null
+          ties_conf?: number
           wins?: number | null
+          wins_conf?: number
         }
         Relationships: [
           {

@@ -38,10 +38,10 @@ export function ScheduleCard({ scheduleItem, week, year }: ScheduleCardProps) {
                   {scheduleItem.home_team.team.name_nick}
                 </h3>
                 <p className="text-sm italic font-light">
-                  ({scheduleItem.home_team.coach_name})
+                  {scheduleItem.home_team.coach_name}
                 </p>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm italic">
                 {scheduleItem.home_team.wins} - {scheduleItem.home_team.losses}
               </p>
             </div>
@@ -71,10 +71,10 @@ export function ScheduleCard({ scheduleItem, week, year }: ScheduleCardProps) {
                   {scheduleItem.away_team.team.name_nick}
                 </h3>
                 <p className="text-sm italic font-light">
-                  ({scheduleItem.away_team.coach_name})
+                  {scheduleItem.away_team.coach_name}
                 </p>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm italic">
                 {scheduleItem.away_team.wins} - {scheduleItem.away_team.losses}
               </p>
             </div>

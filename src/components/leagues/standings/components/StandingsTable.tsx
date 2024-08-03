@@ -45,13 +45,22 @@ export function StandingsTable({ conference }: StandingsTableProps) {
                     alt="Team Logo"
                     className="object-scale-down w-8 h-8"
                   />
-                  <span>{team.team_info.name_abbreviation}</span>
+                  <div className="flex flex-col">
+                    <span>{team.team_info.name_abbreviation}</span>
+                    <span className="text-xs italic font-light">
+                      {team.coach_name}
+                    </span>
+                  </div>
                 </div>
               </TableCell>
               <TableCell>
                 {team.wins}-{team.losses}
+                {team.ties ? `-${team.ties}` : ""}
               </TableCell>
-              <TableCell></TableCell>
+              <TableCell>
+                {team.wins_conf}-{team.losses_conf}
+                {team.ties_conf ? `-${team.ties_conf}` : ""}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
