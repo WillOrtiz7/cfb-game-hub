@@ -1,7 +1,7 @@
 import { useGetLeagueSlug } from "@/hooks/useGetLeagueSlug";
 import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { Link } from "@tanstack/react-router";
-import { Calendar, Home } from "lucide-react";
+import { Calendar, Home, ListOrdered } from "lucide-react";
 
 export function LeagueNavDesktop() {
   useGetLeagueSlug();
@@ -20,6 +20,12 @@ export function LeagueNavDesktop() {
         params={{ leagueSlug: leagueSlug || "" }}
       >
         <Calendar />
+      </Link>
+      <Link
+        to={"/leagues/$leagueSlug/standings"}
+        params={{ leagueSlug: leagueSlug || "" }}
+      >
+        <ListOrdered />
       </Link>
     </nav>
   );

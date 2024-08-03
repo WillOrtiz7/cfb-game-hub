@@ -1,7 +1,7 @@
 import { useGetLeagueSlug } from "@/hooks/useGetLeagueSlug";
 import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { Link } from "@tanstack/react-router";
-import { Calendar, Home } from "lucide-react";
+import { Calendar, Home, ListOrdered } from "lucide-react";
 
 export function LeagueNavMobile() {
   useGetLeagueSlug();
@@ -25,7 +25,14 @@ export function LeagueNavMobile() {
         <Calendar className="w-6 h-6" />
         <p className="text-sm">Schedule</p>
       </Link>
-      {/* Add more links/icons as needed */}
+      <Link
+        to="/leagues/$leagueSlug/standings"
+        params={{ leagueSlug: leagueSlug || "" }}
+        className="flex flex-col items-center justify-center text-center"
+      >
+        <ListOrdered className="w-6 h-6" />
+        <p className="text-sm">Standings</p>
+      </Link>
     </nav>
   );
 }
