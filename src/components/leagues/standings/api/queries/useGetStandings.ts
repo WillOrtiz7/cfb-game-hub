@@ -20,7 +20,7 @@ interface TeamInfo {
     display_name: string;
   }
   
-  interface Conference {
+  export interface Conference {
     id: string;
     league_id: string;
     logo_url: string | null;
