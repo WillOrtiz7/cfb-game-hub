@@ -8,7 +8,7 @@ export function LeagueNavMobile() {
   const leagueSlug = useLeagueStore((state) => state.leagueSlug);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 border-t-[1px] p-2 bg-primary-foreground flex justify-center items-center gap-8">
+    <nav className="fixed bottom-0 left-0 right-0 border-t-[1px] p-2 bg-primary-foreground flex justify-center items-center gap-8 z-10">
       <Link
         to="/leagues/$leagueSlug/schedules"
         params={{ leagueSlug: leagueSlug || "" }}
