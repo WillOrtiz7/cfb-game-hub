@@ -23,7 +23,6 @@ export function StandingsUpdateModal({
           closeModal={() => setOpen(false)}
           lossesConf={0}
           lossesOverall={0}
-          teamId="1"
           tiesConf={0}
           tiesOverall={0}
           winsConf={0}

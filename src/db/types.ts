@@ -48,12 +48,12 @@ export type Database = {
           created_at: string
           id: string
           league_id: string
-          losses: number | null
+          losses: number
           losses_conf: number
           team_id: string
-          ties: number | null
+          ties: number
           ties_conf: number
-          wins: number | null
+          wins: number
           wins_conf: number
         }
         Insert: {
@@ -62,12 +62,12 @@ export type Database = {
           created_at?: string
           id?: string
           league_id: string
-          losses?: number | null
+          losses?: number
           losses_conf?: number
           team_id: string
-          ties?: number | null
+          ties?: number
           ties_conf?: number
-          wins?: number | null
+          wins?: number
           wins_conf?: number
         }
         Update: {
@@ -76,12 +76,12 @@ export type Database = {
           created_at?: string
           id?: string
           league_id?: string
-          losses?: number | null
+          losses?: number
           losses_conf?: number
           team_id?: string
-          ties?: number | null
+          ties?: number
           ties_conf?: number
-          wins?: number | null
+          wins?: number
           wins_conf?: number
         }
         Relationships: [

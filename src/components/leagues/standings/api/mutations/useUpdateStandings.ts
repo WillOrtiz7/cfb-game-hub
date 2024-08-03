@@ -37,6 +37,7 @@ export function useUpdateStandings() {
     onSuccess: () => {
         // TODO: Add league id in the query key to invalidate the correct standings
        queryClient.invalidateQueries({ queryKey: ["getStandings"] });
+       queryClient.invalidateQueries({ queryKey: ["getTeams"] });
     },
    
   });

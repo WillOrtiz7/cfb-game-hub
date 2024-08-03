@@ -10,17 +10,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { ScheduleTeamListDropdown } from "../../schedules/components/ScheduleTeamListDropdown";
 import { useUpdateStandings } from "../api/mutations/useUpdateStandings";
+import { useGetTeamRecord } from "../api/queries/useGetTeamRecord";
 
 interface StandingsUpdateFormProps {
   closeModal: () => void;
   lossesConf: number;
   lossesOverall: number;
-  teamId: string;
   tiesConf: number;
   tiesOverall: number;
   winsConf: number;
@@ -41,7 +42,6 @@ export function StandingsUpdateForm({
   closeModal,
   lossesConf,
   lossesOverall,
-  teamId,
   tiesConf,
   tiesOverall,
   winsConf,
@@ -57,13 +57,16 @@ export function StandingsUpdateForm({
     defaultValues: {
       lossesConf,
       lossesOverall,
-      teamId,
+      teamId: "ea1759bf-08da-48cd-b1e9-2e989c37eaea",
       tiesConf,
       tiesOverall,
       winsConf,
       winsOverall,
     },
   });
+  const { data: teamStandings } = useGetTeamRecord(
+    updateStandingsForm.watch("teamId")
+  );
 
   function onSubmitSuccess() {
     closeModal();
@@ -78,6 +81,20 @@ export function StandingsUpdateForm({
   function onSubmit(values: z.infer<typeof updateStandingsFormSchema>) {
     mutate(values, { onSuccess: onSubmitSuccess, onError: onSubmitError });
   }
+
+  useEffect(() => {
+    if (teamStandings) {
+      updateStandingsForm.reset({
+        lossesConf: teamStandings.losses_conf,
+        lossesOverall: teamStandings.losses,
+        teamId: teamStandings.id,
+        tiesConf: teamStandings.ties_conf,
+        tiesOverall: teamStandings.ties,
+        winsConf: teamStandings.wins_conf,
+        winsOverall: teamStandings.wins,
+      });
+    }
+  }, [teamStandings, updateStandingsForm]);
 
   return (
     <Form {...updateStandingsForm}>
