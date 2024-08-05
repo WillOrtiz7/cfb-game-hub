@@ -3,7 +3,7 @@ import { RecruitsHeader } from "./components/RecruitsHeader";
 
 export function RecruitsMain() {
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <RecruitsHeader />
       <RecruitsBody />
     </div>

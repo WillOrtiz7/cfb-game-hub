@@ -301,31 +301,31 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          logo_id: number | null
-          name_abbreviation: string | null
-          name_mascot: string | null
-          name_nick: string | null
-          name_school: string | null
+          logo_id: number
+          name_abbreviation: string
+          name_mascot: string
+          name_nick: string
+          name_school: string
           primary_color: string | null
         }
         Insert: {
           created_at?: string
           id?: string
-          logo_id?: number | null
-          name_abbreviation?: string | null
-          name_mascot?: string | null
-          name_nick?: string | null
-          name_school?: string | null
+          logo_id: number
+          name_abbreviation: string
+          name_mascot: string
+          name_nick: string
+          name_school: string
           primary_color?: string | null
         }
         Update: {
           created_at?: string
           id?: string
-          logo_id?: number | null
-          name_abbreviation?: string | null
-          name_mascot?: string | null
-          name_nick?: string | null
-          name_school?: string | null
+          logo_id?: number
+          name_abbreviation?: string
+          name_mascot?: string
+          name_nick?: string
+          name_school?: string
           primary_color?: string | null
         }
         Relationships: []

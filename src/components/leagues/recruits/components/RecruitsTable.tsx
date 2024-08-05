@@ -6,7 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { TEAM_LOGOS_BASE_URL } from "../../schedules/constants/baseUrls";
 import { GetRecruitsResponse } from "../api/queries/useGetRecruits";
+import { RecruitStarRating } from "./RecruitStarRating";
 
 interface RecruitsTableProps {
   recruits: GetRecruitsResponse[];
@@ -15,10 +17,6 @@ interface RecruitsTableProps {
 export function RecruitsTable({ recruits }: RecruitsTableProps) {
   return (
     <div className="border-[1px] rounded-md">
-      <div className="flex flex-row items-center gap-2 p-2">
-        <p className="text-xl font-semibold">Blah</p>
-      </div>
-
       <Table>
         <TableHeader>
           <TableRow>
@@ -40,9 +38,22 @@ export function RecruitsTable({ recruits }: RecruitsTableProps) {
                 </span>
               </TableCell>
               <TableCell>{recruit.position}</TableCell>
-              <TableCell>{recruit.star_rating}</TableCell>
               <TableCell>
-                {recruit.team_id ? "Committed" : "Not Committed"}
+                <RecruitStarRating starRating={recruit.star_rating} />
+              </TableCell>
+              <TableCell>
+                {recruit.team_id ? (
+                  <img
+                    src={
+                      TEAM_LOGOS_BASE_URL +
+                      recruit.team?.team_info.logo_id +
+                      ".png"
+                    }
+                    className="object-scale-down w-8 h-8"
+                  />
+                ) : (
+                  "Not Committed"
+                )}
               </TableCell>
               <TableCell>
                 {recruit.team_id ? "Committed" : "Not Committed"}
