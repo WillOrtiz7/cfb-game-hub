@@ -25,7 +25,6 @@ export function RecruitsTable({ recruits }: RecruitsTableProps) {
             <TableHead>Position</TableHead>
             <TableHead>Star</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -54,9 +53,6 @@ export function RecruitsTable({ recruits }: RecruitsTableProps) {
                 ) : (
                   "Not Committed"
                 )}
-              </TableCell>
-              <TableCell>
-                {recruit.team_id ? "Committed" : "Not Committed"}
               </TableCell>
             </TableRow>
           ))}
