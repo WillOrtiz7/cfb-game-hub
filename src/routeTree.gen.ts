@@ -18,6 +18,7 @@ import { Route as LeaguesImport } from './routes/leagues'
 import { Route as IndexImport } from './routes/index'
 import { Route as LeaguesLeagueSlugStandingsImport } from './routes/leagues/$leagueSlug/standings'
 import { Route as LeaguesLeagueSlugSchedulesImport } from './routes/leagues/$leagueSlug/schedules'
+import { Route as LeaguesLeagueSlugRecruitsImport } from './routes/leagues/$leagueSlug/recruits'
 import { Route as LeaguesLeagueSlugHomeImport } from './routes/leagues/$leagueSlug/home'
 import { Route as LeaguesLeagueSlugLayoutImport } from './routes/leagues/$leagueSlug/_layout'
 import { Route as LeaguesLeagueSlugGameDetailsScheduleIdImport } from './routes/leagues/$leagueSlug/gameDetails/$scheduleId'
@@ -61,6 +62,11 @@ const LeaguesLeagueSlugSchedulesRoute = LeaguesLeagueSlugSchedulesImport.update(
     getParentRoute: () => LeaguesLeagueSlugRoute,
   } as any,
 )
+
+const LeaguesLeagueSlugRecruitsRoute = LeaguesLeagueSlugRecruitsImport.update({
+  path: '/recruits',
+  getParentRoute: () => LeaguesLeagueSlugRoute,
+} as any)
 
 const LeaguesLeagueSlugHomeRoute = LeaguesLeagueSlugHomeImport.update({
   path: '/home',
@@ -124,6 +130,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeaguesLeagueSlugHomeImport
       parentRoute: typeof LeaguesLeagueSlugImport
     }
+    '/leagues/$leagueSlug/recruits': {
+      id: '/leagues/$leagueSlug/recruits'
+      path: '/recruits'
+      fullPath: '/leagues/$leagueSlug/recruits'
+      preLoaderRoute: typeof LeaguesLeagueSlugRecruitsImport
+      parentRoute: typeof LeaguesLeagueSlugImport
+    }
     '/leagues/$leagueSlug/schedules': {
       id: '/leagues/$leagueSlug/schedules'
       path: '/schedules'
@@ -155,6 +168,7 @@ export const routeTree = rootRoute.addChildren({
   LeaguesRoute: LeaguesRoute.addChildren({
     LeaguesLeagueSlugRoute: LeaguesLeagueSlugRoute.addChildren({
       LeaguesLeagueSlugHomeRoute,
+      LeaguesLeagueSlugRecruitsRoute,
       LeaguesLeagueSlugSchedulesRoute,
       LeaguesLeagueSlugStandingsRoute,
       LeaguesLeagueSlugGameDetailsScheduleIdRoute,
@@ -194,6 +208,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/leagues/$leagueSlug/_layout",
         "/leagues/$leagueSlug/home",
+        "/leagues/$leagueSlug/recruits",
         "/leagues/$leagueSlug/schedules",
         "/leagues/$leagueSlug/standings",
         "/leagues/$leagueSlug/gameDetails/$scheduleId"
@@ -205,6 +220,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/leagues/$leagueSlug/home": {
       "filePath": "leagues/$leagueSlug/home.tsx",
+      "parent": "/leagues/$leagueSlug"
+    },
+    "/leagues/$leagueSlug/recruits": {
+      "filePath": "leagues/$leagueSlug/recruits.tsx",
       "parent": "/leagues/$leagueSlug"
     },
     "/leagues/$leagueSlug/schedules": {

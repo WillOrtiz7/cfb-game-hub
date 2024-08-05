@@ -170,27 +170,33 @@ export type Database = {
       recruits: {
         Row: {
           created_at: string
-          first_name: string | null
+          first_name: string
           id: string
-          last_name: string | null
+          last_name: string
           league_id: string
-          position: string | null
+          position: Database["public"]["Enums"]["recruit_positions"]
+          star_rating: Database["public"]["Enums"]["recruit_star_ratings"]
+          team_id: string | null
         }
         Insert: {
           created_at?: string
-          first_name?: string | null
+          first_name: string
           id?: string
-          last_name?: string | null
+          last_name: string
           league_id: string
-          position?: string | null
+          position: Database["public"]["Enums"]["recruit_positions"]
+          star_rating: Database["public"]["Enums"]["recruit_star_ratings"]
+          team_id?: string | null
         }
         Update: {
           created_at?: string
-          first_name?: string | null
+          first_name?: string
           id?: string
-          last_name?: string | null
+          last_name?: string
           league_id?: string
-          position?: string | null
+          position?: Database["public"]["Enums"]["recruit_positions"]
+          star_rating?: Database["public"]["Enums"]["recruit_star_ratings"]
+          team_id?: string | null
         }
         Relationships: [
           {
@@ -198,6 +204,13 @@ export type Database = {
             columns: ["league_id"]
             isOneToOne: false
             referencedRelation: "leagues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recruits_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "league_teams"
             referencedColumns: ["id"]
           },
         ]
@@ -412,6 +425,24 @@ export type Database = {
     Enums: {
       app_permission: "schedules.delete" | "highlights.delete"
       app_role: "admin" | "coach" | "visitor"
+      recruit_positions:
+        | "QB"
+        | "HB"
+        | "WR"
+        | "TE"
+        | "OT"
+        | "OG"
+        | "DE"
+        | "DT"
+        | "OLB"
+        | "MLB"
+        | "CB"
+        | "FS"
+        | "SS"
+        | "K"
+        | "P"
+        | "ATH"
+      recruit_star_ratings: "1" | "2" | "3" | "4" | "5"
     }
     CompositeTypes: {
       [_ in never]: never
