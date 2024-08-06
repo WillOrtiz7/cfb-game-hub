@@ -7,6 +7,7 @@ interface TeamInfo {
     id: string;
     logo_id: number;
     name_abbreviation: string;
+    primary_color: string;
   }
   
   interface Team {
@@ -40,7 +41,7 @@ async function getRecruits(leagueId?: string): Promise<GetRecruitsResponse[]> {
         team_id,
         team:league_teams!left(
         id, team_id, 
-          team_info:teams!left(id, logo_id, name_abbreviation)
+          team_info:teams!left(id, logo_id, name_abbreviation, primary_color)
         )`)
     .eq("league_id", leagueId).order("star_rating", { ascending: false });
 
