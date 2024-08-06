@@ -18,8 +18,8 @@ import { Route as LeaguesImport } from './routes/leagues'
 import { Route as IndexImport } from './routes/index'
 import { Route as LeaguesLeagueSlugStandingsImport } from './routes/leagues/$leagueSlug/standings'
 import { Route as LeaguesLeagueSlugSchedulesImport } from './routes/leagues/$leagueSlug/schedules'
-import { Route as LeaguesLeagueSlugRecruitsImport } from './routes/leagues/$leagueSlug/recruits'
 import { Route as LeaguesLeagueSlugHomeImport } from './routes/leagues/$leagueSlug/home'
+import { Route as LeaguesLeagueSlugCommitsImport } from './routes/leagues/$leagueSlug/commits'
 import { Route as LeaguesLeagueSlugLayoutImport } from './routes/leagues/$leagueSlug/_layout'
 import { Route as LeaguesLeagueSlugGameDetailsScheduleIdImport } from './routes/leagues/$leagueSlug/gameDetails/$scheduleId'
 
@@ -63,13 +63,13 @@ const LeaguesLeagueSlugSchedulesRoute = LeaguesLeagueSlugSchedulesImport.update(
   } as any,
 )
 
-const LeaguesLeagueSlugRecruitsRoute = LeaguesLeagueSlugRecruitsImport.update({
-  path: '/recruits',
+const LeaguesLeagueSlugHomeRoute = LeaguesLeagueSlugHomeImport.update({
+  path: '/home',
   getParentRoute: () => LeaguesLeagueSlugRoute,
 } as any)
 
-const LeaguesLeagueSlugHomeRoute = LeaguesLeagueSlugHomeImport.update({
-  path: '/home',
+const LeaguesLeagueSlugCommitsRoute = LeaguesLeagueSlugCommitsImport.update({
+  path: '/commits',
   getParentRoute: () => LeaguesLeagueSlugRoute,
 } as any)
 
@@ -123,18 +123,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeaguesLeagueSlugLayoutImport
       parentRoute: typeof LeaguesLeagueSlugRoute
     }
+    '/leagues/$leagueSlug/commits': {
+      id: '/leagues/$leagueSlug/commits'
+      path: '/commits'
+      fullPath: '/leagues/$leagueSlug/commits'
+      preLoaderRoute: typeof LeaguesLeagueSlugCommitsImport
+      parentRoute: typeof LeaguesLeagueSlugImport
+    }
     '/leagues/$leagueSlug/home': {
       id: '/leagues/$leagueSlug/home'
       path: '/home'
       fullPath: '/leagues/$leagueSlug/home'
       preLoaderRoute: typeof LeaguesLeagueSlugHomeImport
-      parentRoute: typeof LeaguesLeagueSlugImport
-    }
-    '/leagues/$leagueSlug/recruits': {
-      id: '/leagues/$leagueSlug/recruits'
-      path: '/recruits'
-      fullPath: '/leagues/$leagueSlug/recruits'
-      preLoaderRoute: typeof LeaguesLeagueSlugRecruitsImport
       parentRoute: typeof LeaguesLeagueSlugImport
     }
     '/leagues/$leagueSlug/schedules': {
@@ -167,8 +167,8 @@ export const routeTree = rootRoute.addChildren({
   IndexRoute,
   LeaguesRoute: LeaguesRoute.addChildren({
     LeaguesLeagueSlugRoute: LeaguesLeagueSlugRoute.addChildren({
+      LeaguesLeagueSlugCommitsRoute,
       LeaguesLeagueSlugHomeRoute,
-      LeaguesLeagueSlugRecruitsRoute,
       LeaguesLeagueSlugSchedulesRoute,
       LeaguesLeagueSlugStandingsRoute,
       LeaguesLeagueSlugGameDetailsScheduleIdRoute,
@@ -207,8 +207,8 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/leagues",
       "children": [
         "/leagues/$leagueSlug/_layout",
+        "/leagues/$leagueSlug/commits",
         "/leagues/$leagueSlug/home",
-        "/leagues/$leagueSlug/recruits",
         "/leagues/$leagueSlug/schedules",
         "/leagues/$leagueSlug/standings",
         "/leagues/$leagueSlug/gameDetails/$scheduleId"
@@ -218,12 +218,12 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "leagues/$leagueSlug/_layout.tsx",
       "parent": "/leagues/$leagueSlug"
     },
-    "/leagues/$leagueSlug/home": {
-      "filePath": "leagues/$leagueSlug/home.tsx",
+    "/leagues/$leagueSlug/commits": {
+      "filePath": "leagues/$leagueSlug/commits.tsx",
       "parent": "/leagues/$leagueSlug"
     },
-    "/leagues/$leagueSlug/recruits": {
-      "filePath": "leagues/$leagueSlug/recruits.tsx",
+    "/leagues/$leagueSlug/home": {
+      "filePath": "leagues/$leagueSlug/home.tsx",
       "parent": "/leagues/$leagueSlug"
     },
     "/leagues/$leagueSlug/schedules": {

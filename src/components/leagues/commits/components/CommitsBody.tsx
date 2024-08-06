@@ -1,18 +1,13 @@
 import { useGetLeagueId } from "@/hooks/useGetLeagueId";
 import { useLeagueStore } from "@/zustand/useLeagueStore";
-import { useGetRecruits } from "../api/queries/useGetRecruits";
-import { RecruitsCard } from "./RecruitsCard";
+import { useGetCommits } from "../api/queries/useGetRecruits";
+import { CommitCard } from "./CommitCard";
 
-export function RecruitsBody() {
+export function CommitsBody() {
   useGetLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
 
-  const {
-    data: recruits,
-    isLoading,
-    isError,
-    error,
-  } = useGetRecruits(leagueId);
+  const { data: commits, isLoading, isError, error } = useGetCommits(leagueId);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -21,10 +16,10 @@ export function RecruitsBody() {
     return <div>{error.message}</div>;
   }
   return (
-    recruits && (
+    commits && (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 2xl:grid-cols-4">
-        {recruits.map((recruit) => (
-          <RecruitsCard key={recruit.id} recruit={recruit} />
+        {commits.map((commit) => (
+          <CommitCard key={commit.id} commit={commit} />
         ))}
       </div>
     )

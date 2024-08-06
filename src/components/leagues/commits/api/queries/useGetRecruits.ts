@@ -16,22 +16,22 @@ interface TeamInfo {
     team_info: TeamInfo;
   }
 
-export interface GetRecruitsResponse {
+export interface GetCommitsResponse {
     first_name: string;
     id: string;
     last_name: string;
-    position: Database["public"]["Enums"]["recruit_positions"];
-    star_rating: Database["public"]["Enums"]["recruit_star_ratings"];
+    position: Database["public"]["Enums"]["commit_position"];
+    star_rating: Database["public"]["Enums"]["commit_star_rating"];
     team: Team | null;
     team_id: string | null ;
 }
 
-async function getRecruits(leagueId?: string): Promise<GetRecruitsResponse[]> {
+async function getCommits(leagueId?: string): Promise<GetCommitsResponse[]> {
     if (!leagueId) {
         throw new Error("Invalid league");
     }
     const { data, error } = await supabase
-    .from("recruits")
+    .from("commits")
     .select(`
         first_name, 
         id, 
@@ -51,14 +51,14 @@ async function getRecruits(leagueId?: string): Promise<GetRecruitsResponse[]> {
   }
 
     // @ts-expect-error-next-line
-    return data as GetRecruitsResponse[];
+    return data as GetCommitsResponse[];
 }
 
-export function useGetRecruits(leagueId?: string) {
+export function useGetCommits(leagueId?: string) {
   return useQuery({
-    queryKey: ["getRecruits", leagueId],
+    queryKey: ["getCommits", leagueId],
     queryFn: async () => {
-      return getRecruits(leagueId);
+      return getCommits(leagueId);
     },
   });
 }

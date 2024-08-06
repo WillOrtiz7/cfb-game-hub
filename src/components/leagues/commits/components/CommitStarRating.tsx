@@ -1,11 +1,11 @@
 import { Database } from "@/db/types";
 import { Star } from "lucide-react";
 
-interface RecruitStarRatingProps {
-  starRating: Database["public"]["Enums"]["recruit_star_ratings"];
+interface CommitStarRatingProps {
+  starRating: Database["public"]["Enums"]["commit_star_rating"];
 }
 
-export function RecruitStarRating({ starRating }: RecruitStarRatingProps) {
+export function CommitStarRating({ starRating }: CommitStarRatingProps) {
   const rating = Number(starRating);
 
   return (
