@@ -68,7 +68,7 @@ export function CommitUpsertForm({
   const upsertCommitForm = useForm<z.infer<typeof upsertCommitFormSchema>>({
     resolver: zodResolver(upsertCommitFormSchema),
     defaultValues: {
-      commitId: commit?.id || "",
+      commitId: commit?.id || undefined,
       firstName: commit?.first_name || "",
       lastName: commit?.last_name || "",
       leagueId: leagueId,
