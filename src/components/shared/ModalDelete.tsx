@@ -22,7 +22,7 @@ import {
 interface ModalDeleteProps {
   deleteAction: () => void;
   deletePending: boolean;
-  description: React.ReactNode;
+  description: string;
   open: boolean;
   setOpen: (open: boolean) => void;
   title: string;
