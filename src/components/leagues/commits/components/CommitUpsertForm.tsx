@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useGetLeagueId } from "@/hooks/useGetLeagueId";
@@ -18,6 +18,8 @@ import { z } from "zod";
 import { ScheduleTeamListDropdown } from "../../schedules/components/ScheduleTeamListDropdown";
 import { useUpsertCommit } from "../api/mutations/useUpsertCommit";
 import { GetCommitsResponse } from "../api/queries/useGetRecruits";
+import { CommitPositionsDropdown } from "./CommitPositionsDropdown";
+import { CommitStarRatingDropdown } from "./CommitStarRatingDropdown";
 
 interface CommitUpsertFormProps {
   closeModal: () => void;
@@ -98,7 +100,6 @@ export function CommitUpsertForm({
   }
 
   function onSubmit(values: z.infer<typeof upsertCommitFormSchema>) {
-    console.log(values);
     mutate(values, { onSuccess: onSubmitSuccess, onError: onSubmitError });
   }
 
@@ -158,10 +159,9 @@ export function CommitUpsertForm({
               <FormItem className="flex flex-col w-1/2">
                 <FormLabel>Positon</FormLabel>
                 <FormControl>
-                  <Input
-                    className="text-lg md:text-sm"
-                    type="text"
-                    {...field}
+                  <CommitPositionsDropdown
+                    onValueChange={field.onChange}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />
@@ -176,10 +176,9 @@ export function CommitUpsertForm({
               <FormItem className="flex flex-col w-1/2">
                 <FormLabel>Star Rating</FormLabel>
                 <FormControl>
-                  <Input
-                    className="text-lg md:text-sm"
-                    type="number"
-                    {...field}
+                  <CommitStarRatingDropdown
+                    onValueChange={field.onChange}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />

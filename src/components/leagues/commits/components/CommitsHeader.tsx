@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Edit, Plus } from "lucide-react";
-import { COMMIT_MODAL_STRINGS } from "../constants/content";
+import { COMMIT_MODAL_ADD_STRINGS } from "../constants/content";
 import { useCommitStore } from "../store/useCommitStore";
 import { CommitUpsertModal } from "./CommitUpsertModal";
 
@@ -12,9 +12,9 @@ export function CommitsHeader() {
       <h1 className="text-2xl font-semibold">Commits</h1>
       <div className="flex flex-row gap-2">
         <CommitUpsertModal
-          description={COMMIT_MODAL_STRINGS.description}
+          description={COMMIT_MODAL_ADD_STRINGS.description}
           requestType="POST"
-          title={COMMIT_MODAL_STRINGS.title}
+          title={COMMIT_MODAL_ADD_STRINGS.title}
           triggerButton={
             <Button
               className="items-center self-end justify-center w-min md:w-fit"

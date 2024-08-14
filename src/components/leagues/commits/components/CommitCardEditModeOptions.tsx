@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import { GetCommitsResponse } from "../api/queries/useGetRecruits";
-import { COMMIT_MODAL_STRINGS } from "../constants/content";
+import { COMMIT_MODAL_EDIT_STRINGS } from "../constants/content";
 import { CommitDeleteModal } from "./CommitDeleteModal";
 import { CommitUpsertModal } from "./CommitUpsertModal";
 
@@ -16,9 +16,9 @@ export function CommitCardEditModeOptions({
     <div className="flex justify-end border-b-[1px] w-full">
       <CommitUpsertModal
         commit={commit}
-        description={COMMIT_MODAL_STRINGS.description}
+        description={COMMIT_MODAL_EDIT_STRINGS.description}
         requestType="PUT"
-        title={COMMIT_MODAL_STRINGS.title}
+        title={COMMIT_MODAL_EDIT_STRINGS.title}
         triggerButton={
           <Button variant={"ghost"} size={"icon"}>
             <Edit className="w-4 h-4" />
