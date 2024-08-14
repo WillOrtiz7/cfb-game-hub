@@ -25,7 +25,7 @@ export function CommitCard({ commit }: CommitCardProps) {
       style={{ borderColor: commit.team?.team_info.primary_color }}
     >
       {isEditMode && <CommitCardEditModeOptions commit={commit} />}
-      <CardHeader className="flex flex-row self-start justify-between w-full pb-0">
+      <CardHeader className="flex flex-row items-center self-start justify-between w-full py-1">
         <img
           src={TEAM_LOGOS_BASE_URL + commit.team?.team_info.logo_id + ".png"}
           className="object-scale-down w-16 h-16"
