@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Edit, Plus } from "lucide-react";
 import { COMMIT_MODAL_STRINGS } from "../constants/content";
+import { useCommitStore } from "../store/useCommitStore";
 import { CommitUpsertModal } from "./CommitUpsertModal";
 
 export function CommitsHeader() {
+  const isEditMode = useCommitStore((state) => state.isEditMode);
+  const setIsEditMode = useCommitStore((state) => state.setIsEditMode);
   return (
     <div className="flex flex-row justify-between">
       <h1 className="text-2xl font-semibold">Commits</h1>
@@ -25,8 +28,15 @@ export function CommitsHeader() {
         <Button
           className="items-center self-end justify-center w-min md:w-fit"
           variant={"outline"}
+          onClick={() => setIsEditMode(!isEditMode)}
         >
-          <span>Edit</span> <Edit className="w-4 h-4 ml-2" />
+          {isEditMode ? (
+            <span>Done</span>
+          ) : (
+            <>
+              <span>Edit</span> <Edit className="w-4 h-4 ml-2" />
+            </>
+          )}
         </Button>
       </div>
     </div>

@@ -17,9 +17,11 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { ScheduleTeamListDropdown } from "../../schedules/components/ScheduleTeamListDropdown";
 import { useUpsertCommit } from "../api/mutations/useUpsertCommit";
+import { GetCommitsResponse } from "../api/queries/useGetRecruits";
 
 interface CommitUpsertFormProps {
   closeModal: () => void;
+  commit?: GetCommitsResponse;
   requestType: "POST" | "PUT";
   year: number;
 }
@@ -54,6 +56,7 @@ const upsertCommitFormSchema = z.object({
 
 export function CommitUpsertForm({
   closeModal,
+  commit,
   requestType,
   year,
 }: CommitUpsertFormProps) {
@@ -65,13 +68,13 @@ export function CommitUpsertForm({
   const upsertCommitForm = useForm<z.infer<typeof upsertCommitFormSchema>>({
     resolver: zodResolver(upsertCommitFormSchema),
     defaultValues: {
-      commitId: undefined,
-      firstName: "",
-      lastName: "",
+      commitId: commit?.id || "",
+      firstName: commit?.first_name || "",
+      lastName: commit?.last_name || "",
       leagueId: leagueId,
-      position: "QB",
-      starRating: "1",
-      teamId: "",
+      position: commit?.position || "QB",
+      starRating: commit?.star_rating || "1",
+      teamId: commit?.team?.id || "",
       year: year,
     },
   });

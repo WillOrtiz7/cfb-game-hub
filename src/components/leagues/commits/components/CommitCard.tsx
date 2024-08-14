@@ -9,6 +9,8 @@ import {
   TEAM_LOGOS_HELMET_BASE_URL,
 } from "../../schedules/constants/baseUrls";
 import { GetCommitsResponse } from "../api/queries/useGetRecruits";
+import { useCommitStore } from "../store/useCommitStore";
+import { CommitCardEditModeOptions } from "./CommitCardEditModeOptions";
 import { CommitStarRating } from "./CommitStarRating";
 
 interface CommitCardProps {
@@ -16,11 +18,13 @@ interface CommitCardProps {
 }
 
 export function CommitCard({ commit }: CommitCardProps) {
+  const isEditMode = useCommitStore((state) => state.isEditMode);
   return (
     <Card
       className="flex flex-col items-center justify-center"
       style={{ borderColor: commit.team?.team_info.primary_color }}
     >
+      {isEditMode && <CommitCardEditModeOptions commit={commit} />}
       <CardHeader className="flex flex-row self-start justify-between w-full pb-0">
         <img
           src={TEAM_LOGOS_BASE_URL + commit.team?.team_info.logo_id + ".png"}

@@ -1,8 +1,10 @@
 import { ModalForm } from "@/components/shared/ModalForm";
 import { useState } from "react";
+import { GetCommitsResponse } from "../api/queries/useGetRecruits";
 import { CommitUpsertForm } from "./CommitUpsertForm";
 
 interface CommitUpsertModalProps {
+  commit?: GetCommitsResponse;
   description: string;
   requestType: "POST" | "PUT";
   title: string;
@@ -11,6 +13,7 @@ interface CommitUpsertModalProps {
 }
 
 export function CommitUpsertModal({
+  commit,
   description,
   requestType,
   title,
@@ -25,6 +28,7 @@ export function CommitUpsertModal({
       form={
         <CommitUpsertForm
           closeModal={() => setOpen(false)}
+          commit={commit}
           requestType={requestType}
           year={year}
         />
