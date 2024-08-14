@@ -16,18 +16,15 @@ export function CommitsHeader() {
           requestType="POST"
           title={COMMIT_MODAL_ADD_STRINGS.title}
           triggerButton={
-            <Button
-              className="items-center self-end justify-center w-min md:w-fit"
-              variant={"outline"}
-            >
+            <Button className=" w-min md:w-fit" variant={"outline"}>
               <span>Add a Commit</span> <Plus className="w-4 h-4 ml-2" />
             </Button>
           }
           year={2024}
         />
         <Button
-          className="items-center self-end justify-center w-min md:w-fit"
-          variant={"outline"}
+          className="w-min md:w-fit"
+          variant={isEditMode ? "default" : "outline"}
           onClick={() => setIsEditMode(!isEditMode)}
         >
           {isEditMode ? (
