@@ -24,13 +24,14 @@ export interface GetCommitsResponse {
     star_rating: Database["public"]["Enums"]["commit_star_rating"];
     team: Team | null;
     team_id: string | null ;
+    year: number;
 }
 
-async function getCommits(leagueId?: string): Promise<GetCommitsResponse[]> {
+async function getCommits(leagueId?: string, year?: number): Promise<GetCommitsResponse[]> {
     if (!leagueId) {
         throw new Error("Invalid league");
     }
-    const { data, error } = await supabase
+    let getCommitsQuery = supabase
     .from("commits")
     .select(`
         first_name, 
@@ -38,12 +39,19 @@ async function getCommits(leagueId?: string): Promise<GetCommitsResponse[]> {
         last_name, 
         position, 
         star_rating, 
-        team_id,
         team:league_teams!left(
         id, team_id, 
           team_info:teams!left(id, logo_id, name_abbreviation, primary_color)
-        )`)
+        ),
+        team_id,
+        year`)
     .eq("league_id", leagueId).order("star_rating", { ascending: false });
+
+    if (year) {
+      getCommitsQuery = getCommitsQuery.eq("year", year);
+    }
+
+    const { data, error } = await getCommitsQuery;
 
 
   if (error) {
@@ -54,11 +62,11 @@ async function getCommits(leagueId?: string): Promise<GetCommitsResponse[]> {
     return data as GetCommitsResponse[];
 }
 
-export function useGetCommits(leagueId?: string) {
+export function useGetCommits(leagueId?: string, year?: number) {
   return useQuery({
-    queryKey: ["getCommits", leagueId],
+    queryKey: ["getCommits", leagueId, year],
     queryFn: async () => {
-      return getCommits(leagueId);
+      return getCommits(leagueId, year);
     },
   });
 }

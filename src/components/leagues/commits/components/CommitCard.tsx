@@ -30,7 +30,10 @@ export function CommitCard({ commit }: CommitCardProps) {
           src={TEAM_LOGOS_BASE_URL + commit.team?.team_info.logo_id + ".png"}
           className="object-scale-down w-16 h-16"
         />
-        <span className="text-xl font-semibold">{commit.position}</span>
+        <div className="flex flex-col items-center">
+          <span className="text-xl font-semibold">{commit.position}</span>
+          <span className="text-xs italic ">{commit.year}</span>
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col items-center w-full">
         <img
@@ -46,7 +49,6 @@ export function CommitCard({ commit }: CommitCardProps) {
           </p>
           <CommitStarRating starRating={commit.star_rating} />
         </div>
-
         <img
           src={
             TEAM_LOGOS_HELMET_BASE_URL + commit.team?.team_info.logo_id + ".png"

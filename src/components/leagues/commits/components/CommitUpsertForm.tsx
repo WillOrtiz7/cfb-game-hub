@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useGetLeagueId } from "@/hooks/useGetLeagueId";
@@ -125,38 +125,45 @@ export function CommitUpsertForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={upsertCommitForm.control}
-          name="firstName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>First Name</FormLabel>
-              <FormControl>
-                <Input className="text-lg md:text-sm" {...field} type="text" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={upsertCommitForm.control}
-          name="lastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Last Name</FormLabel>
-              <FormControl>
-                <Input className="text-lg md:text-sm" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-row gap-2">
+          <FormField
+            control={upsertCommitForm.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    {...field}
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={upsertCommitForm.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input className="text-lg md:text-sm" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <div className="flex flex-row gap-2">
           <FormField
             control={upsertCommitForm.control}
             name="position"
             render={({ field }) => (
-              <FormItem className="flex flex-col w-1/2">
+              <FormItem className="w-1/2">
                 <FormLabel>Positon</FormLabel>
                 <FormControl>
                   <CommitPositionsDropdown
@@ -173,7 +180,7 @@ export function CommitUpsertForm({
             control={upsertCommitForm.control}
             name="starRating"
             render={({ field }) => (
-              <FormItem className="flex flex-col w-1/2">
+              <FormItem className="w-1/2">
                 <FormLabel>Star Rating</FormLabel>
                 <FormControl>
                   <CommitStarRatingDropdown
