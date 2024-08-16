@@ -9,13 +9,12 @@ export function CommitsHeader() {
   const isEditMode = useCommitStore((state) => state.isEditMode);
   const setIsEditMode = useCommitStore((state) => state.setIsEditMode);
   const year = useCommitStore((state) => state.filterYear);
-  const setYear = useCommitStore((state) => state.setFilterYear);
 
   return (
     <div className="flex flex-row justify-between">
       <h1 className="text-2xl font-semibold">Commits</h1>
       <div className="flex flex-row gap-2">
-        <CommitFilter year={year} setYear={setYear} />
+        <CommitFilter />
         <CommitUpsertModal
           description={COMMIT_MODAL_ADD_STRINGS.description}
           requestType="POST"

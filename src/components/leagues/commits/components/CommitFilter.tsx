@@ -1,3 +1,4 @@
+import { TeamListDropdown } from "@/components/shared/TeamListDropdown";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,13 +15,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Filter } from "lucide-react";
+import { useCommitStore } from "../store/useCommitStore";
 
-interface CommitFilterProps {
-  year: number;
-  setYear: (year: number) => void;
-}
+export function CommitFilter() {
+  const year = useCommitStore((state) => state.filterYear);
+  const setYear = useCommitStore((state) => state.setFilterYear);
+  const teamId = useCommitStore((state) => state.filterTeamId);
+  const setTeamId = useCommitStore((state) => state.setFilterTeamId);
 
-export function CommitFilter({ year, setYear }: CommitFilterProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -54,10 +56,10 @@ export function CommitFilter({ year, setYear }: CommitFilterProps) {
             </div>
             <div className="grid items-center grid-cols-3 gap-4">
               <Label htmlFor="team">Team</Label>
-              <Input
-                id="team"
-                defaultValue="300px"
-                className="h-8 col-span-2"
+              <TeamListDropdown
+                setNewValue={setTeamId}
+                defaultValue={teamId}
+                triggerWidth={180}
               />
             </div>
             <div className="grid items-center grid-cols-3 gap-4">

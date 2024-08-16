@@ -27,7 +27,7 @@ export interface GetCommitsResponse {
     year: number;
 }
 
-async function getCommits(leagueId?: string, year?: number): Promise<GetCommitsResponse[]> {
+async function getCommits(leagueId?: string, year?: number, teamId?: string): Promise<GetCommitsResponse[]> {
     if (!leagueId) {
         throw new Error("Invalid league");
     }
@@ -51,6 +51,11 @@ async function getCommits(leagueId?: string, year?: number): Promise<GetCommitsR
       getCommitsQuery = getCommitsQuery.eq("year", year);
     }
 
+    if (teamId) {
+      console.log("teamId", teamId);
+      getCommitsQuery = getCommitsQuery.eq("team_id", teamId);
+    }
+
     const { data, error } = await getCommitsQuery;
 
 
@@ -62,11 +67,11 @@ async function getCommits(leagueId?: string, year?: number): Promise<GetCommitsR
     return data as GetCommitsResponse[];
 }
 
-export function useGetCommits(leagueId?: string, year?: number) {
+export function useGetCommits(leagueId?: string, year?: number, teamId?: string) {
   return useQuery({
-    queryKey: ["getCommits", leagueId, year],
+    queryKey: ["getCommits", leagueId, year, teamId],
     queryFn: async () => {
-      return getCommits(leagueId, year);
+      return getCommits(leagueId, year, teamId);
     },
   });
 }

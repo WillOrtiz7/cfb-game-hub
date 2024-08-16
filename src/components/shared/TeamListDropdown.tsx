@@ -9,18 +9,20 @@ import {
 } from "@/components/ui/select";
 import { useGetLeagueId } from "@/hooks/useGetLeagueId";
 import { useLeagueStore } from "@/zustand/useLeagueStore";
-import { useGetTeams } from "../api/queries/useGetTeams";
-import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
+import { useGetTeams } from "../leagues/schedules/api/queries/useGetTeams";
+import { TEAM_LOGOS_BASE_URL } from "../leagues/schedules/constants/baseUrls";
 
-interface ScheduleTeamListDropdownProps {
+interface TeamListDropdownProps {
   defaultValue: string;
-  onValueChange: (value: string) => void;
+  setNewValue: (value: string) => void;
+  triggerWidth?: number;
 }
 
-export function ScheduleTeamListDropdown({
+export function TeamListDropdown({
   defaultValue,
-  onValueChange,
-}: ScheduleTeamListDropdownProps) {
+  setNewValue,
+  triggerWidth,
+}: TeamListDropdownProps) {
   useGetLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
 
@@ -34,8 +36,11 @@ export function ScheduleTeamListDropdown({
 
   return (
     teams && (
-      <Select onValueChange={onValueChange} defaultValue={defaultValue}>
-        <SelectTrigger className="w-full">
+      <Select
+        onValueChange={(value) => setNewValue(value)}
+        defaultValue={defaultValue}
+      >
+        <SelectTrigger style={{ width: triggerWidth }}>
           <SelectValue placeholder="Select a team" />
         </SelectTrigger>
         <SelectContent>
