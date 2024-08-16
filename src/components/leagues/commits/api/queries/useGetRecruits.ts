@@ -27,7 +27,7 @@ export interface GetCommitsResponse {
     year: number;
 }
 
-async function getCommits(leagueId?: string, year?: number, teamId?: string): Promise<GetCommitsResponse[]> {
+async function getCommits(leagueId?: string, year?: number, teamId?: string, position?: Database["public"]["Enums"]["commit_position"]): Promise<GetCommitsResponse[]> {
     if (!leagueId) {
         throw new Error("Invalid league");
     }
@@ -56,6 +56,10 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string): Pr
       getCommitsQuery = getCommitsQuery.eq("team_id", teamId);
     }
 
+    if (position) {
+      getCommitsQuery = getCommitsQuery.eq("position", position);
+    }
+
     const { data, error } = await getCommitsQuery;
 
 
@@ -67,11 +71,11 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string): Pr
     return data as GetCommitsResponse[];
 }
 
-export function useGetCommits(leagueId?: string, year?: number, teamId?: string) {
+export function useGetCommits(leagueId?: string, year?: number, teamId?: string, position?: Database["public"]["Enums"]["commit_position"]) {
   return useQuery({
-    queryKey: ["getCommits", leagueId, year, teamId],
+    queryKey: ["getCommits", leagueId, year, teamId, position],
     queryFn: async () => {
-      return getCommits(leagueId, year, teamId);
+      return getCommits(leagueId, year, teamId, position);
     },
   });
 }

@@ -9,13 +9,14 @@ export function CommitsBody() {
   const leagueId = useLeagueStore((state) => state.leagueId);
   const year = useCommitStore((state) => state.filterYear);
   const teamId = useCommitStore((state) => state.filterTeamId);
+  const position = useCommitStore((state) => state.filterPosition);
 
   const {
     data: commits,
     isLoading,
     isError,
     error,
-  } = useGetCommits(leagueId, year, teamId);
+  } = useGetCommits(leagueId, year, teamId, position);
 
   if (isLoading) {
     return <div>Loading...</div>;

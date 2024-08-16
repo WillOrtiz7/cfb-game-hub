@@ -429,12 +429,14 @@ export type Database = {
       app_permission: "schedules.delete" | "highlights.delete"
       app_role: "admin" | "coach" | "visitor"
       commit_position:
+        | "ATH"
         | "QB"
         | "HB"
         | "WR"
         | "TE"
         | "OT"
         | "OG"
+        | "C"
         | "DE"
         | "DT"
         | "OLB"
@@ -444,7 +446,6 @@ export type Database = {
         | "SS"
         | "K"
         | "P"
-        | "ATH"
       commit_star_rating: "1" | "2" | "3" | "4" | "5"
     }
     CompositeTypes: {

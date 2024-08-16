@@ -1,3 +1,4 @@
+import { PositionListDropdown } from "@/components/shared/PositionListDropdown";
 import { TeamListDropdown } from "@/components/shared/TeamListDropdown";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,8 @@ export function CommitFilter() {
   const setYear = useCommitStore((state) => state.setFilterYear);
   const teamId = useCommitStore((state) => state.filterTeamId);
   const setTeamId = useCommitStore((state) => state.setFilterTeamId);
+  const position = useCommitStore((state) => state.filterPosition);
+  const setPosition = useCommitStore((state) => state.setFilterPosition);
 
   return (
     <Popover>
@@ -64,10 +67,10 @@ export function CommitFilter() {
             </div>
             <div className="grid items-center grid-cols-3 gap-4">
               <Label htmlFor="position">Position</Label>
-              <Input
-                id="position"
-                defaultValue="300px"
-                className="h-8 col-span-2"
+              <PositionListDropdown
+                setValue={setPosition}
+                value={position}
+                triggerWidth={180}
               />
             </div>
             <div className="grid items-center grid-cols-3 gap-4">
