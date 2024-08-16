@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
-import { GetCommitsResponse } from "../api/queries/useGetRecruits";
+import { GetCommitsResponse } from "../api/queries/useGetCommits";
 import { COMMIT_MODAL_EDIT_STRINGS } from "../constants/content";
 import { CommitDeleteModal } from "./CommitDeleteModal";
 import { CommitUpsertModal } from "./CommitUpsertModal";

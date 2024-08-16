@@ -1,6 +1,6 @@
 import { useGetLeagueId } from "@/hooks/useGetLeagueId";
 import { useLeagueStore } from "@/zustand/useLeagueStore";
-import { useGetCommits } from "../api/queries/useGetRecruits";
+import { useGetCommits } from "../api/queries/useGetCommits";
 import { useCommitStore } from "../store/useCommitStore";
 import { CommitCard } from "./CommitCard";
 

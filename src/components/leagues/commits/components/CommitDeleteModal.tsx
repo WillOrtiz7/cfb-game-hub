@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import { useDeleteCommit } from "../api/mutations/useDeleteCommit";
-import { GetCommitsResponse } from "../api/queries/useGetRecruits";
+import { GetCommitsResponse } from "../api/queries/useGetCommits";
 
 interface CommitDeleteModalProps {
   commit: GetCommitsResponse;

@@ -1,6 +1,6 @@
 import { ModalForm } from "@/components/shared/ModalForm";
 import { useState } from "react";
-import { GetCommitsResponse } from "../api/queries/useGetRecruits";
+import { GetCommitsResponse } from "../api/queries/useGetCommits";
 import { CommitUpsertForm } from "./CommitUpsertForm";
 
 interface CommitUpsertModalProps {

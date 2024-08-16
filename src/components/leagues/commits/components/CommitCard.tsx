@@ -9,7 +9,7 @@ import {
   TEAM_LOGOS_BASE_URL,
   TEAM_LOGOS_HELMET_BASE_URL,
 } from "../../schedules/constants/baseUrls";
-import { GetCommitsResponse } from "../api/queries/useGetRecruits";
+import { GetCommitsResponse } from "../api/queries/useGetCommits";
 import { useCommitStore } from "../store/useCommitStore";
 import { CommitCardEditModeOptions } from "./CommitCardEditModeOptions";
 import { CommitStarRating } from "./CommitStarRating";

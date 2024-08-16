@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { ScheduleTeamListDropdown } from "../../schedules/components/ScheduleTeamListDropdown";
 import { useUpsertCommit } from "../api/mutations/useUpsertCommit";
-import { GetCommitsResponse } from "../api/queries/useGetRecruits";
+import { GetCommitsResponse } from "../api/queries/useGetCommits";
 import { CommitPositionsDropdown } from "./CommitPositionsDropdown";
 import { CommitStarRatingDropdown } from "./CommitStarRatingDropdown";
 
