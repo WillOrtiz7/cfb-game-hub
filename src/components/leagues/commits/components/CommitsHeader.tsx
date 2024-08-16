@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Edit, Plus } from "lucide-react";
 import { COMMIT_MODAL_ADD_STRINGS } from "../constants/content";
 import { useCommitStore } from "../store/useCommitStore";
@@ -8,6 +10,10 @@ import { CommitUpsertModal } from "./CommitUpsertModal";
 export function CommitsHeader() {
   const isEditMode = useCommitStore((state) => state.isEditMode);
   const setIsEditMode = useCommitStore((state) => state.setIsEditMode);
+  const isTableViewMode = useCommitStore((state) => state.isTableViewMode);
+  const setIsTableViewMode = useCommitStore(
+    (state) => state.setIsTableViewMode
+  );
   const year = useCommitStore((state) => state.filterYear);
 
   return (
@@ -16,7 +22,15 @@ export function CommitsHeader() {
         <h1 className="text-2xl font-semibold">Commits</h1>
         <h3 className="italic">{year}</h3>
       </div>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row items-center gap-2">
+        <div className="flex items-center gap-2 px-4">
+          <Switch
+            id="table-view-mode"
+            checked={isTableViewMode}
+            onCheckedChange={() => setIsTableViewMode(!isTableViewMode)}
+          />
+          <Label htmlFor="table-view-mode">Table View</Label>
+        </div>
         <CommitFilter />
         <CommitUpsertModal
           description={COMMIT_MODAL_ADD_STRINGS.description}

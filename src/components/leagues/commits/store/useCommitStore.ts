@@ -4,6 +4,8 @@ import { create } from 'zustand';
 interface CommitState {
   isEditMode: boolean;
   setIsEditMode: (isEditMode: boolean) => void;
+  isTableViewMode: boolean;
+  setIsTableViewMode: (isTableViewMode: boolean) => void;
   filterYear: number;
   setFilterYear: (year: number) => void;
   filterTeamId: string | undefined;
@@ -20,6 +22,8 @@ interface CommitState {
 export const useCommitStore = create<CommitState>((set) => ({
     isEditMode: false,
     setIsEditMode: (isEditMode) => set({ isEditMode }),
+    isTableViewMode: false,
+    setIsTableViewMode: (isTableViewMode) => set({ isTableViewMode }),
     filterYear: 2024,
     setFilterYear: (year) => set({ filterYear: year }),
     filterTeamId: "",
