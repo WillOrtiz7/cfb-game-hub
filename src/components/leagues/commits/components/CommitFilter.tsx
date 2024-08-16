@@ -1,7 +1,6 @@
 import { PositionListDropdown } from "@/components/shared/PositionListDropdown";
 import { TeamListDropdown } from "@/components/shared/TeamListDropdown";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Popover,
@@ -17,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Filter } from "lucide-react";
 import { useCommitStore } from "../store/useCommitStore";
+import { CommitStarRatingDropdown } from "./CommitStarRatingDropdown";
 
 export function CommitFilter() {
   const year = useCommitStore((state) => state.filterYear);
@@ -25,6 +25,10 @@ export function CommitFilter() {
   const setTeamId = useCommitStore((state) => state.setFilterTeamId);
   const position = useCommitStore((state) => state.filterPosition);
   const setPosition = useCommitStore((state) => state.setFilterPosition);
+  const minStars = useCommitStore((state) => state.filterMinStars);
+  const setMinStars = useCommitStore((state) => state.setFilterMinStars);
+  const maxStars = useCommitStore((state) => state.filterMaxStars);
+  const setMaxStars = useCommitStore((state) => state.setFilterMaxStars);
 
   return (
     <Popover>
@@ -62,6 +66,7 @@ export function CommitFilter() {
               <TeamListDropdown
                 setNewValue={setTeamId}
                 defaultValue={teamId}
+                showAllTeamsOption={true}
                 triggerWidth={180}
               />
             </div>
@@ -75,18 +80,18 @@ export function CommitFilter() {
             </div>
             <div className="grid items-center grid-cols-3 gap-4">
               <Label htmlFor="minStars">Min Stars</Label>
-              <Input
-                id="minStars"
-                defaultValue="25px"
-                className="h-8 col-span-2"
+              <CommitStarRatingDropdown
+                value={minStars}
+                setValue={setMinStars}
+                triggerWidth={180}
               />
             </div>
             <div className="grid items-center grid-cols-3 gap-4">
               <Label htmlFor="maxStars">Max Stars</Label>
-              <Input
-                id="maxStars"
-                defaultValue="none"
-                className="h-8 col-span-2"
+              <CommitStarRatingDropdown
+                value={maxStars}
+                setValue={setMaxStars}
+                triggerWidth={180}
               />
             </div>
           </div>

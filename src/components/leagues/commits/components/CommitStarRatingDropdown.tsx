@@ -10,12 +10,16 @@ import {} from "@radix-ui/react-select";
 import { Star } from "lucide-react";
 
 interface CommitPositionsDropdownProps {
-  onValueChange: (value: string) => void;
-  value: Database["public"]["Enums"]["commit_star_rating"];
+  setValue?: (value: Database["public"]["Enums"]["commit_star_rating"]) => void;
+  onValueChange?: (value: string) => void;
+  triggerWidth?: number;
+  value: Database["public"]["Enums"]["commit_star_rating"] | undefined;
 }
 
 export function CommitStarRatingDropdown({
+  setValue,
   onValueChange,
+  triggerWidth,
   value,
 }: CommitPositionsDropdownProps) {
   function renderStars(rating: number) {
@@ -32,9 +36,18 @@ export function CommitStarRatingDropdown({
       </div>
     );
   }
+
+  const handleValueChange = (value: string) => {
+    if (onValueChange) {
+      onValueChange(value);
+    } else if (setValue) {
+      setValue(value as Database["public"]["Enums"]["commit_star_rating"]);
+    }
+  };
+
   return (
-    <Select onValueChange={onValueChange} defaultValue={value}>
-      <SelectTrigger>
+    <Select onValueChange={handleValueChange} defaultValue={value}>
+      <SelectTrigger style={{ width: triggerWidth }}>
         <SelectValue placeholder="Select a star rating" />
       </SelectTrigger>
 

@@ -6,10 +6,14 @@ interface CommitState {
   setIsEditMode: (isEditMode: boolean) => void;
   filterYear: number;
   setFilterYear: (year: number) => void;
-  filterTeamId: string;
-  setFilterTeamId: (teamId: string) => void;
+  filterTeamId: string | undefined;
+  setFilterTeamId: (teamId: string | undefined) => void;
   filterPosition: Database["public"]["Enums"]["commit_position"] | undefined;
-  setFilterPosition: (position: Database["public"]["Enums"]["commit_position"]) => void;
+  setFilterPosition: (position: Database["public"]["Enums"]["commit_position"] | undefined) => void;
+  filterMinStars: Database["public"]["Enums"]["commit_star_rating"] | undefined;
+  setFilterMinStars: (stars: Database["public"]["Enums"]["commit_star_rating"] | undefined) => void;
+  filterMaxStars: Database["public"]["Enums"]["commit_star_rating"] | undefined;
+  setFilterMaxStars: (stars: Database["public"]["Enums"]["commit_star_rating"] | undefined) => void;
 
 }
 
@@ -22,4 +26,8 @@ export const useCommitStore = create<CommitState>((set) => ({
     setFilterTeamId: (teamId) => set({ filterTeamId: teamId }),
     filterPosition: undefined,
     setFilterPosition: (position) => set({ filterPosition: position }),
+    filterMinStars: undefined,
+    setFilterMinStars: (stars) => set({ filterMinStars: stars }),
+    filterMaxStars: undefined,
+    setFilterMaxStars: (stars) => set({ filterMaxStars: stars }),
 }));

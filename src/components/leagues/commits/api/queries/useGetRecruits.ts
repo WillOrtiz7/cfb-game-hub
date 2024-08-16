@@ -27,7 +27,11 @@ export interface GetCommitsResponse {
     year: number;
 }
 
-async function getCommits(leagueId?: string, year?: number, teamId?: string, position?: Database["public"]["Enums"]["commit_position"]): Promise<GetCommitsResponse[]> {
+async function getCommits(leagueId?: string, year?: number, teamId?: string, 
+  position?: Database["public"]["Enums"]["commit_position"], 
+  minStars?: Database["public"]["Enums"]["commit_star_rating"],
+  maxStars?: Database["public"]["Enums"]["commit_star_rating"],
+): Promise<GetCommitsResponse[]> {
     if (!leagueId) {
         throw new Error("Invalid league");
     }
@@ -51,13 +55,20 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string, pos
       getCommitsQuery = getCommitsQuery.eq("year", year);
     }
 
-    if (teamId) {
-      console.log("teamId", teamId);
+    if (teamId && teamId !== "all") {
       getCommitsQuery = getCommitsQuery.eq("team_id", teamId);
     }
 
     if (position) {
       getCommitsQuery = getCommitsQuery.eq("position", position);
+    }
+
+    if (minStars) {
+      getCommitsQuery = getCommitsQuery.gte("star_rating", minStars);
+    }
+
+    if (maxStars) {
+      getCommitsQuery = getCommitsQuery.lte("star_rating", maxStars);
     }
 
     const { data, error } = await getCommitsQuery;
@@ -71,11 +82,14 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string, pos
     return data as GetCommitsResponse[];
 }
 
-export function useGetCommits(leagueId?: string, year?: number, teamId?: string, position?: Database["public"]["Enums"]["commit_position"]) {
+export function useGetCommits(leagueId?: string, year?: number, teamId?: string, 
+  position?: Database["public"]["Enums"]["commit_position"], 
+  minStars?: Database["public"]["Enums"]["commit_star_rating"],
+  maxStars?: Database["public"]["Enums"]["commit_star_rating"]) {
   return useQuery({
-    queryKey: ["getCommits", leagueId, year, teamId, position],
+    queryKey: ["getCommits", leagueId, year, teamId, position, minStars, maxStars],
     queryFn: async () => {
-      return getCommits(leagueId, year, teamId, position);
+      return getCommits(leagueId, year, teamId, position, minStars, maxStars);
     },
   });
 }

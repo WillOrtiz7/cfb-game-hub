@@ -6,7 +6,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Database } from "@/db/types";
-import {} from "@radix-ui/react-select";
 
 interface CommitPositionsDropdownProps {
   setValue: (value: Database["public"]["Enums"]["commit_position"]) => void;

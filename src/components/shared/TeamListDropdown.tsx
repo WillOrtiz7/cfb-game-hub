@@ -13,12 +13,14 @@ import { useGetTeams } from "../leagues/schedules/api/queries/useGetTeams";
 import { TEAM_LOGOS_BASE_URL } from "../leagues/schedules/constants/baseUrls";
 
 interface TeamListDropdownProps {
-  defaultValue: string;
+  defaultValue: string | undefined;
   setNewValue: (value: string) => void;
+  showAllTeamsOption?: boolean;
   triggerWidth?: number;
 }
 
 export function TeamListDropdown({
+  showAllTeamsOption,
   defaultValue,
   setNewValue,
   triggerWidth,
@@ -38,7 +40,7 @@ export function TeamListDropdown({
     teams && (
       <Select
         onValueChange={(value) => setNewValue(value)}
-        defaultValue={defaultValue}
+        value={defaultValue}
       >
         <SelectTrigger style={{ width: triggerWidth }}>
           <SelectValue placeholder="Select a team" />
@@ -46,6 +48,9 @@ export function TeamListDropdown({
         <SelectContent>
           <SelectGroup>
             <SelectLabel>User Teams</SelectLabel>
+            {showAllTeamsOption && (
+              <SelectItem value="all">All teams</SelectItem>
+            )}
             {teams.userTeams.map((team) => (
               <SelectItem key={team.id} value={team.id}>
                 <div className="flex flex-row gap-2">

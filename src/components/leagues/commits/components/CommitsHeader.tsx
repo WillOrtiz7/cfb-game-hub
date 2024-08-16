@@ -12,7 +12,10 @@ export function CommitsHeader() {
 
   return (
     <div className="flex flex-row justify-between">
-      <h1 className="text-2xl font-semibold">Commits</h1>
+      <div>
+        <h1 className="text-2xl font-semibold">Commits</h1>
+        <h3 className="italic">{year}</h3>
+      </div>
       <div className="flex flex-row gap-2">
         <CommitFilter />
         <CommitUpsertModal

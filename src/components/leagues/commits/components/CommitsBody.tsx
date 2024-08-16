@@ -10,13 +10,15 @@ export function CommitsBody() {
   const year = useCommitStore((state) => state.filterYear);
   const teamId = useCommitStore((state) => state.filterTeamId);
   const position = useCommitStore((state) => state.filterPosition);
+  const minStars = useCommitStore((state) => state.filterMinStars);
+  const maxStars = useCommitStore((state) => state.filterMaxStars);
 
   const {
     data: commits,
     isLoading,
     isError,
     error,
-  } = useGetCommits(leagueId, year, teamId, position);
+  } = useGetCommits(leagueId, year, teamId, position, minStars, maxStars);
 
   if (isLoading) {
     return <div>Loading...</div>;
