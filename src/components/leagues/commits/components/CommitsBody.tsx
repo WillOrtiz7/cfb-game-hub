@@ -33,7 +33,7 @@ export function CommitsBody() {
 
   return (
     commits && (
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6">
         {commits.map((commit) => (
           <CommitCard key={commit.id} commit={commit} />
         ))}
