@@ -74,7 +74,7 @@ async function getStandings(leagueId?: string): Promise<StandingsResponse> {
   // Sort the teams within each conference by wins in descending order
   const sortedData = (data as StandingsResponse).map(conference => ({
     ...conference,
-    teams: conference.teams.sort((a, b) => b.wins - a.wins),
+    teams: conference.teams.sort((a, b) => b.wins_conf - a.wins_conf),
   }));
 
   return sortedData;
