@@ -1,7 +1,7 @@
 import { useGetLeagueSlug } from "@/hooks/useGetLeagueSlug";
 import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { Link } from "@tanstack/react-router";
-import { Calendar, Home, ListOrdered } from "lucide-react";
+import { Calendar, Handshake, Home, ListOrdered } from "lucide-react";
 
 export function LeagueNavMobile() {
   useGetLeagueSlug();
@@ -32,6 +32,14 @@ export function LeagueNavMobile() {
       >
         <ListOrdered className="w-6 h-6" />
         <p className="text-sm">Standings</p>
+      </Link>
+      <Link
+        to="/leagues/$leagueSlug/commits"
+        params={{ leagueSlug: leagueSlug || "" }}
+        className="flex flex-col items-center justify-center text-center"
+      >
+        <Handshake className="w-6 h-6" />
+        <p className="text-sm">Commits</p>
       </Link>
     </nav>
   );
