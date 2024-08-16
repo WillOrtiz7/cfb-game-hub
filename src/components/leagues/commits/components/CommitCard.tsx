@@ -25,7 +25,11 @@ export function CommitCard({ commit }: CommitCardProps) {
       className="flex flex-col items-center justify-center"
       style={{ borderColor: commit.team?.team_info.primary_color }}
     >
-      {isEditMode && <CommitCardEditModeOptions commit={commit} />}
+      {isEditMode && (
+        <div className="flex justify-end border-b-[1px] w-full">
+          <CommitCardEditModeOptions commit={commit} />
+        </div>
+      )}
       <CardHeader className="flex flex-row items-center self-start justify-between w-full py-1">
         <img
           src={TEAM_LOGOS_BASE_URL + commit.team?.team_info.logo_id + ".png"}

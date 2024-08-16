@@ -13,7 +13,7 @@ export function CommitCardEditModeOptions({
   commit,
 }: CommitCardEditModeOptionsProps) {
   return (
-    <div className="flex justify-end border-b-[1px] w-full">
+    <div className="flex flex-row">
       <CommitUpsertModal
         commit={commit}
         description={COMMIT_MODAL_EDIT_STRINGS.description}

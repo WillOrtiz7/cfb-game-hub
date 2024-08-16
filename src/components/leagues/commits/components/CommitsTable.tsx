@@ -8,20 +8,24 @@ import {
 } from "@/components/ui/table";
 import { TEAM_LOGOS_BASE_URL } from "../../schedules/constants/baseUrls";
 import { GetCommitsResponse } from "../api/queries/useGetCommits";
+import { useCommitStore } from "../store/useCommitStore";
+import { CommitCardEditModeOptions } from "./CommitCardEditModeOptions";
 
 interface CommitsTableProps {
   commits: GetCommitsResponse[];
 }
 
 export function CommitsTable({ commits }: CommitsTableProps) {
+  const isEditMode = useCommitStore((state) => state.isEditMode);
   return (
     <div className="border-[1px] rounded-md w-full">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[60px] md:w-[100px]">Rank</TableHead>
-            <TableHead>School</TableHead>
-            <TableHead>Name</TableHead>
+            {isEditMode && <TableHead className="w-36">Actions</TableHead>}
+            <TableHead className="min-w-8">Rank</TableHead>
+            <TableHead className="min-w-24">School</TableHead>
+            <TableHead className="min-w-20">Name</TableHead>
             <TableHead>Position</TableHead>
             <TableHead>Stars</TableHead>
           </TableRow>
@@ -29,6 +33,11 @@ export function CommitsTable({ commits }: CommitsTableProps) {
         <TableBody>
           {commits.map((commit) => (
             <TableRow key={commit.id} className="text-lg">
+              {isEditMode && (
+                <TableCell className="w-min">
+                  <CommitCardEditModeOptions commit={commit} />
+                </TableCell>
+              )}
               <TableCell className="font-medium">
                 {commit.rank_national}
               </TableCell>
