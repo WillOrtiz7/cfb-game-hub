@@ -131,6 +131,42 @@ export function CommitUpsertForm({
         <div className="flex flex-row gap-2">
           <FormField
             control={upsertCommitForm.control}
+            name="rankNational"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>National Rank</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    type="number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={upsertCommitForm.control}
+            name="year"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>Year</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    type="number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex flex-row gap-2">
+          <FormField
+            control={upsertCommitForm.control}
             name="firstName"
             render={({ field }) => (
               <FormItem className="w-1/2">
@@ -189,42 +225,6 @@ export function CommitUpsertForm({
                   <CommitStarRatingDropdown
                     onValueChange={field.onChange}
                     value={field.value}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="flex flex-row gap-2">
-          <FormField
-            control={upsertCommitForm.control}
-            name="rankNational"
-            render={({ field }) => (
-              <FormItem className="w-1/2">
-                <FormLabel>National Rank</FormLabel>
-                <FormControl>
-                  <Input
-                    className="text-lg md:text-sm"
-                    type="number"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={upsertCommitForm.control}
-            name="year"
-            render={({ field }) => (
-              <FormItem className="w-1/2">
-                <FormLabel>Year</FormLabel>
-                <FormControl>
-                  <Input
-                    className="text-lg md:text-sm"
-                    type="number"
-                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
