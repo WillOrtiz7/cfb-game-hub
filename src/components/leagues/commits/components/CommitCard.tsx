@@ -49,6 +49,9 @@ export function CommitCard({ commit }: CommitCardProps) {
           </p>
           <CommitStarRating starRating={commit.star_rating} />
         </div>
+        <span className="absolute italic bottom-4 left-4">
+          #{commit.rank_national}
+        </span>
         <img
           src={
             TEAM_LOGOS_HELMET_BASE_URL + commit.team?.team_info.logo_id + ".png"

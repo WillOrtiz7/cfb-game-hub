@@ -52,6 +52,7 @@ const upsertCommitFormSchema = z.object({
     "K",
     "P",
   ]),
+  rankNational: z.coerce.number().int().gte(1),
   starRating: z.enum(["1", "2", "3", "4", "5"]),
   teamId: z.string().uuid(),
   year: z.coerce.number().int().gte(2024),
@@ -76,6 +77,7 @@ export function CommitUpsertForm({
       lastName: commit?.last_name || "",
       leagueId: leagueId,
       position: commit?.position || "QB",
+      rankNational: commit?.rank_national || 0,
       starRating: commit?.star_rating || "1",
       teamId: commit?.team?.id || "",
       year: year,
@@ -197,9 +199,26 @@ export function CommitUpsertForm({
         <div className="flex flex-row gap-2">
           <FormField
             control={upsertCommitForm.control}
+            name="rankNational"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>National Rank</FormLabel>
+                <FormControl>
+                  <Input
+                    className="text-lg md:text-sm"
+                    type="number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={upsertCommitForm.control}
             name="year"
             render={({ field }) => (
-              <FormItem className="flex flex-col w-1/2">
+              <FormItem className="w-1/2">
                 <FormLabel>Year</FormLabel>
                 <FormControl>
                   <Input

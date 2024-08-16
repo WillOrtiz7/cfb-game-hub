@@ -21,6 +21,7 @@ export interface GetCommitsResponse {
     id: string;
     last_name: string;
     position: Database["public"]["Enums"]["commit_position"];
+    rank_national: number;
     star_rating: Database["public"]["Enums"]["commit_star_rating"];
     team: Team | null;
     team_id: string | null ;
@@ -42,6 +43,7 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string,
         id, 
         last_name, 
         position, 
+        rank_national,
         star_rating, 
         team:league_teams!left(
         id, team_id, 
@@ -49,7 +51,7 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string,
         ),
         team_id,
         year`)
-    .eq("league_id", leagueId).order("star_rating", { ascending: false });
+    .eq("league_id", leagueId).order("rank_national", { ascending: true });
 
     if (year) {
       getCommitsQuery = getCommitsQuery.eq("year", year);

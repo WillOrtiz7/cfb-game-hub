@@ -8,6 +8,7 @@ interface UpsertCommitInput {
     lastName: string;
     leagueId: string;
     position: Database["public"]["Enums"]["commit_position"];
+    rankNational: number;
     starRating: Database["public"]["Enums"]["commit_star_rating"];
     teamId: string;
     year: number;
@@ -21,6 +22,7 @@ async function upsertCommit(formData: UpsertCommitInput) {
     last_name: formData.lastName,
     league_id: formData.leagueId,
     position: formData.position,
+    rank_national: formData.rankNational,
     star_rating: formData.starRating,
     team_id: formData.teamId,
     year: formData.year
