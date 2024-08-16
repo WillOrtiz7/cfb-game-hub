@@ -16,8 +16,9 @@ export type Database = {
           id: string
           last_name: string
           league_id: string
+          portrait_id: number | null
           position: Database["public"]["Enums"]["commit_position"]
-          rank_national: number | null
+          rank_national: number
           star_rating: Database["public"]["Enums"]["commit_star_rating"]
           team_id: string
           year: number
@@ -28,8 +29,9 @@ export type Database = {
           id?: string
           last_name: string
           league_id: string
+          portrait_id?: number | null
           position: Database["public"]["Enums"]["commit_position"]
-          rank_national?: number | null
+          rank_national: number
           star_rating: Database["public"]["Enums"]["commit_star_rating"]
           team_id: string
           year: number
@@ -40,8 +42,9 @@ export type Database = {
           id?: string
           last_name?: string
           league_id?: string
+          portrait_id?: number | null
           position?: Database["public"]["Enums"]["commit_position"]
-          rank_national?: number | null
+          rank_national?: number
           star_rating?: Database["public"]["Enums"]["commit_star_rating"]
           team_id?: string
           year?: number

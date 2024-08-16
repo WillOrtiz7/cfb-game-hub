@@ -21,6 +21,7 @@ async function upsertCommit(formData: UpsertCommitInput) {
     first_name: formData.firstName,
     last_name: formData.lastName,
     league_id: formData.leagueId,
+    portrait_id: Math.floor(Math.random() * 8) + 1,
     position: formData.position,
     rank_national: formData.rankNational,
     star_rating: formData.starRating,

@@ -49,7 +49,7 @@ export function TeamListDropdown({
           <SelectGroup>
             <SelectLabel>User Teams</SelectLabel>
             {showAllTeamsOption && (
-              <SelectItem value="all">All teams</SelectItem>
+              <SelectItem value="ALL">All teams</SelectItem>
             )}
             {teams.userTeams.map((team) => (
               <SelectItem key={team.id} value={team.id}>

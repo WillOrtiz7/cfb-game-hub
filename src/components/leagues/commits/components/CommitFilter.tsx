@@ -75,6 +75,7 @@ export function CommitFilter() {
               <PositionListDropdown
                 setValue={setPosition}
                 value={position}
+                showAllPositionsOption={true}
                 triggerWidth={180}
               />
             </div>

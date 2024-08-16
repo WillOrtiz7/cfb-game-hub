@@ -10,12 +10,14 @@ import { Database } from "@/db/types";
 interface CommitPositionsDropdownProps {
   setValue: (value: Database["public"]["Enums"]["commit_position"]) => void;
   value: Database["public"]["Enums"]["commit_position"] | undefined;
+  showAllPositionsOption?: boolean;
   triggerWidth?: number;
 }
 
 export function PositionListDropdown({
   setValue,
   value,
+  showAllPositionsOption,
   triggerWidth,
 }: CommitPositionsDropdownProps) {
   return (
@@ -30,6 +32,9 @@ export function PositionListDropdown({
       </SelectTrigger>
 
       <SelectContent>
+        {showAllPositionsOption && (
+          <SelectItem value="ALL">All positions</SelectItem>
+        )}
         <SelectItem value="ATH">ATH</SelectItem>
         <SelectItem value="QB">QB</SelectItem>
         <SelectItem value="HB">HB</SelectItem>

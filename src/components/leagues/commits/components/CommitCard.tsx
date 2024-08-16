@@ -5,6 +5,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
+  COMMIT_PORTRAIT_BASE_URL,
   TEAM_LOGOS_BASE_URL,
   TEAM_LOGOS_HELMET_BASE_URL,
 } from "../../schedules/constants/baseUrls";
@@ -37,7 +38,7 @@ export function CommitCard({ commit }: CommitCardProps) {
       </CardHeader>
       <CardContent className="flex flex-col items-center w-full">
         <img
-          src="https://zmkaoxtedbqmpsgercdu.supabase.co/storage/v1/object/public/commits/portraits/2.png"
+          src={COMMIT_PORTRAIT_BASE_URL + commit.portrait_id + ".png"}
           className="object-scale-down w-40 h-40 rounded-md border-[1px] bg-primary-foreground"
         />
       </CardContent>

@@ -20,6 +20,7 @@ export interface GetCommitsResponse {
     first_name: string;
     id: string;
     last_name: string;
+    portrait_id: number;
     position: Database["public"]["Enums"]["commit_position"];
     rank_national: number;
     star_rating: Database["public"]["Enums"]["commit_star_rating"];
@@ -29,7 +30,7 @@ export interface GetCommitsResponse {
 }
 
 async function getCommits(leagueId?: string, year?: number, teamId?: string, 
-  position?: Database["public"]["Enums"]["commit_position"], 
+  position?: Database["public"]["Enums"]["commit_position"] | "ALL", 
   minStars?: Database["public"]["Enums"]["commit_star_rating"],
   maxStars?: Database["public"]["Enums"]["commit_star_rating"],
 ): Promise<GetCommitsResponse[]> {
@@ -42,6 +43,7 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string,
         first_name, 
         id, 
         last_name, 
+        portrait_id,
         position, 
         rank_national,
         star_rating, 
@@ -57,11 +59,11 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string,
       getCommitsQuery = getCommitsQuery.eq("year", year);
     }
 
-    if (teamId && teamId !== "all") {
+    if (teamId && teamId !== "ALL") {
       getCommitsQuery = getCommitsQuery.eq("team_id", teamId);
     }
 
-    if (position) {
+    if (position && position !== "ALL") {
       getCommitsQuery = getCommitsQuery.eq("position", position);
     }
 
@@ -85,7 +87,7 @@ async function getCommits(leagueId?: string, year?: number, teamId?: string,
 }
 
 export function useGetCommits(leagueId?: string, year?: number, teamId?: string, 
-  position?: Database["public"]["Enums"]["commit_position"], 
+  position?: Database["public"]["Enums"]["commit_position"] | "ALL", 
   minStars?: Database["public"]["Enums"]["commit_star_rating"],
   maxStars?: Database["public"]["Enums"]["commit_star_rating"]) {
   return useQuery({
