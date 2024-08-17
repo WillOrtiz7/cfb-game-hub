@@ -43,7 +43,7 @@ export function CommitCard({ commit }: CommitCardProps) {
       <CardContent className="flex flex-col items-center w-full">
         <img
           src={COMMIT_PORTRAIT_BASE_URL + commit.portrait_id + ".png"}
-          className="object-scale-down w-40 h-40 rounded-md border-[1px] bg-primary-foreground"
+          className="object-scale-down w-48 h-40 rounded-md border-[1px] bg-primary-foreground"
         />
       </CardContent>
       <CardFooter className="relative flex flex-row items-center justify-center w-full">
