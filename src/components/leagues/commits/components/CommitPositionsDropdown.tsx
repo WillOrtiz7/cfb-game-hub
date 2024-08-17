@@ -30,6 +30,7 @@ export function CommitPositionsDropdown({
         <SelectItem value="TE">TE</SelectItem>
         <SelectItem value="OT">OT</SelectItem>
         <SelectItem value="OG">OG</SelectItem>
+        <SelectItem value="C">C</SelectItem>
         <SelectItem value="DE">DE</SelectItem>
         <SelectItem value="DT">DT</SelectItem>
         <SelectItem value="OLB">OLB</SelectItem>
