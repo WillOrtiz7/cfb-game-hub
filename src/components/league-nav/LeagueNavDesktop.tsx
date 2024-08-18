@@ -26,11 +26,13 @@ export function LeagueNavDesktop() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.HOME)}
       >
-        {selectedTab === LeagueNavTabOptions.HOME ? (
-          <IoHome className="w-6 h-6" />
-        ) : (
-          <IoHomeOutline className="w-6 h-6" />
-        )}
+        <div className="transition-transform transform active:scale-90">
+          {selectedTab === LeagueNavTabOptions.HOME ? (
+            <IoHome className="w-6 h-6" />
+          ) : (
+            <IoHomeOutline className="w-6 h-6" />
+          )}
+        </div>
       </Link>
       <Link
         to="/leagues/$leagueSlug/schedules"
@@ -38,11 +40,13 @@ export function LeagueNavDesktop() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.SCHEDULE)}
       >
-        {selectedTab === LeagueNavTabOptions.SCHEDULE ? (
-          <IoCalendar className="w-6 h-6 fill-white" />
-        ) : (
-          <IoCalendarOutline className="w-6 h-6" />
-        )}
+        <div className="transition-transform transform active:scale-90">
+          {selectedTab === LeagueNavTabOptions.SCHEDULE ? (
+            <IoCalendar className="w-6 h-6 fill-white" />
+          ) : (
+            <IoCalendarOutline className="w-6 h-6" />
+          )}
+        </div>
       </Link>
       <Link
         to="/leagues/$leagueSlug/standings"
@@ -50,11 +54,13 @@ export function LeagueNavDesktop() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.STANDINGS)}
       >
-        {selectedTab === LeagueNavTabOptions.STANDINGS ? (
-          <IoPodium className="w-6 h-6 fill-white" />
-        ) : (
-          <IoPodiumOutline className="w-6 h-6" />
-        )}
+        <div className="transition-transform transform active:scale-90">
+          {selectedTab === LeagueNavTabOptions.STANDINGS ? (
+            <IoPodium className="w-6 h-6 fill-white" />
+          ) : (
+            <IoPodiumOutline className="w-6 h-6" />
+          )}
+        </div>
       </Link>
       <Link
         to="/leagues/$leagueSlug/commits"
@@ -62,11 +68,13 @@ export function LeagueNavDesktop() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.COMMITS)}
       >
-        {selectedTab === LeagueNavTabOptions.COMMITS ? (
-          <IoReceipt className="w-6 h-6 fill-white" />
-        ) : (
-          <IoReceiptOutline className="w-6 h-6" />
-        )}
+        <div className="transition-transform transform active:scale-90">
+          {selectedTab === LeagueNavTabOptions.COMMITS ? (
+            <IoReceipt className="w-6 h-6 fill-white" />
+          ) : (
+            <IoReceiptOutline className="w-6 h-6" />
+          )}
+        </div>
       </Link>
     </nav>
   );
