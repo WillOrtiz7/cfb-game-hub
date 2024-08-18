@@ -1,5 +1,7 @@
-import { useGetLeagueId } from "@/hooks/useGetLeagueId";
-import { useLeagueStore } from "@/zustand/useLeagueStore";
+import {
+  useInitializeLeagueId,
+  useLeagueStore,
+} from "@/zustand/useLeagueStore";
 import { useGetSchedules } from "../api/queries/useGetSchedules";
 import { ScheduleCard } from "./ScheduleCard";
 
@@ -9,7 +11,7 @@ interface ScheduleGameListProps {
 }
 
 export function ScheduleGameList({ week, year }: ScheduleGameListProps) {
-  useGetLeagueId();
+  useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
 
   const {
@@ -26,7 +28,7 @@ export function ScheduleGameList({ week, year }: ScheduleGameListProps) {
   }
   return (
     scheduleItemList && (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {scheduleItemList.map((scheduleItem, index) => (
           <ScheduleCard
             key={index}

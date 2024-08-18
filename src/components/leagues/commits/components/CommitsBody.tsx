@@ -1,12 +1,14 @@
-import { useGetLeagueId } from "@/hooks/useGetLeagueId";
-import { useLeagueStore } from "@/zustand/useLeagueStore";
+import {
+  useInitializeLeagueId,
+  useLeagueStore,
+} from "@/zustand/useLeagueStore";
 import { useGetCommits } from "../api/queries/useGetCommits";
 import { useCommitStore } from "../store/useCommitStore";
 import { CommitCard } from "./CommitCard";
 import { CommitsTable } from "./CommitsTable";
 
 export function CommitsBody() {
-  useGetLeagueId();
+  useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
   const year = useCommitStore((state) => state.filterYear);
   const teamId = useCommitStore((state) => state.filterTeamId);

@@ -1,10 +1,12 @@
-import { useGetLeagueId } from "@/hooks/useGetLeagueId";
-import { useLeagueStore } from "@/zustand/useLeagueStore";
+import {
+  useInitializeLeagueId,
+  useLeagueStore,
+} from "@/zustand/useLeagueStore";
 import { useGetStandings } from "../api/queries/useGetStandings";
 import { StandingsTable } from "./StandingsTable";
 
 export function StandingsBody() {
-  useGetLeagueId();
+  useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
   const { data: conferences, isLoading, isError } = useGetStandings(leagueId);
 

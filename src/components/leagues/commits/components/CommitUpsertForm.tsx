@@ -8,9 +8,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useGetLeagueId } from "@/hooks/useGetLeagueId";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { useLeagueStore } from "@/zustand/useLeagueStore";
+import {
+  useInitializeLeagueId,
+  useLeagueStore,
+} from "@/zustand/useLeagueStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -66,7 +68,7 @@ export function CommitUpsertForm({
 }: CommitUpsertFormProps) {
   const { mutate, isPending } = useUpsertCommit();
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  useGetLeagueId();
+  useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
 
   const upsertCommitForm = useForm<z.infer<typeof upsertCommitFormSchema>>({

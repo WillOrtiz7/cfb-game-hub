@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { useGetLeagueId } from "@/hooks/useGetLeagueId";
-import { useLeagueStore } from "@/zustand/useLeagueStore";
+import {
+  useInitializeLeagueId,
+  useLeagueStore,
+} from "@/zustand/useLeagueStore";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
@@ -14,7 +16,7 @@ export function SchedulesMain() {
   const [year, setYear] = useState(2024);
   const [week, setWeek] = useState(0);
 
-  useGetLeagueId();
+  useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
 
   const { data, isLoading, isError, error } = useGetCurrentYearWeek(leagueId);

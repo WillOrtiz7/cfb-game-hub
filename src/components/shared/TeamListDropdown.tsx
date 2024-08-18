@@ -7,8 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useGetLeagueId } from "@/hooks/useGetLeagueId";
-import { useLeagueStore } from "@/zustand/useLeagueStore";
+import {
+  useInitializeLeagueId,
+  useLeagueStore,
+} from "@/zustand/useLeagueStore";
 import { useGetTeams } from "../leagues/schedules/api/queries/useGetTeams";
 import { TEAM_LOGOS_BASE_URL } from "../leagues/schedules/constants/baseUrls";
 
@@ -25,7 +27,7 @@ export function TeamListDropdown({
   setNewValue,
   triggerWidth,
 }: TeamListDropdownProps) {
-  useGetLeagueId();
+  useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
 
   const { data: teams, isLoading, isError, error } = useGetTeams(leagueId);

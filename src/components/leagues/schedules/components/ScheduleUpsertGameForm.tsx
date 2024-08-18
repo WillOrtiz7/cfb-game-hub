@@ -8,9 +8,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useGetLeagueId } from "@/hooks/useGetLeagueId";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { useLeagueStore } from "@/zustand/useLeagueStore";
+import {
+  useInitializeLeagueId,
+  useLeagueStore,
+} from "@/zustand/useLeagueStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -47,7 +49,7 @@ export function ScheduleUpsertGameForm({
 }: ScheduleUpsertGameFormProps) {
   const { mutate, isPending } = useUpsertGameToSchedule();
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  useGetLeagueId();
+  useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
 
   const upsertGameForm = useForm<z.infer<typeof upsertGameFormSchema>>({
@@ -210,7 +212,7 @@ export function ScheduleUpsertGameForm({
             </Button>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row justify-end gap-2">
+          <div className="flex flex-col justify-end gap-2 md:flex-row">
             <Button type="submit" disabled={isPending}>
               Submit
             </Button>
