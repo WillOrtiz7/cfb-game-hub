@@ -26,7 +26,7 @@ export function LeagueNavMobile() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.HOME)}
       >
-        <div className="flex flex-col items-center transition-transform transform active:scale-90">
+        <div className="flex flex-col items-center transition-transform transform active:scale-75">
           {selectedTab === LeagueNavTabOptions.HOME ? (
             <IoHome className="w-6 h-6" />
           ) : (
@@ -41,7 +41,7 @@ export function LeagueNavMobile() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.SCHEDULE)}
       >
-        <div className="flex flex-col items-center transition-transform transform active:scale-90">
+        <div className="flex flex-col items-center transition-transform transform active:scale-75">
           {selectedTab === LeagueNavTabOptions.SCHEDULE ? (
             <IoCalendar className="w-6 h-6 fill-white" />
           ) : (
@@ -56,7 +56,7 @@ export function LeagueNavMobile() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.STANDINGS)}
       >
-        <div className="flex flex-col items-center transition-transform transform active:scale-90">
+        <div className="flex flex-col items-center transition-transform transform active:scale-75">
           {selectedTab === LeagueNavTabOptions.STANDINGS ? (
             <IoPodium className="w-6 h-6 fill-white" />
           ) : (
@@ -71,7 +71,7 @@ export function LeagueNavMobile() {
         className="flex flex-col items-center justify-center text-center"
         onClick={() => setSelectedTab(LeagueNavTabOptions.COMMITS)}
       >
-        <div className="flex flex-col items-center transition-transform transform active:scale-90">
+        <div className="flex flex-col items-center transition-transform transform active:scale-75 ">
           {selectedTab === LeagueNavTabOptions.COMMITS ? (
             <IoReceipt className="w-6 h-6 fill-white" />
           ) : (
