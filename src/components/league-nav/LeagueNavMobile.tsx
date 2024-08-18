@@ -1,4 +1,3 @@
-import { useGetLeagueSlug } from "@/hooks/useGetLeagueSlug";
 import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { Link } from "@tanstack/react-router";
 import {
@@ -15,7 +14,6 @@ import { LeagueNavTabOptions } from "./constants/leagueNavTabOptions";
 import { useLeagueNavStore } from "./store/useLeagueNavStore";
 
 export function LeagueNavMobile() {
-  useGetLeagueSlug();
   const leagueSlug = useLeagueStore((state) => state.leagueSlug);
   const selectedTab = useLeagueNavStore((state) => state.selectedTab);
   const setSelectedTab = useLeagueNavStore((state) => state.setSelectedTab);
