@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 async function getTeamRecord(teamId: string, year: number) {
     const teamRecordQuery = supabase
         .from('standings')
-        .select('id, losses_total, losses_conf, ties_total, ties_conf, wins_total, wins_conf')
+        .select('id, losses_total, losses_conf, team_id, ties_total, ties_conf, wins_total, wins_conf')
         .eq("team_id", teamId)
         .eq("year", year)
         .maybeSingle();

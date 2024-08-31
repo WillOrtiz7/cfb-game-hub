@@ -37,6 +37,7 @@ const updateStandingsFormSchema = z.object({
   tiesOverall: z.coerce.number().int().gte(0),
   winsConf: z.coerce.number().int().gte(0),
   winsOverall: z.coerce.number().int().gte(0),
+  year: z.coerce.number().int().gte(2024),
 });
 
 export function StandingsUpdateForm({
@@ -63,6 +64,7 @@ export function StandingsUpdateForm({
       tiesOverall,
       winsConf,
       winsOverall,
+      year: 2024,
     },
   });
 
@@ -83,7 +85,10 @@ export function StandingsUpdateForm({
   }
 
   function onSubmit(values: z.infer<typeof updateStandingsFormSchema>) {
-    mutate(values, { onSuccess: onSubmitSuccess, onError: onSubmitError });
+    mutate(values, {
+      onSuccess: onSubmitSuccess,
+      onError: onSubmitError,
+    });
   }
 
   useEffect(() => {
@@ -91,14 +96,15 @@ export function StandingsUpdateForm({
       updateStandingsForm.reset({
         lossesConf: teamStandings.losses_conf,
         lossesOverall: teamStandings.losses_total,
-        teamId: teamStandings.id,
+        teamId: teamStandings.team_id,
         tiesConf: teamStandings.ties_conf,
         tiesOverall: teamStandings.ties_total,
         winsConf: teamStandings.wins_conf,
         winsOverall: teamStandings.wins_total,
+        year: leagueYear,
       });
     }
-  }, [teamStandings, updateStandingsForm]);
+  }, [leagueYear, teamStandings, updateStandingsForm]);
 
   return (
     <Form {...updateStandingsForm}>

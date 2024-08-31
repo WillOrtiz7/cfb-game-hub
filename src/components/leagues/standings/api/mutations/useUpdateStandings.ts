@@ -9,18 +9,19 @@ interface UpdateStandingsInput {
     tiesOverall: number;
     winsConf: number;
     winsOverall: number;
+    year: number;
 }
 
 async function updateStandings(formData: UpdateStandingsInput) {
-  const { error } = await supabase.from("league_teams")
+  const {error } = await supabase.from("standings")
   .update({
     losses_conf: formData.lossesConf,
-    losses: formData.lossesOverall,
+    losses_total: formData.lossesOverall,
     ties_conf: formData.tiesConf,
-    ties: formData.tiesOverall,
+    ties_total: formData.tiesOverall,
     wins_conf: formData.winsConf,
-    wins: formData.winsOverall,
-  }).eq("id", formData.teamId)
+    wins_total: formData.winsOverall,
+  }).eq("team_id", formData.teamId).eq("year", formData.year);
 
   if (error) {
     throw new Error("Error code: " + error.code + "\nFailed to add/edit game to schedule");
@@ -30,7 +31,7 @@ async function updateStandings(formData: UpdateStandingsInput) {
 export function useUpdateStandings() {
     const queryClient = useQueryClient();
   return useMutation({
-    mutationKey: ["postGameToSchedule"],
+    mutationKey: ["updateStandings"],
     mutationFn: async (formData: UpdateStandingsInput) => {
       return updateStandings(formData);
     },
