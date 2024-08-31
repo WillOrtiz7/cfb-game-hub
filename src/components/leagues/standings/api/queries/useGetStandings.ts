@@ -95,11 +95,15 @@ async function getStandings(leagueYear:number | null, leagueId?: string): Promis
         ...team,
         // @ts-expect-error-next-line 
         standings: team.standings[0], // Ensure standings is a single object
-    })).sort((a, b) => b.standings.wins_conf - a.standings.wins_conf), // Sort the teams within each conference by wins in descending order
+    })).sort((a, b) => {
+        if (b.standings.wins_conf !== a.standings.wins_conf) {
+            return b.standings.wins_conf - a.standings.wins_conf; // Sort by conference wins
+        }
+        return b.standings.wins_total - a.standings.wins_total; // Use overall wins as tiebreaker
+    }),
 }));
 
 return flattenedData;
- 
 }
 
 export function useGetStandings(leagueYear: number | null, leagueId?: string) {
