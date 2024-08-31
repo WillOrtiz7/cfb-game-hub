@@ -4,12 +4,15 @@ import { useQuery } from "@tanstack/react-query";
 
 
 
-const getGameDetailsHeaderQuery = (scheduleId: string) => {
+const getGameDetailsHeaderQuery = (scheduleId: string, year: number | undefined) => {
+  if (!year) {
+    throw new Error("Invalid year");
+  }
   return supabase
     .from("schedules")
     .select(
       `
-        id, game_played, home_team_score, away_team_score,
+        id, game_played, home_team_score, away_team_score, year,
         home_team:league_teams!schedules_home_team_id_fkey (
           coach_name, id, team_id,
           team:teams!inner(id, logo_id, name_abbreviation, name_nick, primary_color),
@@ -23,17 +26,31 @@ const getGameDetailsHeaderQuery = (scheduleId: string) => {
       `
     )
     .eq("id", scheduleId)
-    .eq("home_team.standings.year", 2025)
-    .eq("away_team.standings.year", 2025)
+    .eq("home_team.standings.year", year)
+    .eq("away_team.standings.year", year)
     .single();
 }
-
 export type GetGameDetailsHeaderResponse = QueryData<ReturnType<typeof getGameDetailsHeaderQuery>>;
+
+
+// We have to get the year of the game first so we can get the team standings from the correct year
+const getGameDetailsYearQuery = (scheduleId: string) => {
+  return supabase
+    .from("schedules")
+    .select("year")
+    .eq("id", scheduleId)
+    .single();
+};
 
 async function getGameDetailsHeader(
   scheduleId: string
 ) {
-  const { data, error } = await getGameDetailsHeaderQuery(scheduleId);
+  const { data: schedule, error: scheduleError } = await getGameDetailsYearQuery(scheduleId);
+  if (scheduleError) {
+    throw new Error("Error code: " + scheduleError.code + "\nFailed to fetch schedule");
+  }
+
+  const { data, error } = await getGameDetailsHeaderQuery(scheduleId, schedule?.year);
 
   if (error) {
     throw new Error("Error code: " + error.code + "\nFailed to fetch teams");

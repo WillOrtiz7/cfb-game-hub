@@ -36,24 +36,24 @@ export function GameDetailsHeader() {
             <div className="flex justify-center flex-1">
               <GameDetailsHeaderTeamInfo
                 coachName={gameDetails.home_team?.coach_name}
-                losses={gameDetails.home_team?.standings[0].losses_total}
+                losses={gameDetails.home_team?.standings[0]?.losses_total}
                 score={gameDetails.home_team_score}
                 teamPrimaryColor={gameDetails.home_team?.team.primary_color}
                 teamLogoId={gameDetails.home_team?.team.logo_id}
                 teamNameNick={gameDetails.home_team?.team.name_nick}
-                wins={gameDetails.home_team?.standings[0].wins_total}
+                wins={gameDetails.home_team?.standings[0]?.wins_total}
               />
             </div>
             <div className="flex justify-center flex-1">
               <GameDetailsHeaderTeamInfo
                 coachName={gameDetails.away_team?.coach_name}
-                losses={gameDetails.away_team?.losses}
+                losses={gameDetails.away_team?.standings[0]?.losses_total}
                 mirrorTeamInfoOrder={true}
                 score={gameDetails.away_team_score}
                 teamPrimaryColor={gameDetails.away_team?.team.primary_color}
                 teamLogoId={gameDetails.away_team?.team.logo_id}
                 teamNameNick={gameDetails.away_team?.team.name_nick}
-                wins={gameDetails.away_team?.standings[0].wins_total}
+                wins={gameDetails.away_team?.standings[0]?.wins_total}
               />
             </div>
           </div>
@@ -61,25 +61,25 @@ export function GameDetailsHeader() {
           <div className="flex flex-col items-center w-full gap-4">
             <GameDetailsHeaderTeamInfoMobile
               coachName={gameDetails.home_team?.coach_name}
-              losses={gameDetails.home_team?.standings[0].losses_total}
+              losses={gameDetails.home_team?.standings[0]?.losses_total}
               score={gameDetails.home_team_score}
               teamPrimaryColor={gameDetails.home_team?.team.primary_color}
               teamLogoId={gameDetails.home_team?.team.logo_id}
               teamNameAbbreviation={
                 gameDetails.home_team?.team.name_abbreviation
               }
-              wins={gameDetails.home_team?.standings[0].wins_total}
+              wins={gameDetails.home_team?.standings[0]?.wins_total}
             />
             <GameDetailsHeaderTeamInfoMobile
               coachName={gameDetails.away_team?.coach_name}
-              losses={gameDetails.away_team?.standings[0].losses_total}
+              losses={gameDetails.away_team?.standings[0]?.losses_total}
               score={gameDetails.away_team_score}
               teamPrimaryColor={gameDetails.away_team?.team.primary_color}
               teamLogoId={gameDetails.away_team?.team.logo_id}
               teamNameAbbreviation={
                 gameDetails.away_team?.team.name_abbreviation
               }
-              wins={gameDetails.home_team?.standings[0].wins_total}
+              wins={gameDetails.away_team?.standings[0]?.wins_total}
             />
           </div>
         )}
