@@ -6,12 +6,12 @@ const getSchedulesQuery = (year: number, week: number, leagueId: string) =>
   supabase.from("schedules").select(`
     created_at, id, game_played, home_team_score, away_team_score,
     home_team:league_teams!schedules_home_team_id_fkey (
-      coach_name, id, team_id, wins, losses, ties,
+      coach_name, id, team_id,
       team:teams!inner(id, logo_id, name_abbreviation, name_nick, primary_color),
       standings:standings(id, wins_total, losses_total, ties_total, year)
     ),
     away_team:league_teams!schedules_away_team_id_fkey (
-      coach_name, id, team_id, wins, losses, ties,
+      coach_name, id, team_id,
       team:teams!inner(id, logo_id, name_abbreviation, name_nick, primary_color),
       standings:standings(id, wins_total, losses_total, ties_total, year)
     )

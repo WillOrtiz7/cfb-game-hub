@@ -4,13 +4,13 @@ import {
 } from "../../schedules/constants/baseUrls";
 
 interface GameDetailsHeaderTeamInfoMobileProps {
-  coachName: string;
-  losses: number;
-  score: number;
-  teamPrimaryColor: string;
-  teamLogoId: number;
-  teamNameAbbreviation: string;
-  wins: number;
+  coachName: string | undefined;
+  losses: number | undefined;
+  score: number | undefined;
+  teamPrimaryColor: string | undefined;
+  teamLogoId: number | undefined;
+  teamNameAbbreviation: string | undefined;
+  wins: number | undefined;
 }
 
 export function GameDetailsHeaderTeamInfoMobile({
@@ -25,7 +25,7 @@ export function GameDetailsHeaderTeamInfoMobile({
   return (
     <div className="flex items-center justify-between w-full">
       <div
-        className="flex items-center justify-center rounded-full h-24 w-24"
+        className="flex items-center justify-center w-24 h-24 rounded-full"
         style={{
           backgroundColor: teamPrimaryColor,
         }}
@@ -43,12 +43,12 @@ export function GameDetailsHeaderTeamInfoMobile({
           {wins} - {losses}
         </span>
       </div>
-      <div className="flex flex-row gap-4 items-center">
+      <div className="flex flex-row items-center gap-4">
         <div className="flex items-center justify-center w-12 h-12">
           <img
             src={TEAM_LOGOS_BASE_URL + teamLogoId + ".png"}
             alt="Away Team Logo"
-            className="w-12 h-12 object-scale-down"
+            className="object-scale-down w-12 h-12"
           />
         </div>
         <div className="text-2xl font-bold">{score}</div>

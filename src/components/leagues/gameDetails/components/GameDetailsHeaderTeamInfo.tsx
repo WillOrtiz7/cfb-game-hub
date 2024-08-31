@@ -4,14 +4,14 @@ import {
 } from "../../schedules/constants/baseUrls";
 
 interface GameDetailsHeaderTeamInfoProps {
-  coachName: string;
-  losses: number;
+  coachName: string | undefined;
+  losses: number | undefined;
   mirrorTeamInfoOrder?: boolean;
-  score: number;
-  teamPrimaryColor: string;
-  teamLogoId: number;
-  teamNameNick: string;
-  wins: number;
+  score: number | undefined;
+  teamPrimaryColor: string | undefined;
+  teamLogoId: number | undefined;
+  teamNameNick: string | undefined;
+  wins: number | undefined;
 }
 
 export function GameDetailsHeaderTeamInfo({
@@ -32,7 +32,7 @@ export function GameDetailsHeaderTeamInfo({
           <img
             src={TEAM_LOGOS_BASE_URL + teamLogoId + ".png"}
             alt="Team Logo"
-            className="w-12 h-12 object-scale-down"
+            className="object-scale-down w-12 h-12"
           />
         </div>
         <div className="flex flex-col items-end">
@@ -82,7 +82,7 @@ export function GameDetailsHeaderTeamInfo({
         <img
           src={TEAM_LOGOS_BASE_URL + teamLogoId + ".png"}
           alt="Team Logo"
-          className="w-12 h-12 object-scale-down"
+          className="object-scale-down w-12 h-12"
         />
       </div>
       <div className="text-4xl font-bold">{score}</div>

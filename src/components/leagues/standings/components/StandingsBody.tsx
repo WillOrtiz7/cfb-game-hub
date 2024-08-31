@@ -9,7 +9,6 @@ export function StandingsBody() {
   useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
   const leagueYear = useLeagueStore((state) => state.leagueYear);
-  console.log(leagueYear);
   const {
     data: conferences,
     isLoading,

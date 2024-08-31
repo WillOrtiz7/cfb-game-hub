@@ -26,60 +26,60 @@ export function GameDetailsHeader() {
   }
   return (
     gameDetails && (
-      <div className="border rounded-lg shadow-md p-4 md:p-6 lg:p-8">
-        <p className="text-center font-semibold">
+      <div className="p-4 border rounded-lg shadow-md md:p-6 lg:p-8">
+        <p className="font-semibold text-center">
           {gameDetails.game_played ? "Final" : "Not Played"}
         </p>
 
         {isDesktop ? (
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex-1 flex justify-center">
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex justify-center flex-1">
               <GameDetailsHeaderTeamInfo
-                coachName={gameDetails.home_team.coach_name}
-                losses={gameDetails.home_team.losses}
+                coachName={gameDetails.home_team?.coach_name}
+                losses={gameDetails.home_team?.standings[0].losses_total}
                 score={gameDetails.home_team_score}
-                teamPrimaryColor={gameDetails.home_team.team.primary_color}
-                teamLogoId={gameDetails.home_team.team.logo_id}
-                teamNameNick={gameDetails.home_team.team.name_nick}
-                wins={gameDetails.home_team.wins}
+                teamPrimaryColor={gameDetails.home_team?.team.primary_color}
+                teamLogoId={gameDetails.home_team?.team.logo_id}
+                teamNameNick={gameDetails.home_team?.team.name_nick}
+                wins={gameDetails.home_team?.standings[0].wins_total}
               />
             </div>
-            <div className="flex-1 flex justify-center">
+            <div className="flex justify-center flex-1">
               <GameDetailsHeaderTeamInfo
-                coachName={gameDetails.away_team.coach_name}
-                losses={gameDetails.away_team.losses}
+                coachName={gameDetails.away_team?.coach_name}
+                losses={gameDetails.away_team?.losses}
                 mirrorTeamInfoOrder={true}
                 score={gameDetails.away_team_score}
-                teamPrimaryColor={gameDetails.away_team.team.primary_color}
-                teamLogoId={gameDetails.away_team.team.logo_id}
-                teamNameNick={gameDetails.away_team.team.name_nick}
-                wins={gameDetails.away_team.wins}
+                teamPrimaryColor={gameDetails.away_team?.team.primary_color}
+                teamLogoId={gameDetails.away_team?.team.logo_id}
+                teamNameNick={gameDetails.away_team?.team.name_nick}
+                wins={gameDetails.away_team?.standings[0].wins_total}
               />
             </div>
           </div>
         ) : (
-          <div className="flex flex-col gap-4 items-center w-full">
+          <div className="flex flex-col items-center w-full gap-4">
             <GameDetailsHeaderTeamInfoMobile
-              coachName={gameDetails.home_team.coach_name}
-              losses={gameDetails.home_team.losses}
+              coachName={gameDetails.home_team?.coach_name}
+              losses={gameDetails.home_team?.standings[0].losses_total}
               score={gameDetails.home_team_score}
-              teamPrimaryColor={gameDetails.home_team.team.primary_color}
-              teamLogoId={gameDetails.home_team.team.logo_id}
+              teamPrimaryColor={gameDetails.home_team?.team.primary_color}
+              teamLogoId={gameDetails.home_team?.team.logo_id}
               teamNameAbbreviation={
-                gameDetails.home_team.team.name_abbreviation
+                gameDetails.home_team?.team.name_abbreviation
               }
-              wins={gameDetails.home_team.wins}
+              wins={gameDetails.home_team?.standings[0].wins_total}
             />
             <GameDetailsHeaderTeamInfoMobile
-              coachName={gameDetails.away_team.coach_name}
-              losses={gameDetails.away_team.losses}
+              coachName={gameDetails.away_team?.coach_name}
+              losses={gameDetails.away_team?.standings[0].losses_total}
               score={gameDetails.away_team_score}
-              teamPrimaryColor={gameDetails.away_team.team.primary_color}
-              teamLogoId={gameDetails.away_team.team.logo_id}
+              teamPrimaryColor={gameDetails.away_team?.team.primary_color}
+              teamLogoId={gameDetails.away_team?.team.logo_id}
               teamNameAbbreviation={
-                gameDetails.away_team.team.name_abbreviation
+                gameDetails.away_team?.team.name_abbreviation
               }
-              wins={gameDetails.away_team.wins}
+              wins={gameDetails.home_team?.standings[0].wins_total}
             />
           </div>
         )}
