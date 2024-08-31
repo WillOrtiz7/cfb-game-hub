@@ -6,17 +6,23 @@ interface TeamInfo {
     logo_id: number;
     name_abbreviation: string;
   }
+
+  interface Standings {
+    id: string;
+    losses_total: number;
+    losses_conf: number;
+    ties_total: number;
+    ties_conf: number;
+    wins_total: number;
+    wins_conf: number;
+    year: number;
+  }
   
   interface Team {
-    id: string;
-    losses: number;
-    losses_conf: number;
-    ties: number;
-    ties_conf: number;
-    wins: number;
-    wins_conf: number;
-    coach_name: string;
-    team_info: TeamInfo;
+      id: string;
+      coach_name: string;
+      standings: Standings;
+      team_info: TeamInfo;
   }
   
   interface League {
@@ -35,57 +41,72 @@ interface TeamInfo {
   
   type StandingsResponse = Conference[];
 
-async function getStandings(leagueId?: string): Promise<StandingsResponse> {
+async function getStandings(leagueYear:number | null, leagueId?: string): Promise<StandingsResponse> {
   if (!leagueId) {
     throw new Error("Invalid league");
   }
 
+  if (!leagueYear || leagueYear === null) {
+    throw new Error("Invalid year");
+  }
+
   const { data, error } = await supabase
-    .from('leagues_conferences')
-    .select(`
-      id,
-      league_id,
-      logo_url,
-      name,
-      league:leagues!leagues_conferences_league_id_fkey (
+  .from('leagues_conferences')
+  .select(`
+    id,
+    league_id,
+    logo_url,
+    name,
+    league:leagues!leagues_conferences_league_id_fkey (
       display_name,
       id
-      ),
-      teams:league_teams!inner (
+    ),
+    teams:league_teams!inner (
       coach_name,
       id,
-      losses,
-      losses_conf,
-      ties,
-      ties_conf,
-      wins,
-      wins_conf,
       team_info:teams!inner (
         id,
         logo_id,
         name_abbreviation
-        )
+      ),
+      standings:standings!inner (
+        id,
+        losses_total,
+        losses_conf,
+        ties_total,
+        ties_conf,
+        wins_total,
+        wins_conf,
+        year
       )
-    `).eq('league_id', leagueId);
+    )
+  `)
+  .eq('league_id', leagueId)
+  .eq('teams.standings.year', leagueYear)
+  .limit(1, { foreignTable: 'teams.standings'});
 
   if (error) {
     throw new Error("Error code: " + error.code + "\nFailed to fetch standings");
   }
-  // Sort the teams within each conference by wins in descending order
-  const sortedData = (data as StandingsResponse).map(conference => ({
+  // Flatten the structure to ensure each team's standings are directly accessible
+  const flattenedData = (data as unknown as StandingsResponse).map(conference => ({
     ...conference,
-    teams: conference.teams.sort((a, b) => b.wins_conf - a.wins_conf),
-  }));
+    teams: conference.teams.map(team => ({
+        ...team,
+        // @ts-expect-error-next-line 
+        standings: team.standings[0], // Ensure standings is a single object
+    })).sort((a, b) => b.standings.wins_conf - a.standings.wins_conf), // Sort the teams within each conference by wins in descending order
+}));
 
-  return sortedData;
+return flattenedData;
  
 }
 
-export function useGetStandings(leagueId?: string) {
+export function useGetStandings(leagueYear: number | null, leagueId?: string) {
   return useQuery({
-    queryKey: ["getStandings", leagueId],
+    queryKey: ["getStandings", leagueYear, leagueId],
     queryFn: async () => {
-      return getStandings(leagueId);
+      return getStandings(leagueYear, leagueId);
     },
   });
 }

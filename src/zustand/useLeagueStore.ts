@@ -5,8 +5,12 @@ import { create } from 'zustand';
 interface LeagueState {
   leagueId: string | undefined;
   leagueSlug: string | undefined;
+  leagueWeek: number | null;
+  leagueYear: number | null;
   setLeagueId: (leagueId: string | undefined) => void;
   setLeagueSlug: (leagueSlug: string | undefined) => void;
+  setLeagueWeek: (leagueWeek: number | null) => void;
+  setLeagueYear: (leagueYear: number | null) => void;
 }
 
 function getLeagueSlugFromUrl(): string | undefined {
@@ -30,28 +34,42 @@ async function getLeagueId(leagueSlug: string | undefined): Promise<string | und
   }
 }
 
+async function getCurrentYearWeek(leagueId?: string) {
+  if (!leagueId){
+    throw new Error("Invalid league");
+  }
+  const { data, error } = await supabase.from("leagues").select('year, week').eq('id', leagueId).single();
+  if (error) {
+    throw new Error("Error code: " + error.code + "\nFailed to fetch current year and week");
+  }
+  return data;
+}
+
 export const useLeagueStore = create<LeagueState>((set) => ({
   leagueId: undefined,
   leagueSlug: getLeagueSlugFromUrl(),
+  leagueYear: null,
+  leagueWeek: null,
   setLeagueId: (leagueId) => set({ leagueId }),
   setLeagueSlug: (leagueSlug) => set({ leagueSlug }),
+  setLeagueWeek: (leagueWeek) => set({ leagueWeek }),
+  setLeagueYear: (leagueYear) => set({ leagueYear }),
 }));
 
 // Custom hook to fetch and set the leagueId when leagueSlug changes
 export function useInitializeLeagueId() {
-  const { leagueSlug, leagueId, setLeagueId, setLeagueSlug } = useLeagueStore();
-  console.log('leagueSlug', leagueSlug);
+  const { leagueSlug, leagueId, setLeagueId, setLeagueSlug, setLeagueWeek, setLeagueYear } = useLeagueStore();
 
   useEffect(() => {
     const handleUrlChange = async () => {
       const newLeagueSlug = getLeagueSlugFromUrl();
-      console.log('newLeagueSlug', newLeagueSlug);
-      console.log('leagueSlug', leagueSlug);
       if (newLeagueSlug !== leagueSlug || !leagueId) {
         setLeagueSlug(newLeagueSlug);
         const leagueId = await getLeagueId(newLeagueSlug);
-        console.log('setting leagueId', leagueId);
         setLeagueId(leagueId);
+        const { year, week } = await getCurrentYearWeek(leagueId);
+        setLeagueYear(year);
+        setLeagueWeek(week);
       }
     };
 

@@ -8,7 +8,13 @@ import { StandingsTable } from "./StandingsTable";
 export function StandingsBody() {
   useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
-  const { data: conferences, isLoading, isError } = useGetStandings(leagueId);
+  const leagueYear = useLeagueStore((state) => state.leagueYear);
+  console.log(leagueYear);
+  const {
+    data: conferences,
+    isLoading,
+    isError,
+  } = useGetStandings(leagueYear, leagueId);
 
   if (isLoading) {
     return <div>Loading...</div>;

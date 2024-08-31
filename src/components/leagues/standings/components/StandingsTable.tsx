@@ -54,12 +54,14 @@ export function StandingsTable({ conference }: StandingsTableProps) {
                 </div>
               </TableCell>
               <TableCell>
-                {team.wins}-{team.losses}
-                {team.ties ? `-${team.ties}` : ""}
+                {team.standings.wins_total}-{team.standings.losses_total}
+                {team.standings.ties_total
+                  ? `-${team.standings.ties_total}`
+                  : ""}
               </TableCell>
               <TableCell>
-                {team.wins_conf}-{team.losses_conf}
-                {team.ties_conf ? `-${team.ties_conf}` : ""}
+                {team.standings.wins_conf}-{team.standings.losses_conf}
+                {team.standings.ties_conf ? `-${team.standings.ties_conf}` : ""}
               </TableCell>
             </TableRow>
           ))}

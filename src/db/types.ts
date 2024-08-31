@@ -306,6 +306,53 @@ export type Database = {
           },
         ]
       }
+      standings: {
+        Row: {
+          created_at: string
+          id: string
+          losses_conf: number
+          losses_total: number
+          team_id: string
+          ties_conf: number
+          ties_total: number
+          wins_conf: number
+          wins_total: number
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          losses_conf?: number
+          losses_total?: number
+          team_id: string
+          ties_conf?: number
+          ties_total?: number
+          wins_conf?: number
+          wins_total?: number
+          year: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          losses_conf?: number
+          losses_total?: number
+          team_id?: string
+          ties_conf?: number
+          ties_total?: number
+          wins_conf?: number
+          wins_total?: number
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "standings_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "league_teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       teams: {
         Row: {
           created_at: string
