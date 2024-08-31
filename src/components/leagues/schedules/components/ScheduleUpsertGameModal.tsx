@@ -1,12 +1,12 @@
 import { ModalForm } from "@/components/shared/ModalForm";
 import { useState } from "react";
-import { ScheduleItem } from "../api/queries/useGetSchedules";
+import { GetSchedulesResponse } from "../api/queries/useGetSchedules";
 import { ScheduleUpsertGameForm } from "./ScheduleUpsertGameForm";
 
 interface ScheduleUpsertGameModalProps {
   description: string;
   requestType: "POST" | "PUT";
-  scheduleItem?: ScheduleItem;
+  scheduleItem?: GetSchedulesResponse[number];
   title: string;
   triggerButton: React.ReactNode;
   week: number;

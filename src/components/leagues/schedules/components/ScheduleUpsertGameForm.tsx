@@ -18,13 +18,13 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useUpsertGameToSchedule } from "../api/mutations/useUpsertGameToSchedule";
-import { ScheduleItem } from "../api/queries/useGetSchedules";
+import { GetSchedulesResponse } from "../api/queries/useGetSchedules";
 import { ScheduleTeamListDropdown } from "./ScheduleTeamListDropdown";
 
 interface ScheduleUpsertGameFormProps {
   closeModal: () => void;
   requestType: "POST" | "PUT";
-  scheduleItem?: ScheduleItem;
+  scheduleItem?: GetSchedulesResponse[number];
   week: number;
   year: number;
 }
@@ -55,9 +55,9 @@ export function ScheduleUpsertGameForm({
   const upsertGameForm = useForm<z.infer<typeof upsertGameFormSchema>>({
     resolver: zodResolver(upsertGameFormSchema),
     defaultValues: {
-      homeTeamId: scheduleItem?.home_team.id,
+      homeTeamId: scheduleItem?.home_team?.id,
       homeTeamScore: scheduleItem?.home_team_score || 0,
-      awayTeamId: scheduleItem?.away_team.id,
+      awayTeamId: scheduleItem?.away_team?.id,
       awayTeamScore: scheduleItem?.away_team_score || 0,
       leagueId: leagueId,
       year: year,

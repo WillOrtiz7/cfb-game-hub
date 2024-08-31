@@ -11,11 +11,11 @@ import {
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import { useDeleteGameFromSchedule } from "../api/mutations/useDeleteGameFromSchedule";
-import { ScheduleItem } from "../api/queries/useGetSchedules";
+import { GetSchedulesResponse } from "../api/queries/useGetSchedules";
 import { ScheduleDeleteModalTeamInfo } from "./ScheduleDeleteModalTeamInfo";
 
 interface ScheduleDeleteModalProps {
-  scheduleItem: ScheduleItem;
+  scheduleItem: GetSchedulesResponse[number];
 }
 
 export function ScheduleDeleteModal({
@@ -41,7 +41,7 @@ export function ScheduleDeleteModal({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant={"ghost"} size={"icon"}>
-          <Trash className="h-4 w-4" />
+          <Trash className="w-4 h-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
@@ -51,18 +51,18 @@ export function ScheduleDeleteModal({
             Are you sure you want to delete this game?
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-row items-center justify-center my-2 gap-12">
+        <div className="flex flex-row items-center justify-center gap-12 my-2">
           <ScheduleDeleteModalTeamInfo
-            coachName={scheduleItem.home_team.coach_name}
-            teamLogoId={scheduleItem.home_team.team.logo_id}
-            teamName={scheduleItem.home_team.team.name_abbreviation}
+            coachName={scheduleItem.home_team?.coach_name}
+            teamLogoId={scheduleItem.home_team?.team.logo_id}
+            teamName={scheduleItem.home_team?.team.name_abbreviation}
             teamScore={scheduleItem.home_team_score}
           />
 
           <ScheduleDeleteModalTeamInfo
-            coachName={scheduleItem.away_team.coach_name}
-            teamLogoId={scheduleItem.away_team.team.logo_id}
-            teamName={scheduleItem.away_team.team.name_abbreviation}
+            coachName={scheduleItem.away_team?.coach_name}
+            teamLogoId={scheduleItem.away_team?.team.logo_id}
+            teamName={scheduleItem.away_team?.team.name_abbreviation}
             teamScore={scheduleItem.away_team_score}
           />
         </div>

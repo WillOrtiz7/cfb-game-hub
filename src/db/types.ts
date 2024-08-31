@@ -100,7 +100,7 @@ export type Database = {
       }
       league_teams: {
         Row: {
-          coach_name: string | null
+          coach_name: string
           conference_id: string | null
           created_at: string
           id: string
@@ -114,7 +114,7 @@ export type Database = {
           wins_conf: number
         }
         Insert: {
-          coach_name?: string | null
+          coach_name?: string
           conference_id?: string | null
           created_at?: string
           id?: string
@@ -128,7 +128,7 @@ export type Database = {
           wins_conf?: number
         }
         Update: {
-          coach_name?: string | null
+          coach_name?: string
           conference_id?: string | null
           created_at?: string
           id?: string
@@ -362,7 +362,7 @@ export type Database = {
           name_mascot: string
           name_nick: string
           name_school: string
-          primary_color: string | null
+          primary_color: string
         }
         Insert: {
           created_at?: string
@@ -372,7 +372,7 @@ export type Database = {
           name_mascot: string
           name_nick: string
           name_school: string
-          primary_color?: string | null
+          primary_color: string
         }
         Update: {
           created_at?: string
@@ -382,7 +382,7 @@ export type Database = {
           name_mascot?: string
           name_nick?: string
           name_school?: string
-          primary_color?: string | null
+          primary_color?: string
         }
         Relationships: []
       }
