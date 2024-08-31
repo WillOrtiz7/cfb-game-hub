@@ -1,4 +1,5 @@
 import { supabase } from '@/supabase/createClient';
+import { QueryData } from '@supabase/supabase-js';
 import { useEffect } from 'react';
 import { create } from 'zustand';
 
@@ -6,11 +7,11 @@ interface LeagueState {
   leagueId: string | undefined;
   leagueSlug: string | undefined;
   leagueWeek: number | null;
-  leagueYear: number | null;
+  leagueYear: number;
   setLeagueId: (leagueId: string | undefined) => void;
   setLeagueSlug: (leagueSlug: string | undefined) => void;
   setLeagueWeek: (leagueWeek: number | null) => void;
-  setLeagueYear: (leagueYear: number | null) => void;
+  setLeagueYear: (leagueYear: number) => void;
 }
 
 function getLeagueSlugFromUrl(): string | undefined {
@@ -38,17 +39,20 @@ async function getCurrentYearWeek(leagueId?: string) {
   if (!leagueId){
     throw new Error("Invalid league");
   }
-  const { data, error } = await supabase.from("leagues").select('year, week').eq('id', leagueId).single();
+  const getCurrentYearWeekQuery = supabase.from("leagues").select('year, week').eq('id', leagueId).single();
+  type GetCurrentYearWeekResponse = QueryData<typeof getCurrentYearWeekQuery>;
+  const { data, error } = await getCurrentYearWeekQuery;
   if (error) {
     throw new Error("Error code: " + error.code + "\nFailed to fetch current year and week");
   }
-  return data;
+  const { year, week }: GetCurrentYearWeekResponse = data;
+  return { year, week };
 }
 
 export const useLeagueStore = create<LeagueState>((set) => ({
   leagueId: undefined,
   leagueSlug: getLeagueSlugFromUrl(),
-  leagueYear: null,
+  leagueYear: 2024,
   leagueWeek: null,
   setLeagueId: (leagueId) => set({ leagueId }),
   setLeagueSlug: (leagueSlug) => set({ leagueSlug }),
@@ -85,5 +89,5 @@ export function useInitializeLeagueId() {
       window.removeEventListener('pushstate', handleUrlChange);
       window.removeEventListener('replacestate', handleUrlChange);
     };
-  }, [leagueSlug, leagueId, setLeagueId, setLeagueSlug]);
+  }, [leagueSlug, leagueId, setLeagueId, setLeagueSlug, setLeagueWeek, setLeagueYear]);
 }

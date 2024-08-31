@@ -171,24 +171,24 @@ export type Database = {
           display_name: string
           id: string
           slug_name: string
-          week: number | null
-          year: number | null
+          week: number
+          year: number
         }
         Insert: {
           created_at?: string
           display_name: string
           id?: string
           slug_name: string
-          week?: number | null
-          year?: number | null
+          week?: number
+          year?: number
         }
         Update: {
           created_at?: string
           display_name?: string
           id?: string
           slug_name?: string
-          week?: number | null
-          year?: number | null
+          week?: number
+          year?: number
         }
         Relationships: []
       }

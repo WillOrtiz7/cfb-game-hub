@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -64,8 +65,11 @@ export function StandingsUpdateForm({
       winsOverall,
     },
   });
+
+  const leagueYear = useLeagueStore((state) => state.leagueYear);
   const { data: teamStandings } = useGetTeamRecord(
-    updateStandingsForm.watch("teamId")
+    updateStandingsForm.watch("teamId"),
+    leagueYear
   );
 
   function onSubmitSuccess() {
@@ -86,12 +90,12 @@ export function StandingsUpdateForm({
     if (teamStandings) {
       updateStandingsForm.reset({
         lossesConf: teamStandings.losses_conf,
-        lossesOverall: teamStandings.losses,
+        lossesOverall: teamStandings.losses_total,
         teamId: teamStandings.id,
         tiesConf: teamStandings.ties_conf,
-        tiesOverall: teamStandings.ties,
+        tiesOverall: teamStandings.ties_total,
         winsConf: teamStandings.wins_conf,
-        winsOverall: teamStandings.wins,
+        winsOverall: teamStandings.wins_total,
       });
     }
   }, [teamStandings, updateStandingsForm]);
