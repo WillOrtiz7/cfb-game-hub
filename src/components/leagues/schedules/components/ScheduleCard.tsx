@@ -1,6 +1,7 @@
 import { Link, useParams } from "@tanstack/react-router";
 import { GetSchedulesResponse } from "../api/queries/useGetSchedules";
 import { TEAM_LOGOS_BASE_URL } from "../constants/baseUrls";
+import { schedulesStore } from "../store/schedulesStore";
 import { ScheduleCardHeader } from "./ScheduleCardHeader";
 
 interface ScheduleCardProps {
@@ -11,16 +12,23 @@ interface ScheduleCardProps {
 
 export function ScheduleCard({ scheduleItem, week, year }: ScheduleCardProps) {
   const { leagueSlug } = useParams({ from: "/leagues/$leagueSlug/schedules" });
+  const isEditMode = schedulesStore((state) => state.isEditMode);
 
   return (
-    <div className="bg-background shadow-md mt-4 border-[1px] border-secondary-foreground rounded-md">
-      <ScheduleCardHeader scheduleItem={scheduleItem} week={week} year={year} />
+    <div className="bg-background shadow-md mt-4 border-[1px] rounded-md border-secondary-foreground">
+      {isEditMode && (
+        <ScheduleCardHeader
+          scheduleItem={scheduleItem}
+          week={week}
+          year={year}
+        />
+      )}
       <Link
         to={"/leagues/$leagueSlug/gameDetails/$scheduleId"}
         params={{ leagueSlug: leagueSlug, scheduleId: scheduleItem.id }}
       >
         <div
-          className="flex items-center justify-between p-2 border-t-[1px] border-secondary-foreground"
+          className="flex items-center justify-between p-2 border-secondary-foreground rounded-t-md"
           style={{
             backgroundColor: scheduleItem?.home_team?.team?.primary_color,
           }}

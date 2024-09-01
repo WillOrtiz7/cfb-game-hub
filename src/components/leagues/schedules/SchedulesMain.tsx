@@ -3,7 +3,7 @@ import {
   useInitializeLeagueId,
   useLeagueStore,
 } from "@/zustand/useLeagueStore";
-import { Plus } from "lucide-react";
+import { Edit, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
 import { ScheduleGameList } from "./components/ScheduleGameList";
@@ -11,10 +11,13 @@ import { ScheduleHeader } from "./components/ScheduleHeader";
 import { ScheduleUpsertGameModal } from "./components/ScheduleUpsertGameModal";
 import { ScheduleWeekSelector } from "./components/ScheduleWeekSelector";
 import { ADD_GAME_MODAL_STRINGS } from "./constants/content";
+import { schedulesStore } from "./store/schedulesStore";
 
 export function SchedulesMain() {
   const [year, setYear] = useState(2024);
   const [week, setWeek] = useState(0);
+  const isEditMode = schedulesStore((state) => state.isEditMode);
+  const setIsEditMode = schedulesStore((state) => state.setIsEditMode);
 
   useInitializeLeagueId();
   const leagueId = useLeagueStore((state) => state.leagueId);
@@ -40,18 +43,27 @@ export function SchedulesMain() {
       <div className="flex flex-col">
         <div className="flex flex-row justify-between">
           <ScheduleHeader week={week} year={year} />
-          <ScheduleUpsertGameModal
-            description={ADD_GAME_MODAL_STRINGS.description}
-            requestType="POST"
-            title={ADD_GAME_MODAL_STRINGS.title}
-            triggerButton={
-              <Button className=" w-min md:w-fit" variant={"outline"}>
-                <Plus className="w-4 h-4" />
-              </Button>
-            }
-            week={week}
-            year={year}
-          />
+          <div className="flex flex-row gap-2">
+            <ScheduleUpsertGameModal
+              description={ADD_GAME_MODAL_STRINGS.description}
+              requestType="POST"
+              title={ADD_GAME_MODAL_STRINGS.title}
+              triggerButton={
+                <Button className=" w-min md:w-fit" variant={"outline"}>
+                  <Plus className="w-4 h-4" />
+                </Button>
+              }
+              week={week}
+              year={year}
+            />
+            <Button
+              className="w-min md:w-fit"
+              variant={isEditMode ? "default" : "outline"}
+              onClick={() => setIsEditMode(!isEditMode)}
+            >
+              {isEditMode ? <span>Done</span> : <Edit className="w-4 h-4" />}
+            </Button>
+          </div>
         </div>
         <div>
           <div className="flex justify-end">
