@@ -1,9 +1,10 @@
+import { EditModeButton } from "@/components/shared/EditModeButton";
 import { Button } from "@/components/ui/button";
 import {
   useInitializeLeagueId,
   useLeagueStore,
 } from "@/zustand/useLeagueStore";
-import { Edit, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
 import { ScheduleGameList } from "./components/ScheduleGameList";
@@ -56,13 +57,10 @@ export function SchedulesMain() {
               week={week}
               year={year}
             />
-            <Button
-              className="w-min md:w-fit"
-              variant={isEditMode ? "default" : "outline"}
-              onClick={() => setIsEditMode(!isEditMode)}
-            >
-              {isEditMode ? <span>Done</span> : <Edit className="w-4 h-4" />}
-            </Button>
+            <EditModeButton
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+            />
           </div>
         </div>
         <div>

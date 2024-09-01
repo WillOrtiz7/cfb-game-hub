@@ -51,6 +51,7 @@ export function StandingsUpdateForm({
 }: StandingsUpdateFormProps) {
   const { mutate, isPending } = useUpdateStandings();
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const leagueYear = useLeagueStore((state) => state.leagueYear);
 
   const updateStandingsForm = useForm<
     z.infer<typeof updateStandingsFormSchema>
@@ -64,11 +65,9 @@ export function StandingsUpdateForm({
       tiesOverall,
       winsConf,
       winsOverall,
-      year: 2024,
+      year: leagueYear,
     },
   });
-
-  const leagueYear = useLeagueStore((state) => state.leagueYear);
   const { data: teamStandings } = useGetTeamRecord(
     updateStandingsForm.watch("teamId"),
     leagueYear

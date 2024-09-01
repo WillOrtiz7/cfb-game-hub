@@ -1,7 +1,8 @@
+import { EditModeButton } from "@/components/shared/EditModeButton";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Edit, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { COMMIT_MODAL_ADD_STRINGS } from "../constants/content";
 import { useCommitStore } from "../store/useCommitStore";
 import { CommitFilter } from "./CommitFilter";
@@ -36,13 +37,10 @@ export function CommitsHeader() {
             }
             year={year}
           />
-          <Button
-            className="w-min md:w-fit"
-            variant={isEditMode ? "default" : "outline"}
-            onClick={() => setIsEditMode(!isEditMode)}
-          >
-            {isEditMode ? <span>Done</span> : <Edit className="w-4 h-4" />}
-          </Button>
+          <EditModeButton
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
+          />
         </div>
         <div className="flex items-center self-end gap-2">
           <Switch
