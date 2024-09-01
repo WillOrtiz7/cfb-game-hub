@@ -37,14 +37,32 @@ export function SchedulesMain() {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-row justify-between">
-        <ScheduleHeader week={week} year={year} />
-        <ScheduleWeekSelector
-          setWeek={setWeek}
-          setYear={setYear}
-          week={week}
-          year={year}
-        />
+      <div className="flex flex-col">
+        <div className="flex flex-row justify-between">
+          <ScheduleHeader week={week} year={year} />
+          <ScheduleUpsertGameModal
+            description={ADD_GAME_MODAL_STRINGS.description}
+            requestType="POST"
+            title={ADD_GAME_MODAL_STRINGS.title}
+            triggerButton={
+              <Button className=" w-min md:w-fit" variant={"outline"}>
+                <Plus className="w-4 h-4" />
+              </Button>
+            }
+            week={week}
+            year={year}
+          />
+        </div>
+        <div>
+          <div className="flex justify-end">
+            <ScheduleWeekSelector
+              setWeek={setWeek}
+              setYear={setYear}
+              week={week}
+              year={year}
+            />
+          </div>
+        </div>
       </div>
       <div className="flex flex-col gap-4">
         <ScheduleGameList week={week} year={year} />

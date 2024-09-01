@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ScheduleWeekSelectorProps {
   setWeek: (week: number) => void;
@@ -13,8 +14,12 @@ export function ScheduleWeekSelector({
 }: ScheduleWeekSelectorProps) {
   return (
     <div className="flex flex-row gap-2">
-      <Button onClick={() => setWeek(week - 1)}>Previous</Button>
-      <Button onClick={() => setWeek(week + 1)}>Next</Button>
+      <Button onClick={() => setWeek(week - 1)} variant={"outline"}>
+        <ChevronLeft />
+      </Button>
+      <Button onClick={() => setWeek(week + 1)} variant={"outline"}>
+        <ChevronRight />
+      </Button>
     </div>
   );
 }
