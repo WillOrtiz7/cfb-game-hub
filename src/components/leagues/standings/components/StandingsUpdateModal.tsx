@@ -4,12 +4,14 @@ import { StandingsUpdateForm } from "./StandingsUpdateForm";
 
 interface StandingsUpdateModalProps {
   description: string;
+  teamId: string;
   title: string;
   triggerButton: React.ReactNode;
 }
 
 export function StandingsUpdateModal({
   description,
+  teamId,
   title,
   triggerButton,
 }: StandingsUpdateModalProps) {
@@ -23,6 +25,7 @@ export function StandingsUpdateModal({
           closeModal={() => setOpen(false)}
           lossesConf={0}
           lossesOverall={0}
+          teamId={teamId}
           tiesConf={0}
           tiesOverall={0}
           winsConf={0}

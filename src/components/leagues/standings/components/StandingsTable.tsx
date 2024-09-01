@@ -8,12 +8,15 @@ import {
 } from "@/components/ui/table";
 import { TEAM_LOGOS_BASE_URL } from "../../schedules/constants/baseUrls";
 import { Conference } from "../api/queries/useGetStandings";
+import { standingsStore } from "../store/standingsStore";
+import { StandingsEditModeOptions } from "./StandingsEditModeOptions";
 
 interface StandingsTableProps {
   conference: Conference;
 }
 
 export function StandingsTable({ conference }: StandingsTableProps) {
+  const isEditMode = standingsStore((state) => state.isEditMode);
   return (
     <div className="border-[1px] rounded-md">
       <div className="flex flex-row items-center gap-2 p-2">
@@ -28,7 +31,8 @@ export function StandingsTable({ conference }: StandingsTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Rank</TableHead>
+            {isEditMode && <TableHead>Actions</TableHead>}
+            <TableHead>Rank</TableHead>
             <TableHead>Team</TableHead>
             <TableHead>Overall</TableHead>
             <TableHead>Conf</TableHead>
@@ -37,8 +41,13 @@ export function StandingsTable({ conference }: StandingsTableProps) {
         <TableBody>
           {conference.teams.map((team, index) => (
             <TableRow key={team.id} className="text-lg">
+              {isEditMode && (
+                <TableCell>
+                  <StandingsEditModeOptions teamId={team.id} />
+                </TableCell>
+              )}
               <TableCell className="font-medium">{index + 1}</TableCell>
-              <TableCell className="font-medium">
+              <TableCell className="flex w-32 font-medium">
                 <div className="flex flex-row items-center gap-2">
                   <img
                     src={TEAM_LOGOS_BASE_URL + team.team_info.logo_id + ".png"}

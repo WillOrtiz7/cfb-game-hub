@@ -23,6 +23,7 @@ interface StandingsUpdateFormProps {
   closeModal: () => void;
   lossesConf: number;
   lossesOverall: number;
+  teamId: string;
   tiesConf: number;
   tiesOverall: number;
   winsConf: number;
@@ -44,6 +45,7 @@ export function StandingsUpdateForm({
   closeModal,
   lossesConf,
   lossesOverall,
+  teamId,
   tiesConf,
   tiesOverall,
   winsConf,
@@ -60,7 +62,7 @@ export function StandingsUpdateForm({
     defaultValues: {
       lossesConf,
       lossesOverall,
-      teamId: "ea1759bf-08da-48cd-b1e9-2e989c37eaea",
+      teamId: teamId,
       tiesConf,
       tiesOverall,
       winsConf,
