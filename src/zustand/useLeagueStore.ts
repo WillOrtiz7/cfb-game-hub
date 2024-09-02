@@ -6,11 +6,11 @@ import { create } from 'zustand';
 interface LeagueState {
   leagueId: string | undefined;
   leagueSlug: string | undefined;
-  leagueWeek: number | null;
+  leagueWeek: number;
   leagueYear: number;
   setLeagueId: (leagueId: string | undefined) => void;
   setLeagueSlug: (leagueSlug: string | undefined) => void;
-  setLeagueWeek: (leagueWeek: number | null) => void;
+  setLeagueWeek: (leagueWeek: number) => void;
   setLeagueYear: (leagueYear: number) => void;
 }
 
@@ -53,7 +53,7 @@ export const useLeagueStore = create<LeagueState>((set) => ({
   leagueId: undefined,
   leagueSlug: getLeagueSlugFromUrl(),
   leagueYear: 2024,
-  leagueWeek: null,
+  leagueWeek: 0,
   setLeagueId: (leagueId) => set({ leagueId }),
   setLeagueSlug: (leagueSlug) => set({ leagueSlug }),
   setLeagueWeek: (leagueWeek) => set({ leagueWeek }),

@@ -9,9 +9,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useLeagueStore } from "@/zustand/useLeagueStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
+import { useUpdateWeek } from "../api/mutations/useUpdateWeek";
 
 interface ScheduleUpdateWeekFormProps {
   closeModal: () => void;
@@ -23,25 +26,43 @@ const scheduleUpdateWeekFormSchema = z.object({
   year: z.coerce.number().int().gte(2024),
 });
 
-function onSubmit(values: z.infer<typeof scheduleUpdateWeekFormSchema>) {
-  console.log("Submitting form data: ", values);
-}
-
 export function ScheduleUpdateWeekForm({
   closeModal,
 }: ScheduleUpdateWeekFormProps) {
+  const leagueId = useLeagueStore((state) => state.leagueId);
+  const week = useLeagueStore((state) => state.leagueWeek);
+  const year = useLeagueStore((state) => state.leagueYear);
+  const setWeek = useLeagueStore((state) => state.setLeagueWeek);
+  const setYear = useLeagueStore((state) => state.setLeagueYear);
   const scheduleUpdateWeekForm = useForm<
     z.infer<typeof scheduleUpdateWeekFormSchema>
   >({
     resolver: zodResolver(scheduleUpdateWeekFormSchema),
     defaultValues: {
-      leagueId: "",
-      week: 1,
-      year: 2024,
+      leagueId: leagueId,
+      week: week,
+      year: year,
     },
   });
 
+  const { mutate, isPending } = useUpdateWeek();
+
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  function onSubmitSuccess() {
+    closeModal();
+    setWeek(scheduleUpdateWeekForm.getValues("week"));
+    setYear(scheduleUpdateWeekForm.getValues("year"));
+    toast.success("Successfully updated week");
+  }
+
+  function onSubmitError() {
+    closeModal();
+    toast.error("Failed update week");
+  }
+  function onSubmit(values: z.infer<typeof scheduleUpdateWeekFormSchema>) {
+    mutate(values, { onSuccess: onSubmitSuccess, onError: onSubmitError });
+  }
 
   return (
     <Form {...scheduleUpdateWeekForm}>
@@ -83,13 +104,13 @@ export function ScheduleUpdateWeekForm({
             <Button type="button" variant={"secondary"} onClick={closeModal}>
               Cancel
             </Button>
-            <Button type="submit" disabled={false}>
+            <Button type="submit" disabled={isPending}>
               Submit
             </Button>
           </div>
         ) : (
           <div className="flex flex-col justify-end gap-2 md:flex-row">
-            <Button type="submit" disabled={false}>
+            <Button type="submit" disabled={isPending}>
               Submit
             </Button>
             <Button type="button" variant={"secondary"} onClick={closeModal}>
