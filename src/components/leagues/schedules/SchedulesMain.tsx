@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useGetCurrentYearWeek } from "./api/queries/useGetCurrentYearWeek";
 import { ScheduleGameList } from "./components/ScheduleGameList";
 import { ScheduleHeader } from "./components/ScheduleHeader";
+import { ScheduleUpdateWeekModal } from "./components/ScheduleUpdateWeekModal";
 import { ScheduleUpsertGameModal } from "./components/ScheduleUpsertGameModal";
 import { ScheduleWeekSelector } from "./components/ScheduleWeekSelector";
 import { ADD_GAME_MODAL_STRINGS } from "./constants/content";
@@ -64,7 +65,8 @@ export function SchedulesMain() {
           </div>
         </div>
         <div>
-          <div className="flex justify-end">
+          <div className="flex justify-between">
+            <ScheduleUpdateWeekModal />
             <ScheduleWeekSelector
               setWeek={setWeek}
               setYear={setYear}
